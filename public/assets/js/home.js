@@ -8,6 +8,7 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.subjects = await res.json();
+      console.log(this.subjects);
     },
   }));
 });

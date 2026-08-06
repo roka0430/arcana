@@ -1,0 +1,25 @@
+@font-face {
+  font-family: "NotoSansJP";
+  src: url("../fonts/NOTOSANSJP-REGULAR.TTF"), format("trueType");
+}
+
+:root {
+  --color-bg: #343c4d;
+  --color-text: #e2e2e9;
+
+  --color-border: #34383f;
+
+  --color-accent: #1769e0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: "NotoSansJP", sans-serif;
+}

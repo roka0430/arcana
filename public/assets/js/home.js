@@ -1,5 +1,7 @@
 document.addEventListener("alpine:init", () => {
   Alpine.data("subjectList", () => ({
+    subjects: [],
+
     async init() {
       const res = await fetch("/api/subjects");
 
@@ -8,7 +10,6 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.subjects = await res.json();
-      console.log(this.subjects);
     },
   }));
 });

@@ -13,7 +13,9 @@
   <main>
     <section class="quiz-settings"></section>
     <section class="subject-list" x-data="subjectList">
-      <div class="subject-list__item">aa</div>
+      <template x-for="subject in subjects" :key="subject.id">
+        <a class="subject-list__item" :href="`/study?id=${subject.id}`" x-text="subject.name"></a>
+      </template>
     </section>
   </main>
 

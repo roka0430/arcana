@@ -1,6 +1,6 @@
 /****************************** shortcut-bar ******************************/
 
-.shortcut-bar {
+.shortcut-nav {
   display: flex;
   gap: 15px;
   align-items: center;
@@ -16,7 +16,7 @@
   font-size: 0.8rem;
 }
 
-.shortcut-bar__item kbd {
+.shortcut-nav__item kbd {
   margin: 0 5px 0 0;
   padding: 1px 4px;
   border: solid 1px var(--color-border);

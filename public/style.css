@@ -4,16 +4,12 @@
 }
 
 :root {
-  --color-bg: #121212;
-  --color-surface: #1e1e1e;
-  --color-surface2: #242424;
-
-  --color-text: #e8eaed;
+  --color-bg: #343c4d;
+  --color-text: #e2e2e9;
 
   --color-border: #34383f;
 
-  --color-brand: #1769e0;
-  --color-brand-bg: #12171d;
+  --color-accent: #1769e0;
 }
 
 * {

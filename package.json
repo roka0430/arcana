@@ -1,0 +1,23 @@
+{
+  "name": "arcana",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/roka0430/arcana#readme",
+  "bugs": {
+    "url": "https://github.com/roka0430/arcana/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roka0430/arcana.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

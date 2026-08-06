@@ -24,14 +24,41 @@ body {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+
   background: var(--color-bg);
   color: var(--color-text);
   font-size: 15px;
   font-family: "NotoSansJP", sans-serif;
 }
 
+/****************************** main ******************************/
+
 main {
+  flex: 1;
+
   width: 800px;
   margin: 0 auto 0;
   padding: 50px;
+}
+
+/****************************** shortcut-bar ******************************/
+
+.shortcut-nav {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+
+  height: 30px;
+  padding: 0 10px 1px 10px;
+  border-top: solid 1px var(--color-border);
+  font-size: 0.8rem;
+}
+
+.shortcut-nav__item kbd {
+  margin: 0 5px 0 0;
+  padding: 1px 4px;
+  border: solid 1px var(--color-border);
+  border-radius: 3px;
 }

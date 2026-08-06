@@ -3,3 +3,5 @@
 //     test: 0,
 //   }));
 // });
+
+console.log("Hello, arcana!");

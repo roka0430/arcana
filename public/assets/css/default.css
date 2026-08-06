@@ -4,12 +4,10 @@
 }
 
 :root {
-  --color-bg: #343c4d;
-  --color-text: #e2e2e9;
-
-  --color-border: #34383f;
-
-  --color-accent: #1769e0;
+  --color-bg: #2d3748;
+  --color-text: #e2e8f0;
+  --color-border: #4a5568;
+  --color-accent: #3182ce;
 }
 
 * {
@@ -21,5 +19,6 @@
 body {
   background: var(--color-bg);
   color: var(--color-text);
+  font-size: 15px;
   font-family: "NotoSansJP", sans-serif;
 }

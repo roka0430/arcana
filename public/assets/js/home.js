@@ -8,11 +8,7 @@ document.addEventListener("alpine:init", () => {
 
     async init() {
       const res = await fetch("/api/question");
-
-      if (!res.ok) {
-        throw new Error("Failed to fetch questions");
-      }
-
+      if (!res.ok) throw new Error("Failed to fetch questions");
       this.questions = await res.json();
     },
 

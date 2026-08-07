@@ -9,6 +9,14 @@
 
 <body>
   <h1>study</h1>
+
+  <div x-data="studyContent">
+    <div x-text="question?.name"></div>
+    <div x-html="currentQuestionHtml"></div>
+  </div>
+
+  <script type="module" src="../assets/js/study.js" deffer></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 
 </html>

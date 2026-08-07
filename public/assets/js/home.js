@@ -1,5 +1,11 @@
+import { StudyStorage } from "./common/storage.js";
+
+const studyStorage = new StudyStorage();
+
 document.addEventListener("alpine:init", () => {
   Alpine.data("questionList", () => ({
+    questions: [],
+
     async init() {
       const res = await fetch("/api/question");
 
@@ -11,7 +17,7 @@ document.addEventListener("alpine:init", () => {
     },
 
     startStudy(id) {
-      alert(id);
+      studyStorage.setQuestion(id);
     },
   }));
 });

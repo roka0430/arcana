@@ -32,15 +32,38 @@ document.addEventListener("alpine:init", () => {
     checkAnswer() {
       if (this.input === "") return;
 
-      const targetBlank = document.querySelector(".blank, .target");
+      const targetBlank = document.querySelector(".blank.target");
 
       if (targetBlank.dataset.answer === this.input) {
-        console.log("ok");
+        this.nextBlank(targetBlank);
       } else {
         console.log("mistake");
       }
 
       this.input = "";
+    },
+
+    nextBlank(currentBlank) {
+      const nextBlank = currentBlank.nextElementSibling;
+
+      if (!nextBlank) {
+        this.nextQuestion();
+        return;
+      }
+
+      nextBlank.classList.add("target");
+      currentBlank.classList.remove("target");
+    },
+
+    nextQuestion() {
+      this.progress.index++;
+
+      if (this.progress.index > this.question.questions.length - 1) {
+        console.log("finish");
+        return;
+      }
+
+      studyStorage.set(this.progress);
     },
   }));
 });

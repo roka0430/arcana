@@ -4,6 +4,7 @@ const studyStorage = new StudyStorage();
 
 document.addEventListener("alpine:init", () => {
   Alpine.data("studyContent", () => ({
+    input: "",
     progress: {},
     question: null,
 
@@ -15,9 +16,31 @@ document.addEventListener("alpine:init", () => {
       this.question = await res.json();
     },
 
+    get currentQuestion() {
+      return this.question?.questions?.[this.progress.index] ?? "";
+    },
+
     get currentQuestionHtml() {
-      const q = this.question?.questions?.[this.progress.index] ?? "";
-      return q.replace(/；(.*?)；/g, `<span style="background: orange;">$1</span>`);
+      let first = true;
+      return this.currentQuestion.replace(/；(.*?)；/g, (_, answer) => {
+        const className = first ? "blank target" : "blank";
+        first = false;
+        return `<span class="${className}" data-answer="${answer}">${answer}</span>`;
+      });
+    },
+
+    checkAnswer() {
+      if (this.input === "") return;
+
+      const targetBlank = document.querySelector(".blank, .target");
+
+      if (targetBlank.dataset.answer === this.input) {
+        console.log("ok");
+      } else {
+        console.log("mistake");
+      }
+
+      this.input = "";
     },
   }));
 });

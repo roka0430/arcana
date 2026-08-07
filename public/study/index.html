@@ -5,6 +5,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>arcana</title>
+
+  <style>
+    .blank {
+      border: solid 1px black;
+    }
+
+    .blank.target {
+      border-color: red;
+    }
+  </style>
 </head>
 
 <body>
@@ -13,6 +23,7 @@
   <div x-data="studyContent">
     <div x-text="question?.name"></div>
     <div x-html="currentQuestionHtml"></div>
+    <input type="text" x-model="input" @keydown.enter="checkAnswer()">
   </div>
 
   <script type="module" src="../assets/js/study.js" deffer></script>

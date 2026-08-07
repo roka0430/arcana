@@ -3,11 +3,11 @@ import { load } from "js-yaml";
 import fs from "fs";
 
 const router = express.Router();
-const questions = load(fs.readFileSync("./data/questions.yaml", "utf-8"));
+const questionData = load(fs.readFileSync("./data/questions.yaml", "utf-8"));
 
 router.get("/:id", (req, res) => {
   const { id } = req.params;
-  const question = questions.find((q) => q.id === parseInt(id));
+  const question = questionData.find((q) => q.id === parseInt(id));
 
   if (!question) {
     return res.status(404).json({
@@ -19,8 +19,8 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  const subjects = questions.map(({ id, name }) => ({ id, name }));
-  res.json(subjects);
+  const questions = questionData.map(({ id, name }) => ({ id, name }));
+  res.json(questions);
 });
 
 export default router;

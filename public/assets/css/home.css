@@ -17,8 +17,16 @@ main {
   flex: 1;
 
   display: flex;
+  gap: 5px;
   flex-direction: column;
 
   overflow-y: scroll;
   scrollbar-width: none;
+}
+
+.subject-list__item {
+  padding: 5px 10px 7px 10px;
+}
+
+.subject-list__item:hover {
 }

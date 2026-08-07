@@ -5,8 +5,13 @@
 
 :root {
   --color-bg: #2d3748;
+  --color-surface: #4a5568;
+  --color-surface-hover: #5a677a;
+
   --color-text: #e2e8f0;
+
   --color-border: #4a5568;
+
   --color-accent: #3182ce;
 }
 
@@ -31,6 +36,11 @@ body {
   color: var(--color-text);
   font-size: 15px;
   font-family: "NotoSansJP", sans-serif;
+}
+
+a {
+  color: var(--color-text);
+  text-decoration: none;
 }
 
 /****************************** main ******************************/

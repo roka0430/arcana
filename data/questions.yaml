@@ -1,11 +1,11 @@
 - id: 0
-  subject_name: 国語
+  question_name: 国語
   questions:
     - a；a；
     - a；a；
     - a；a；
 - id: 1
-  subject_name: 社会
+  question_name: 社会
   questions:
     - a；a；
     - a；a；

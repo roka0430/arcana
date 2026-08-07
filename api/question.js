@@ -19,7 +19,8 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  res.json(questions);
+  const subjects = questions.map(({ id, name }) => ({ id, name }));
+  res.json(subjects);
 });
 
 export default router;

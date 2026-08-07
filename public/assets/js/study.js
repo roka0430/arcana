@@ -14,6 +14,12 @@ document.addEventListener("alpine:init", () => {
       const res = await fetch(`/api/question/${this.progress.id}`);
       if (!res.ok) throw new Error("Failed to fetch questions");
       this.question = await res.json();
+
+      this.progress.mistake = this.question.questions.map((q) => {
+        const blankCount = q.match(/；.*?；/g)?.length ?? 0;
+        return Array(blankCount).fill(false);
+      });
+      studyStorage.set(this.progress);
     },
 
     get currentQuestion() {
@@ -21,11 +27,10 @@ document.addEventListener("alpine:init", () => {
     },
 
     get currentQuestionHtml() {
-      let first = true;
+      let index = 0;
       return this.currentQuestion.replace(/；(.*?)；/g, (_, answer) => {
-        const className = first ? "blank target" : "blank";
-        first = false;
-        return `<span class="${className}" data-answer="${answer}">${answer}</span>`;
+        const className = index === 0 ? "blank target" : "blank";
+        return `<span class="${className}" data-index="${index++}" data-answer="${answer}">${answer}</span>`;
       });
     },
 
@@ -37,7 +42,8 @@ document.addEventListener("alpine:init", () => {
       if (targetBlank.dataset.answer === this.input) {
         this.nextBlank(targetBlank);
       } else {
-        console.log("mistake");
+        this.progress.mistake[this.progress.index][Number(targetBlank.dataset.index)] = true;
+        studyStorage.set(this.progress);
       }
 
       this.input = "";

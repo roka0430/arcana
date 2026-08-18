@@ -1,6 +1,6 @@
 subjects:
   - id: 1
-    name: 国語
+    name: あああ
     questions:
       - id: 1
         question: あ→；あ；　い→；い；　う→；う；
@@ -9,7 +9,7 @@ subjects:
       - id: 3
         question: あ→；あ；　い→；い；　う→；う；
   - id: 2
-    name: 社会
+    name: いいい
     questions:
       - id: 1
         question: あ→；あ；　い→；い；　う→；う；

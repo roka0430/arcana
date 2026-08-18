@@ -1,5 +1,25 @@
+import AppState from "./state/AppState.js";
+import Category from "./api/Category.js";
+
 document.addEventListener("alpine:init", () => {
   Alpine.data("subjects", () => ({
-    async init() {},
+    subjects: [],
+
+    async init() {
+      await this.loadSubjects();
+    },
+
+    async loadSubjects() {
+      let categoryId = AppState.getCurrentCategoryId();
+
+      if (!categoryId) {
+        const categories = await Category.getCategories();
+        categoryId = categories[0].id;
+        AppState.setCurrentCategoryId(categoryId);
+      }
+
+      const subjects = await Category.getSubjects(categoryId);
+      this.subjects = subjects;
+    },
   }));
 });

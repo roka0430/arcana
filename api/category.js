@@ -7,7 +7,6 @@ const indexData = load(fs.readFileSync("./data/index.yaml", "utf-8"));
 
 router.get("/:id", (req, res) => {
   const id = Number(req.params.id);
-
   const category = indexData.find((category) => category.id === id);
 
   if (!category) {
@@ -18,6 +17,7 @@ router.get("/:id", (req, res) => {
 
   try {
     const data = load(fs.readFileSync(`./data/categories/${id}.yaml`, "utf-8"));
+
     res.json({
       id: category.id,
       name: category.name,

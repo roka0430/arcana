@@ -73,3 +73,5 @@ document.addEventListener("alpine:init", () => {
     },
   }));
 });
+
+// finishの処理から

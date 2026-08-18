@@ -14,7 +14,7 @@ document.addEventListener("alpine:init", () => {
 
       if (!categoryId) {
         const categories = await Category.getCategories();
-        categoryId = categories[0].id;
+        categoryId = Math.min(...categories.map(({ id }) => id));
         AppState.setCurrentCategoryId(categoryId);
       }
 

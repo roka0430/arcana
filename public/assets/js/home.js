@@ -10,16 +10,21 @@ document.addEventListener("alpine:init", () => {
     },
 
     async loadSubjects() {
-      let categoryId = AppState.getCurrentCategoryId();
+      const categoryId = AppState.getCurrentCategoryId() ?? (await this.initCurrentCategoryId());
 
-      if (!categoryId) {
-        const categories = await Category.getCategories();
-        categoryId = Math.min(...categories.map(({ id }) => id));
-        AppState.setCurrentCategoryId(categoryId);
+      try {
+        this.subjects = await Category.getSubjects(categoryId);
+      } catch {
+        const categoryId = await this.initCurrentCategoryId();
+        this.subjects = await Category.getSubjects(categoryId);
       }
+    },
 
-      const subjects = await Category.getSubjects(categoryId);
-      this.subjects = subjects;
+    async initCurrentCategoryId() {
+      const categories = await Category.getCategories();
+      const categoryId = Math.min(...categories.map(({ id }) => id));
+      AppState.setCurrentCategoryId(categoryId);
+      return categoryId;
     },
   }));
 });

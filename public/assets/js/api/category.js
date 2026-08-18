@@ -28,7 +28,7 @@ export default class Category {
     const category = await this.getCategory(categoryId);
     const subject = category.subjects?.find(({ id }) => id === subjectId);
 
-    if (!subject) throw new Error("subject not found.");
+    if (!subject) throw new Error("subject not found");
 
     return subject;
   }

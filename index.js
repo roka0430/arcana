@@ -12,6 +12,10 @@ app.get("/study/:id", (req, res) => {
   res.sendFile(path.resolve("public/study/index.html"));
 });
 
+app.get("/edit/:id", (req, res) => {
+  res.sendFile(path.resolve("public/edit/index.html"));
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

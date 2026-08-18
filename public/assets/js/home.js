@@ -3,18 +3,19 @@ import Category from "./api/Category.js";
 
 const initCurrentCategoryId = async () => {
   const categories = await Category.getCategories();
+
   const categoryId = Math.min(...categories.map(({ id }) => id));
   AppState.setCurrentCategoryId(categoryId);
   return categoryId;
 };
 
 const loadSubjects = async () => {
-  const categoryId = AppState.getCurrentCategoryId() ?? (await this.initCurrentCategoryId());
+  const categoryId = AppState.getCurrentCategoryId() ?? (await initCurrentCategoryId());
 
   try {
     return await Category.getSubjects(categoryId);
   } catch {
-    const categoryId = await this.initCurrentCategoryId();
+    const categoryId = await initCurrentCategoryId();
     return await Category.getSubjects(categoryId);
   }
 };

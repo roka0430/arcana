@@ -1,19 +1,31 @@
-export async function getCategories() {
-  const res = await fetch("/api/category");
+export default class Category {
+  static async getCategories() {
+    const res = await fetch("/api/category");
 
-  if (!res.ok) {
-    throw new Error(`Failed to fetch categories: ${res.status}`);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch categories: ${res.status}`);
+    }
+
+    return res.json();
   }
 
-  return res.json();
-}
+  static async getCategory(categoryId) {
+    const res = await fetch(`/api/category/${categoryId}`);
 
-export async function getCategory(id) {
-  const res = await fetch(`/api/category/${id}`);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch category: ${res.status}`);
+    }
 
-  if (!res.ok) {
-    throw new Error(`Failed to fetch category: ${res.status}`);
+    return res.json();
   }
 
-  return res.json();
+  static async getSubjects(categoryId) {
+    const category = await this.getCategory(categoryId);
+    return category.subjects.map(({ id, name }) => ({ id, name }));
+  }
+
+  static async getSubject(categoryId, subjectId) {
+    const category = await this.getCategory(categoryId);
+    return category.subjects.find(({ id }) => id === subjectId);
+  }
 }

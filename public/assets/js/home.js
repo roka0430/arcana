@@ -1,30 +1,30 @@
 import AppState from "./state/AppState.js";
 import Category from "./api/Category.js";
 
+const initCurrentCategoryId = async () => {
+  const categories = await Category.getCategories();
+  const categoryId = Math.min(...categories.map(({ id }) => id));
+  AppState.setCurrentCategoryId(categoryId);
+  return categoryId;
+};
+
+const loadSubjects = async () => {
+  const categoryId = AppState.getCurrentCategoryId() ?? (await this.initCurrentCategoryId());
+
+  try {
+    return await Category.getSubjects(categoryId);
+  } catch {
+    const categoryId = await this.initCurrentCategoryId();
+    return await Category.getSubjects(categoryId);
+  }
+};
+
 document.addEventListener("alpine:init", () => {
   Alpine.data("subjects", () => ({
     subjects: [],
 
     async init() {
-      await this.loadSubjects();
-    },
-
-    async loadSubjects() {
-      const categoryId = AppState.getCurrentCategoryId() ?? (await this.initCurrentCategoryId());
-
-      try {
-        this.subjects = await Category.getSubjects(categoryId);
-      } catch {
-        const categoryId = await this.initCurrentCategoryId();
-        this.subjects = await Category.getSubjects(categoryId);
-      }
-    },
-
-    async initCurrentCategoryId() {
-      const categories = await Category.getCategories();
-      const categoryId = Math.min(...categories.map(({ id }) => id));
-      AppState.setCurrentCategoryId(categoryId);
-      return categoryId;
+      this.subjects = await loadSubjects();
     },
   }));
 });

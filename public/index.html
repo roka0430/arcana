@@ -11,7 +11,9 @@
   <h1>Arcana</h1>
   <div class="subjects" x-data="subjects">
     <template x-for="subject in subjects">
-      <div x-text="subject.name"></div>
+      <div>
+        <a :href=`/study/${subject.id}` x-text="subject.name"></a>
+      </div>
     </template>
   </div>
   <script type="module" src="assets/js/home.js" defer></script>

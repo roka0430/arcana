@@ -20,7 +20,7 @@ document.addEventListener("alpine:init", () => {
       this.subject = await loadSubject();
 
       if (!this.subject) {
-        location.href = "/";
+        location.replace("/");
         return;
       }
 

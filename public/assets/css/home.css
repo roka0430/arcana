@@ -61,7 +61,7 @@ main section {
   display: none;
 
   position: absolute;
-  top: 50%;
+  top: calc(50% - 1px);
   left: 4px;
   transform: translateY(-50%) rotate(45deg);
 

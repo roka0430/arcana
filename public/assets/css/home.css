@@ -8,6 +8,80 @@ main section {
   padding-block: 8px;
 }
 
+/*------------------------------ category-selector ------------------------------*/
+
+.category-selector {
+  display: flex;
+  gap: 10px;
+  border-radius: 8px;
+}
+
+.category-selector__current {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+
+  padding-block: 6px 8px;
+  padding-inline: 16px;
+
+  background: none;
+  border: solid 1px var(--color-border);
+  border-radius: 5px;
+
+  text-align: left;
+  cursor: pointer;
+}
+
+.caret-down {
+  aspect-ratio: 1 / 1;
+  position: relative;
+}
+
+.caret-down::after {
+  content: "";
+
+  position: absolute;
+  top: calc(46%);
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+
+  width: 6px;
+  height: 6px;
+
+  border-right: solid 2px var(--color-text-muted);
+  border-bottom: solid 2px var(--color-text-muted);
+
+  transition: all 0.1s;
+}
+
+.category-selector__current:hover .caret-down::after {
+  border-color: var(--color-text);
+}
+
+.category-selector__setting {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: none;
+  border: solid 1px var(--color-border);
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+.setting-svg {
+  fill: var(--color-text-muted);
+  transition: all 0.1s;
+}
+
+.category-selector__setting:hover .setting-svg {
+  fill: var(--color-text);
+}
+
+/*------------------------------ study-settings ------------------------------*/
+
 .study-settings {
   padding-inline: 16px;
   padding-block: 8px 10px;

@@ -52,7 +52,8 @@ a:hover {
 input,
 textarea,
 button {
-  font-family: "ZenKakuGothicNew", sans-serif;
+  color: inherit;
+  font-family: inherit;
 }
 
 /*  */

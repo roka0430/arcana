@@ -36,6 +36,7 @@ const getCurrentCategory = async () => {
 
 document.addEventListener("alpine:init", () => {
   Alpine.data("subjects", () => ({
+    category: null,
     subjects: [],
 
     async init() {
@@ -43,6 +44,7 @@ document.addEventListener("alpine:init", () => {
 
       if (this.category === null) {
         console.log("no category");
+        return;
       }
 
       this.subjects = this.category.subjects;

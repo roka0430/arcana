@@ -15,34 +15,34 @@
       category-selector
     </section>
 
-    <section class="study-settings">
+    <section class="study-settings" x-data="settings">
       <form class="study-settings__form">
         <div class="study-settings__item">
           <span class="study-settings__label">出題順</span>
           <div class="study-settings__options">
-            <label><input type="radio" name="order" value="ordered">設定順</label>
-            <label><input type="radio" name="order" value="random">ランダム</label>
+            <label><input type="radio" name="order" value="ordered" x-model="settings.order">設定順</label>
+            <label><input type="radio" name="order" value="random" x-model="settings.order">ランダム</label>
           </div>
         </div>
         <div class="study-settings__item">
           <span class="study-settings__label">解答方式</span>
           <div class="study-settings__options">
-            <label><input type="radio" name="answer" value="input">入力</label>
-            <label><input type="radio" name="answer" value="flip">めくり</label>
+            <label><input type="radio" name="answer" value="input" x-model="settings.answer">入力</label>
+            <label><input type="radio" name="answer" value="flip" x-model="settings.answer">めくり</label>
           </div>
         </div>
         <div class="study-settings__item">
           <span class="study-settings__label">出題形式</span>
           <div class="study-settings__options">
-            <label><input type="radio" name="format" value="individual">個別</label>
-            <label><input type="radio" name="format" value="combined">一括</label>
+            <label><input type="radio" name="format" value="individual" x-model="settings.format">個別</label>
+            <label><input type="radio" name="format" value="combined" x-model="settings.format">一括</label>
           </div>
         </div>
         <div class="study-settings__item">
           <span class="study-settings__label">穴サイズ</span>
           <div class="study-settings__options">
-            <label><input type="radio" name="blank" value="text">文字幅</label>
-            <label><input type="radio" name="blank" value="fixed">固定幅</label>
+            <label><input type="radio" name="blank" value="text" x-model="settings.blank">文字幅</label>
+            <label><input type="radio" name="blank" value="fixed" x-model="settings.blank">固定幅</label>
           </div>
         </div>
       </form>

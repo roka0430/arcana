@@ -1,6 +1,6 @@
 export default class AppState {
   static #CURRENT_CATEGORY_ID = "arcana:current_category_id";
-  static #STUDY_SETTING = "arcana:study_setting";
+  static #STUDY_SETTINGS = "arcana:study_settings";
 
   static get(key) {
     const value = localStorage.getItem(key);
@@ -28,13 +28,13 @@ export default class AppState {
     this.set(this.#CURRENT_CATEGORY_ID, id);
   }
 
-  // Study setting
+  // Study settings
 
-  static getStudySetting() {
-    return this.get(this.#STUDY_SETTING);
+  static getStudySettings() {
+    return this.get(this.#STUDY_SETTINGS);
   }
 
-  static setStudySetting(id) {
-    this.set(this.#STUDY_SETTING, id);
+  static setStudySettings(id) {
+    this.set(this.#STUDY_SETTINGS, id);
   }
 }

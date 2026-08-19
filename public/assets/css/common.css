@@ -28,17 +28,6 @@ body {
   scrollbar-width: none;
 }
 
-a {
-  color: var(--color-link);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/*  */
-
 body {
   display: flex;
   align-items: center;
@@ -50,6 +39,23 @@ body {
   color: var(--color-text);
   font-family: "ZenKakuGothicNew", sans-serif;
 }
+
+a {
+  color: var(--color-link);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+input,
+textarea,
+button {
+  font-family: "ZenKakuGothicNew", sans-serif;
+}
+
+/*  */
 
 main,
 .shortcut-bar {

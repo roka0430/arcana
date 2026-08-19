@@ -1,0 +1,89 @@
+main {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+}
+
+main section {
+  padding-block: 8px;
+}
+
+.study-settings {
+  padding-inline: 16px;
+  padding-block: 8px 10px;
+
+  border: solid 1px var(--color-border);
+  border-radius: 8px;
+}
+
+.study-settings__form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+.study-settings__item {
+  display: flex;
+  font-size: 0.9rem;
+}
+
+.study-settings__label {
+  flex: 0 0 100px;
+  color: var(--color-primary);
+}
+
+.study-settings__options label {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  padding-left: 20px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.study-settings__options label::before {
+  content: "";
+
+  position: absolute;
+  top: calc(50% + 1px);
+  left: 0;
+  transform: translateY(-50%);
+
+  width: 12px;
+  height: 12px;
+
+  border: solid 1px var(--color-border);
+  border-radius: 3px;
+}
+
+.study-settings__options label::after {
+  content: "";
+  display: none;
+
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  transform: translateY(-50%) rotate(45deg);
+
+  width: 4px;
+  height: 8px;
+
+  border-bottom: solid 2px var(--color-text);
+  border-right: solid 2px var(--color-text);
+}
+
+.study-settings__options label:has(input:checked) {
+  color: var(--color-text);
+}
+
+.study-settings__options label:has(input:checked)::before {
+  border-color: var(--color-text);
+}
+
+.study-settings__options label:has(input:checked)::after {
+  display: block;
+}
+
+.study-settings__options label input {
+  display: none;
+}

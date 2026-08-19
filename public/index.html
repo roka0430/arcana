@@ -9,14 +9,27 @@
 </head>
 
 <body>
-  <h1>Arcana</h1>
-  <div class="subjects" x-data="subjects">
-    <template x-for="subject in subjects">
-      <div>
-        <a :href=`/study/${subject.id}` x-text="subject.name"></a>
-      </div>
-    </template>
-  </div>
+  <main>
+    <div class="subjects" x-data="subjects">
+      <template x-for="subject in subjects">
+        <div>
+          <a :href=`/study/${subject.id}` x-text="subject.name"></a>
+        </div>
+      </template>
+    </div>
+  </main>
+
+  <aside class="shortcut-bar">
+    <div class="shortcut-item">
+      <kbd>Ctrl+S</kbd>
+      <span>保存</span>
+    </div>
+    <div class="shortcut-item">
+      <kbd>Ctrl+S</kbd>
+      <span>保存</span>
+    </div>
+  </aside>
+
   <script type="module" src="assets/js/home.js" defer></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>

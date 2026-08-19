@@ -14,17 +14,23 @@ const initCurrentCategoryId = async () => {
   return categoryId;
 };
 
-const loadSubjects = async () => {
+const getCurrentCategory = async () => {
   const categoryId = AppState.getCurrentCategoryId() ?? (await initCurrentCategoryId());
-  if (categoryId === null) return [];
+
+  if (categoryId === null) {
+    return null;
+  }
 
   try {
-    return await Category.getSubjects(categoryId);
+    return await Category.getCategory(categoryId);
   } catch {
     const categoryId = await initCurrentCategoryId();
-    if (categoryId === null) return [];
 
-    return await Category.getSubjects(categoryId);
+    if (categoryId === null) {
+      return null;
+    }
+
+    return await Category.getCategory(categoryId);
   }
 };
 
@@ -33,8 +39,13 @@ document.addEventListener("alpine:init", () => {
     subjects: [],
 
     async init() {
-      this.subjects = await loadSubjects();
-      console.log();
+      this.category = await getCurrentCategory();
+
+      if (this.category === null) {
+        console.log("no category");
+      }
+
+      this.subjects = this.category.subjects;
     },
   }));
 });

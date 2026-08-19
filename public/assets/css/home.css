@@ -28,7 +28,7 @@ main section {
 }
 
 .study-settings__label {
-  flex: 0 0 100px;
+  flex: 0 0 max(30%, 5rem);
   color: var(--color-primary);
 }
 

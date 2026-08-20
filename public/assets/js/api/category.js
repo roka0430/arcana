@@ -19,11 +19,6 @@ export default class Category {
     return res.json();
   }
 
-  static async getSubjects(categoryId) {
-    const category = await this.getCategory(categoryId);
-    return category.subjects.map(({ id, name }) => ({ id, name }));
-  }
-
   static async getSubject(categoryId, subjectId) {
     const category = await this.getCategory(categoryId);
     const subject = category.subjects?.find(({ id }) => id === subjectId);

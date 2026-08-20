@@ -1,19 +1,91 @@
 subjects:
   - id: 1
     name: 国語
-    questions:
-      - id: 1
-        question: あ→；あ；　い→；い；　う→；う；
-      - id: 2
-        question: あ→；あ；　い→；い；　う→；う；
-      - id: 3
-        question: あ→；あ；　い→；い；　う→；う；
+    questions: []
   - id: 2
     name: 社会
-    questions:
-      - id: 1
-        question: あ→；あ；　い→；い；　う→；う；
-      - id: 2
-        question: あ→；あ；　い→；い；　う→；う；
-      - id: 3
-        question: あ→；あ；　い→；い；　う→；う；
+    questions: []
+  - id: 1
+    name: 国語
+    questions: []
+  - id: 2
+    name: 社会
+    questions: []
+  - id: 1
+    name: 国語
+    questions: []
+  - id: 2
+    name: 社会
+    questions: []
+  - id: 1
+    name: 国語
+    questions: []
+  - id: 2
+    name: 社会
+    questions: []
+  - id: 1
+    name: 国語
+    questions: []
+  - id: 2
+    name: 社会
+    questions: []
+  - id: 1
+    name: 国語
+    questions: []
+  - id: 2
+    name: 社会
+    questions: []
+  - id: 1
+    name: 国語
+    questions: []
+  - id: 2
+    name: 社会
+    questions: []
+  - id: 1
+    name: 国語
+    questions: []
+  - id: 2
+    name: 社会
+    questions: []
+  - id: 1
+    name: 国語
+    questions: []
+  - id: 2
+    name: 社会
+    questions: []
+  - id: 1
+    name: 国語
+    questions: []
+  - id: 2
+    name: 社会
+    questions: []
+  - id: 1
+    name: 国語
+    questions: []
+  - id: 2
+    name: 社会
+    questions: []
+  - id: 1
+    name: 国語
+    questions: []
+  - id: 2
+    name: 社会
+    questions: []
+  - id: 1
+    name: 国語
+    questions: []
+  - id: 2
+    name: 社会
+    questions: []
+  - id: 1
+    name: 国語
+    questions: []
+  - id: 2
+    name: 社会
+    questions: []
+  - id: 1
+    name: 国語
+    questions: []
+  - id: 2
+    name: 社会
+    questions: []

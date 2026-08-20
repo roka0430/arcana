@@ -83,11 +83,9 @@
       </section>
     </template>
 
-    <section class="subjects-list" x-data="subjects">
+    <section class="subject-list" x-data="subjects">
       <template x-for="subject in subjects">
-        <div>
-          <a :href=`/study/${subject.id}` x-text="subject.name"></a>
-        </div>
+        <a class="subject-list__item" :href=`/study/${subject.id}` x-text="subject.name"></a>
       </template>
     </section>
   </main>

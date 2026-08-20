@@ -1,11 +1,7 @@
 main {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   flex-direction: column;
-}
-
-main section {
-  padding-block: 8px;
 }
 
 /*------------------------------ category-control ------------------------------*/
@@ -298,4 +294,26 @@ main section {
   color: var(--color-link);
   font-size: 0.9rem;
   text-decoration: none !important;
+}
+
+/*------------------------------ subject-list ------------------------------*/
+
+.subject-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.subject-list__item {
+  padding-block: 6px;
+  padding-inline: 12px;
+  border-radius: 8px;
+  color: inherit;
+}
+
+.subject-list__item.selected {
+  background: var(--color-surface);
 }

@@ -70,8 +70,16 @@
 
     <template x-if="notice !== null">
       <section class="notice">
-        <div class="notice__message" x-show="notice === 'no-category'">カテゴリがありません。</div>
-        <div class="notice__message" x-show="notice === 'no-subject'">表示できる科目がありません。</div>
+        <div class="notice__content" x-show="notice === 'no-category'">
+          <p class="notice__message">カテゴリがありません</p>
+          <p class="notice__description">学習を始めるには、まずカテゴリを作成してください。</p>
+          <a class="notice__action" href="/edit/category">カテゴリを作成</a>
+        </div>
+        <div class="notice__content" x-show="notice === 'no-subject'">
+          <p class="notice__message">表示できる科目がありません</p>
+          <p class="notice__description">学習を始めるには、まず問題を作成してください。</p>
+          <a class="notice__action" href="/edit">問題を作成</a>
+        </div>
       </section>
     </template>
 

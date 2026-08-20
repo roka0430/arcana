@@ -8,19 +8,24 @@ main section {
   padding-block: 8px;
 }
 
-/*------------------------------ category-selector ------------------------------*/
+/*------------------------------ category-control ------------------------------*/
 
-.category-selector {
+.category-control {
   display: flex;
   gap: 10px;
   border-radius: 8px;
 }
 
-.category-selector__current {
+.category-control__selector {
   flex: 1;
+  position: relative;
+}
+
+.category-control__current {
   display: flex;
   justify-content: space-between;
 
+  width: 100%;
   padding-block: 6px 8px;
   padding-inline: 16px;
 
@@ -28,8 +33,13 @@ main section {
   border: solid 1px var(--color-border);
   border-radius: 5px;
 
+  font-size: 0.9rem;
   text-align: left;
   cursor: pointer;
+}
+
+.category-control__current.is-open {
+  border-radius: 5px 5px 0 0;
 }
 
 .category-name:empty::after {
@@ -59,11 +69,76 @@ main section {
   transition: all 0.1s;
 }
 
-.category-selector__current:hover .caret-down::after {
+.category-control__current:hover .caret-down::after {
   border-color: var(--color-text);
 }
 
-.category-selector__setting {
+.category-control__dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+
+  background: var(--color-bg);
+  border: solid 1px var(--color-border);
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 0px 8px rgb(0 0 0 / 12%);
+
+  overflow: hidden;
+  z-index: 10;
+}
+
+.dropdown__label {
+  padding-block: 5px;
+  padding-inline: 16px;
+  border-bottom: solid 1px var(--color-border);
+  font-size: 0.8rem;
+}
+
+.dropdown__options {
+  max-height: 200px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.dropdown__options div {
+  position: relative;
+  padding-block: 6px 8px;
+  padding-inline: 40px 16px;
+  border-top: solid 1px var(--color-border);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.dropdown__options div:first-child {
+  border: none;
+}
+
+.dropdown__options div:hover {
+  background: var(--color-surface);
+}
+
+.dropdown__options div.current {
+  background: var(--color-surface);
+}
+
+.dropdown__options div.current::before {
+  content: "";
+
+  position: absolute;
+  top: calc(50% - 1.5px);
+  left: 22px;
+  transform: translateY(-50%) rotate(45deg);
+
+  width: 4px;
+  height: 8px;
+
+  border-right: solid 2px var(--color-text);
+  border-bottom: solid 2px var(--color-text);
+}
+
+.category-control__setting {
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
@@ -81,7 +156,7 @@ main section {
   transition: all 0.1s;
 }
 
-.category-selector__setting:hover .setting-svg {
+.category-control__setting:hover .setting-svg {
   fill: var(--color-text);
 }
 

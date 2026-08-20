@@ -111,7 +111,7 @@ main section {
   cursor: pointer;
 }
 
-.dropdown__options div:first-child {
+.dropdown__options div:first-of-type {
   border: none;
 }
 

@@ -37,35 +37,19 @@ const getStoredSettings = () => {
 
 // subjects
 
-const initCurrentCategoryId = async () => {
-  const categories = await Category.getCategories();
-
-  if (categories.length === 0) {
-    AppState.setCurrentCategoryId(null);
-    return null;
-  }
-
+const initCurrentCategoryId = (categories) => {
   const categoryId = Math.min(...categories.map(({ id }) => id));
   AppState.setCurrentCategoryId(categoryId);
   return categoryId;
 };
 
-const getCurrentCategory = async () => {
-  const categoryId = AppState.getCurrentCategoryId() ?? (await initCurrentCategoryId());
-
-  if (categoryId === null) {
-    return null;
-  }
+const getCurrentCategory = async (categories) => {
+  const categoryId = AppState.getCurrentCategoryId() ?? initCurrentCategoryId(categories);
 
   try {
     return await Category.getCategory(categoryId);
   } catch {
-    const categoryId = await initCurrentCategoryId();
-
-    if (categoryId === null) {
-      return null;
-    }
-
+    const categoryId = initCurrentCategoryId(categories);
     return await Category.getCategory(categoryId);
   }
 };
@@ -74,15 +58,18 @@ const getCurrentCategory = async () => {
 
 document.addEventListener("alpine:init", () => {
   Alpine.data("main", () => ({
+    categories: [],
     currentCategory: null,
 
     async init() {
-      this.currentCategory = await getCurrentCategory();
+      this.categories = await Category.getCategories();
 
-      if (this.currentCategory === null) {
+      if (this.categories.length === 0) {
         console.log("no category");
         return;
       }
+
+      this.currentCategory = await getCurrentCategory(this.categories);
     },
   }));
 
@@ -91,6 +78,14 @@ document.addEventListener("alpine:init", () => {
 
     get name() {
       return this.currentCategory?.name ?? "";
+    },
+
+    selectCategory(id) {
+      this.isOpen = false;
+
+      if (id === this.currentCategory.id) {
+        return;
+      }
     },
   }));
 

@@ -116,7 +116,7 @@ document.addEventListener("alpine:init", () => {
   Alpine.data("subjects", () => ({
     get subjects() {
       const subjects = this.currentCategory?.subjects ?? [];
-      this.notice = subjects.length === 0 ? "no-subject" : null;
+      this.notice = this.currentCategory && subjects.length === 0 ? "no-subject" : null;
       return subjects;
     },
   }));

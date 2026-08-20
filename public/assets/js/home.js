@@ -72,10 +72,6 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.currentCategory = await getCurrentCategory(this.categories);
-
-      if (this.currentCategory.subjects.length === 0) {
-        this.notice = "no-subject";
-      }
     },
   }));
 
@@ -119,7 +115,9 @@ document.addEventListener("alpine:init", () => {
 
   Alpine.data("subjects", () => ({
     get subjects() {
-      return this.currentCategory?.subjects ?? [];
+      const subjects = this.currentCategory?.subjects ?? [];
+      this.notice = subjects.length === 0 ? "no-subject" : null;
+      return subjects;
     },
   }));
 });

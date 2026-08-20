@@ -2,8 +2,8 @@ import express from "express";
 import fs from "fs";
 import { load } from "js-yaml";
 
-const INDEX_FILE = "./data/test_no-category/index.yaml";
-const CATEGORY_DIR = "./data/test_no-category/categories";
+const INDEX_FILE = "./data/test_no-subject/index.yaml";
+const CATEGORY_DIR = "./data/test_no-subject/categories";
 
 const router = express.Router();
 const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));

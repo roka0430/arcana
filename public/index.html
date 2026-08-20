@@ -68,10 +68,12 @@
       </form>
     </section>
 
-    <section class="notice">
-      <div class="notice__message" x-show="notice === 'no-category'">カテゴリがありません。</div>
-      <div class="notice__message" x-show="notice === 'no-subject'">表示できる科目がありません。</div>
-    </section>
+    <template x-if="notice !== null">
+      <section class="notice">
+        <div class="notice__message" x-show="notice === 'no-category'">カテゴリがありません。</div>
+        <div class="notice__message" x-show="notice === 'no-subject'">表示できる科目がありません。</div>
+      </section>
+    </template>
 
     <section class="subjects-list" x-data="subjects">
       <template x-for="subject in subjects">

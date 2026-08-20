@@ -32,6 +32,11 @@ main section {
   cursor: pointer;
 }
 
+.category-name:empty::after {
+  content: "No category";
+  color: var(--color-text-muted);
+}
+
 .caret-down {
   aspect-ratio: 1 / 1;
   position: relative;

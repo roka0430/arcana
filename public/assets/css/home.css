@@ -249,3 +249,53 @@ main section {
 .study-settings__options label input {
   display: none;
 }
+
+/*------------------------------ notice ------------------------------*/
+
+.notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 10px;
+}
+
+.notice__content {
+  width: min(100%, 450px);
+  padding: 24px 32px;
+
+  background: var(--color-surface);
+  border: solid 1px var(--color-border);
+  border-radius: 12px;
+
+  text-align: center;
+}
+
+.notice__message {
+  margin: 0;
+  font-weight: bold;
+}
+
+.notice__description {
+  margin-block: 10px;
+
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.notice__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 16px;
+  padding-block: 6px;
+  padding-inline: 18px;
+
+  border: solid 1px var(--color-link);
+  border-radius: 6px;
+
+  color: var(--color-link);
+  font-size: 0.9rem;
+  text-decoration: none !important;
+}

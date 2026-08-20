@@ -33,7 +33,7 @@ body {
   align-items: center;
   flex-direction: column;
 
-  min-width: 460px;
+  min-width: 500px;
 
   background: var(--color-bg);
   color: var(--color-text);

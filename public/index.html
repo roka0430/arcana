@@ -68,10 +68,10 @@
       </form>
     </section>
 
-    <template x-if="notice !== null">
+    <template x-if="notice !== null" x-cloak>
       <section class="notice">
         <div class="notice__content" x-show="notice === 'no-category'">
-          <p class="notice__message">カテゴリがありません</p>
+          <p class="notice__message">利用可能なカテゴリがありません</p>
           <p class="notice__description">学習を始めるには、まずカテゴリを作成してください。</p>
           <a class="notice__action" href="/edit/category">カテゴリを作成</a>
         </div>

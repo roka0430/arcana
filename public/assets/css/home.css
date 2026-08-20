@@ -308,12 +308,53 @@ main {
 }
 
 .subject-list__item {
+  display: flex;
+  justify-content: space-between;
+
   padding-block: 6px 7px;
   padding-inline: 12px;
+
   border-radius: 8px;
+
   color: inherit;
+  text-decoration: none !important;
 }
 
 .subject-list__item.selected {
   background: var(--color-surface);
+}
+
+.subject-list__item:hover .subject-name {
+  text-decoration: underline;
+}
+
+.subject-info {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  padding-top: 1px;
+}
+
+.subject-info {
+  display: flex;
+  align-items: center;
+}
+
+.subject-info__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: 50px;
+}
+
+.subject-info__item svg {
+  flex: 0 0 auto;
+}
+
+.subject-info__item span {
+  position: relative;
+  top: -0.5px;
+  margin-left: 1px;
+  line-height: 1;
 }

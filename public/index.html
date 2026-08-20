@@ -13,7 +13,7 @@
   <main x-data="main">
     <section class="category-control" x-data="category">
       <div class="category-control__selector" @click.outside="isOpen = false">
-        <button class="category-control__current" :class="{ 'is-open': isOpen }" @click="isOpen = !isOpen">
+        <button class="category-control__current" :class="{ 'is-open': isOpen, 'no-category': notice === 'no-category' }" @click="isOpen = !isOpen">
           <span class="category-name" x-text="name"></span>
           <span class="caret-down"></span>
         </button>

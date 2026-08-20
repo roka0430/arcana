@@ -42,12 +42,16 @@ main section {
   border-radius: 5px 5px 0 0;
 }
 
+.category-control__current.no-category {
+  pointer-events: none;
+}
+
 .category-name {
   height: 1.3rem;
 }
 
-.category-name:empty::after {
-  content: "";
+.category-control__current.no-category .category-name::after {
+  content: "No category";
   color: var(--color-text-muted);
 }
 

@@ -142,7 +142,7 @@ main section {
   border-bottom: solid 2px var(--color-text);
 }
 
-.category-control__setting {
+.category-control__edit {
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
@@ -155,12 +155,12 @@ main section {
   cursor: pointer;
 }
 
-.setting-svg {
+.edit-svg {
   fill: var(--color-text-muted);
   transition: all 0.1s;
 }
 
-.category-control__setting:hover .setting-svg {
+.category-control__edit:hover .edit-svg {
   fill: var(--color-text);
 }
 

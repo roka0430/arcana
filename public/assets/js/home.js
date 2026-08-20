@@ -80,12 +80,15 @@ document.addEventListener("alpine:init", () => {
       return this.currentCategory?.name ?? "";
     },
 
-    selectCategory(id) {
+    async selectCategory(id) {
       this.isOpen = false;
 
       if (id === this.currentCategory.id) {
         return;
       }
+
+      this.currentCategory = await Category.getCategory(id);
+      AppState.setCurrentCategoryId(id);
     },
   }));
 

@@ -56,6 +56,10 @@ button {
   font: inherit;
 }
 
+[x-cloak] {
+  display: none !important;
+}
+
 /*  */
 
 main,

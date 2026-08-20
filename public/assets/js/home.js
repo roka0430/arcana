@@ -114,10 +114,37 @@ document.addEventListener("alpine:init", () => {
   }));
 
   Alpine.data("subjects", () => ({
+    selectedId: null,
+
+    init() {
+      const storedId = AppState.getSubjectSelector();
+
+      this.$watch("subjects", (subjects) => {
+        if (!this.currentCategory) {
+          this.notice = null;
+          return;
+        }
+
+        if (subjects.length === 0) {
+          this.notice = "no-subject";
+          return;
+        }
+
+        this.notice = null;
+
+        const isExists = subjects.some((subject) => subject.id === storedId);
+
+        if (isExists) {
+          this.selectedId = storedId;
+        } else {
+          this.selectedId = subjects[0].id;
+          AppState.setSubjectSelector(this.selectedId);
+        }
+      });
+    },
+
     get subjects() {
-      const subjects = this.currentCategory?.subjects ?? [];
-      this.notice = this.currentCategory && subjects.length === 0 ? "no-subject" : null;
-      return subjects;
+      return this.currentCategory?.subjects ?? [];
     },
   }));
 });

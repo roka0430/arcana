@@ -2,8 +2,11 @@ import express from "express";
 import fs from "fs";
 import { load } from "js-yaml";
 
+const INDEX_FILE = "./data/test/index.yaml";
+const CATEGORY_DIR = "./data/test/categories";
+
 const router = express.Router();
-const indexData = load(fs.readFileSync("./data/index.yaml", "utf-8"));
+const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
 
 router.get("/:id", (req, res) => {
   const id = Number(req.params.id);
@@ -16,7 +19,7 @@ router.get("/:id", (req, res) => {
   }
 
   try {
-    const data = load(fs.readFileSync(`./data/categories/${id}.yaml`, "utf-8"));
+    const data = load(fs.readFileSync(`${CATEGORY_DIR}/${id}.yaml`, "utf-8"));
 
     res.json({
       id: category.id,

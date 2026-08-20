@@ -66,6 +66,7 @@ document.addEventListener("alpine:init", () => {
 
       if (this.categories.length === 0) {
         console.log("no category");
+        AppState.setCurrentCategoryId(null);
         return;
       }
 

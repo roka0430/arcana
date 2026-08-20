@@ -73,8 +73,27 @@ const getCurrentCategory = async () => {
 // Alpine.js
 
 document.addEventListener("alpine:init", () => {
+  Alpine.data("main", () => ({
+    currentCategory: null,
+
+    async init() {
+      this.currentCategory = await getCurrentCategory();
+
+      if (this.currentCategory === null) {
+        console.log("no category");
+        return;
+      }
+    },
+  }));
+
+  Alpine.data("category", () => ({
+    get name() {
+      return this.currentCategory?.name ?? "No Category";
+    },
+  }));
+
   Alpine.data("settings", () => ({
-    settings: defaultSettings,
+    settings: { ...defaultSettings },
 
     init() {
       const storedSettings = getStoredSettings();
@@ -87,24 +106,14 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.$watch("settings", (settings) => {
-        AppState.setStudySettings(this.settings);
+        AppState.setStudySettings(settings);
       });
     },
   }));
 
   Alpine.data("subjects", () => ({
-    category: null,
-    subjects: [],
-
-    async init() {
-      this.category = await getCurrentCategory();
-
-      if (this.category === null) {
-        console.log("no category");
-        return;
-      }
-
-      this.subjects = this.category.subjects;
+    get subjects() {
+      return this.currentCategory?.subjects ?? [];
     },
   }));
 });

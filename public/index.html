@@ -10,10 +10,10 @@
 </head>
 
 <body>
-  <main>
-    <section class="category-selector">
+  <main x-data="main">
+    <section class="category-selector" x-data="category">
       <button class="category-selector__current">
-        <span>前期中間試験</span>
+        <span x-text="name"></span>
         <span class="caret-down"></span>
       </button>
 

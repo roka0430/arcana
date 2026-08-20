@@ -88,7 +88,7 @@ document.addEventListener("alpine:init", () => {
 
   Alpine.data("category", () => ({
     get name() {
-      return this.currentCategory?.name ?? "No Category";
+      return this.currentCategory?.name ?? "";
     },
   }));
 

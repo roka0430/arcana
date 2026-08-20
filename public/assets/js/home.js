@@ -193,5 +193,13 @@ document.addEventListener("alpine:init", () => {
       const nextIndex = (index + offset + this.subjects.length) % this.subjects.length;
       this.setSelectedId(this.subjects[nextIndex].id);
     },
+
+    activateSelectedSubject() {
+      if (this.selectedId === null) {
+        return;
+      }
+
+      window.location.href = `/study/${this.selectedId}`;
+    },
   }));
 });

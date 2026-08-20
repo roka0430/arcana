@@ -135,7 +135,8 @@ document.addEventListener("alpine:init", () => {
     },
 
     get subjects() {
-      return this.currentCategory?.subjects ?? [];
+      const subjects = this.currentCategory?.subjects ?? [];
+      return subjects.sort((a, b) => a.name.localeCompare(b.name));
     },
 
     setSelectedId(id) {

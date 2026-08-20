@@ -83,9 +83,13 @@
       </section>
     </template>
 
-    <section class="subject-list" x-data="subjects">
+    <section
+      class="subject-list"
+      x-data="subjects"
+      @keydown.window.arrow-down="moveSelectedSubject(1)"
+      @keydown.window.arrow-up="moveSelectedSubject(-1)">
       <template x-for="subject in subjects">
-        <a class="subject-list__item" :href=`/study/${subject.id}` :class="{'selected': subject.id === selectedId}" x-text="subject.name"></a>
+        <a class="subject-list__item" :href=`/study/${subject.id}` :class="{'selected': subject.id === selectedId}" x-text="subject.name" @click="setSelectedId(subject.id)"></a>
       </template>
     </section>
   </main>

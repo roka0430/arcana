@@ -129,13 +129,18 @@ document.addEventListener("alpine:init", () => {
           return;
         }
 
-        this.selectedId = null;
+        this.setSelectedId(null);
         this.validateSelectedId();
       });
     },
 
     get subjects() {
       return this.currentCategory?.subjects ?? [];
+    },
+
+    setSelectedId(id) {
+      this.selectedId = id;
+      AppState.setSubjectSelector(this.selectedId);
     },
 
     validateSelectedId() {
@@ -165,6 +170,21 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.notice = null;
+    },
+
+    moveSelectedSubject(offset) {
+      if (this.subjects.length === 0) {
+        return;
+      }
+
+      const index = this.subjects.findIndex((subject) => subject.id === this.selectedId);
+
+      if (index === -1) {
+        return;
+      }
+
+      const nextIndex = (index + offset + this.subjects.length) % this.subjects.length;
+      this.setSelectedId(this.subjects[nextIndex].id);
     },
   }));
 });

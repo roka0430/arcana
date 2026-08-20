@@ -117,34 +117,54 @@ document.addEventListener("alpine:init", () => {
     selectedId: null,
 
     init() {
-      const storedId = AppState.getSubjectSelector();
+      this.selectedId = AppState.getSubjectSelector();
 
       this.$watch("subjects", (subjects) => {
-        if (!this.currentCategory) {
-          this.notice = null;
+        this.validateSelectedId();
+        this.updateNotice();
+      });
+
+      this.$watch("currentCategory", (category, oldCategory) => {
+        if (oldCategory === null) {
           return;
         }
 
-        if (subjects.length === 0) {
-          this.notice = "no-subject";
-          return;
-        }
-
-        this.notice = null;
-
-        const isExists = subjects.some((subject) => subject.id === storedId);
-
-        if (isExists) {
-          this.selectedId = storedId;
-        } else {
-          this.selectedId = subjects[0].id;
-          AppState.setSubjectSelector(this.selectedId);
-        }
+        this.selectedId = null;
+        this.validateSelectedId();
       });
     },
 
     get subjects() {
       return this.currentCategory?.subjects ?? [];
+    },
+
+    validateSelectedId() {
+      if (!this.currentCategory || this.subjects.length === 0) {
+        return;
+      }
+
+      const isExists = this.subjects.some((subject) => subject.id === this.selectedId);
+
+      if (isExists) {
+        return;
+      }
+
+      this.selectedId = this.subjects[0].id;
+      AppState.setSubjectSelector(this.selectedId);
+    },
+
+    updateNotice() {
+      if (!this.currentCategory) {
+        this.notice = null;
+        return;
+      }
+
+      if (this.subjects.length === 0) {
+        this.notice = "no-subject";
+        return;
+      }
+
+      this.notice = null;
     },
   }));
 });

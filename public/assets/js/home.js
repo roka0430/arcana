@@ -141,6 +141,13 @@ document.addEventListener("alpine:init", () => {
     setSelectedId(id) {
       this.selectedId = id;
       AppState.setSubjectSelector(this.selectedId);
+
+      this.$nextTick(() => {
+        this.$el.querySelector(".selected")?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      });
     },
 
     validateSelectedId() {

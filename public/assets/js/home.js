@@ -60,17 +60,22 @@ document.addEventListener("alpine:init", () => {
   Alpine.data("main", () => ({
     categories: [],
     currentCategory: null,
+    notice: null,
 
     async init() {
       this.categories = await Category.getCategories();
 
       if (this.categories.length === 0) {
-        console.log("no category");
         AppState.setCurrentCategoryId(null);
+        this.notice = "no-category";
         return;
       }
 
       this.currentCategory = await getCurrentCategory(this.categories);
+
+      if (this.currentCategory.subjects.length === 0) {
+        this.notice = "no-subject";
+      }
     },
   }));
 

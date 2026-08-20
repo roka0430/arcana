@@ -156,12 +156,12 @@ main {
 }
 
 .edit-svg {
-  fill: var(--color-text-muted);
+  stroke: var(--color-text-muted);
   transition: all 0.1s;
 }
 
 .category-control__edit:hover .edit-svg {
-  fill: var(--color-text);
+  stroke: var(--color-text);
 }
 
 /*------------------------------ study-settings ------------------------------*/

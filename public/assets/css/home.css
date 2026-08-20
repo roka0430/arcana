@@ -308,7 +308,7 @@ main {
 }
 
 .subject-list__item {
-  padding-block: 6px;
+  padding-block: 6px 7px;
   padding-inline: 12px;
   border-radius: 8px;
   color: inherit;

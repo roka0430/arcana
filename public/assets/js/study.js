@@ -149,6 +149,10 @@ document.addEventListener("alpine:init", () => {
     },
 
     submitAnswer() {
+      if (this.answer === "") {
+        return;
+      }
+
       this.previousAnswer = this.answer;
       this.answer = "";
 

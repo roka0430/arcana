@@ -33,6 +33,7 @@
         @keydown.enter="submitAnswer()"
         @keydown.insert="revealAnswer()"
         @keydown.end="revealAnswer()"
+        @keydown.tab="skipAnswer($event)"
         @keydown.arrow-up="">
     </section>
   </main>

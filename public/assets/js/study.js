@@ -69,13 +69,15 @@ document.addEventListener("alpine:init", () => {
     },
 
     prepareQuestions() {
+      this.questions = this.questions.filter((question) => question.blank_count > 0);
+
       if (this.settings.order === "random") {
         this.questions = randomShuffle(this.questions);
       }
 
       if (this.settings.format === "combined") {
         const combinedQuestion = {
-          id: -1,
+          id: 0,
           blank_count: this.questions.reduce((sum, question) => sum + question.blank_count, 0),
           question: this.questions.map((question) => question.question).join("\n\n"),
         };
@@ -83,8 +85,6 @@ document.addEventListener("alpine:init", () => {
         this.questions.splice(0);
         this.questions.push(combinedQuestion);
       }
-
-      this.questions = this.questions.filter((question) => question.blank_count > 0);
 
       if (this.review !== null) {
         this.questions = this.questions.filter((question) => this.review.incorrect.includes(question.id));

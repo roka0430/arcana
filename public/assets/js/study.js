@@ -66,6 +66,20 @@ document.addEventListener("alpine:init", () => {
         this.questions.splice(0);
         this.questions.push(combinedQuestion);
       }
+
+      this.questions = this.questions.filter((question) => question.blank_count > 0);
+
+      for (const question of this.questions) {
+        const matches = [...question.question.matchAll(/；(.*?)；/g)];
+        const blanks = matches.map((match) => match[1]);
+
+        question.blanks = blanks.map((blank, i) => {
+          return {
+            answer: blank,
+            state: i === 0 ? "active" : "closed",
+          };
+        });
+      }
     },
 
     initResults() {

@@ -3,26 +3,24 @@ import Category from "./api/Category.js";
 
 document.addEventListener("alpine:init", () => {
   Alpine.data("main", () => ({
-    subjectId: -1,
+    subjectId: null,
+    questions: [],
     canReview: false,
   }));
 
   Alpine.data("result", () => ({
-    result: {},
-    questions: [],
-
     init() {
-      this.result = AppState.getStudyResult();
+      const result = AppState.getStudyResult();
 
-      if (this.result === null) {
+      if (result === null) {
         // location.replace("/");
         return;
       }
 
       AppState.setStudyResult(null);
 
-      this.subjectId = this.result.subjectId;
-      this.questions = this.result.questions;
+      this.subjectId = result.subjectId;
+      this.questions = result.questions;
 
       this.canReview = this.questions.some((question) => question.blanks.some((blank) => blank.incorrect));
     },
@@ -40,6 +38,13 @@ document.addEventListener("alpine:init", () => {
           location.replace(`/study/${this.subjectId}`);
           break;
         case "review":
+          const reviewData = {
+            subjectId: this.subjectId,
+            incorrect: this.questions.filter(({ incorrect }) => incorrect).map(({ id }) => id),
+          };
+
+          AppState.setStudyReview(reviewData);
+          location.replace(`/study/${this.subjectId}`);
           break;
       }
     },

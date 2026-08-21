@@ -3,6 +3,7 @@ export default class AppState {
   static #STUDY_SETTINGS = "arcana:study_settings";
   static #SUBJECT_SELECTOR = "arcana:subject_selector";
   static #STUDY_RESULT = "arcana:study_result";
+  static #STUDY_REVIEW = "arcana:study_review";
 
   static get(key) {
     const value = localStorage.getItem(key);
@@ -58,5 +59,15 @@ export default class AppState {
 
   static setStudyResult(result) {
     this.set(this.#STUDY_RESULT, result);
+  }
+
+  // Study review
+
+  static getStudyReview() {
+    return this.get(this.#STUDY_REVIEW);
+  }
+
+  static setStudyReview(data) {
+    this.set(this.#STUDY_REVIEW, data);
   }
 }

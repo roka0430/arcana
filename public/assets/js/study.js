@@ -46,15 +46,26 @@ document.addEventListener("alpine:init", () => {
 
       this.questions = this.subject.questions;
 
-      this.orderQuestions();
+      this.prepareQuestions();
       this.initResults();
 
       console.log(this.results);
     },
 
-    orderQuestions() {
+    prepareQuestions() {
       if (this.settings.order === "random") {
-        randomShuffle(this.questions);
+        this.questions = randomShuffle(this.questions);
+      }
+
+      if (this.settings.format === "combined") {
+        const combinedQuestion = {
+          id: -1,
+          blank_count: this.questions.reduce((sum, question) => sum + question.blank_count, 0),
+          question: this.questions.map((question) => question.question).join("\n\n"),
+        };
+
+        this.questions.splice(0);
+        this.questions.push(combinedQuestion);
       }
     },
 

@@ -77,6 +77,7 @@ document.addEventListener("alpine:init", () => {
           return {
             answer: blank,
             state: i === 0 ? "active" : "closed",
+            hasIncorrect: false,
           };
         });
       }
@@ -114,7 +115,32 @@ document.addEventListener("alpine:init", () => {
     },
 
     submitAnswer() {
+      const answer = this.answer;
       this.answer = "";
+
+      const blanks = this.questions[this.index].blanks;
+      const blankIndex = blanks.findIndex((blank) => blank.state === "active");
+      const blank = blanks[blankIndex];
+
+      if (!blank) {
+        console.log("no blank");
+        return;
+      }
+
+      if (answer === blank.answer) {
+        blank.state = blank.hasIncorrect ? "incorrect" : "correct";
+
+        const nextBlank = blanks[blankIndex + 1];
+
+        if (!nextBlank) {
+          this.index++;
+          return;
+        }
+
+        nextBlank.state = "active";
+      } else {
+        blank.hasIncorrect = true;
+      }
     },
   }));
 });

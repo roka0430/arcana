@@ -77,6 +77,7 @@ document.addEventListener("alpine:init", () => {
           return {
             answer: blank,
             state: i === 0 ? "active" : "closed",
+            isOpened: false,
             hasIncorrect: false,
           };
         });
@@ -106,7 +107,9 @@ document.addEventListener("alpine:init", () => {
 
         if (blank.state === "active") {
           className.push("active");
-        } else if (blank.state === "correct" || blank.state === "incorrect") {
+        }
+
+        if (blank.isOpened || blank.state === "correct" || blank.state === "incorrect") {
           className.push("opened");
         }
 
@@ -132,6 +135,8 @@ document.addEventListener("alpine:init", () => {
       if (blankIndex + 1 < blanks.length) {
         blanks[blankIndex + 1].state = "active";
       }
+
+      console.log(blanks[blankIndex].state);
     },
 
     submitAnswer() {
@@ -150,6 +155,9 @@ document.addEventListener("alpine:init", () => {
       }
     },
 
-    revealAnswer() {},
+    revealAnswer() {
+      this.activeBlank.isOpened = true;
+      this.activeBlank.hasIncorrect = true;
+    },
   }));
 });

@@ -119,7 +119,7 @@ document.addEventListener("alpine:init", () => {
       return blanks.find((blank) => blank.state === "active");
     },
 
-    moveToNextBlank(state) {
+    moveToNextBlank() {
       const blanks = this.questions[this.index].blanks;
       const blankIndex = blanks.findIndex((blank) => blank.state === "active");
 
@@ -127,7 +127,7 @@ document.addEventListener("alpine:init", () => {
         return;
       }
 
-      blanks[blankIndex].state = state;
+      blanks[blankIndex].state = this.activeBlank.hasIncorrect ? "incorrect" : "correct";
 
       if (blankIndex + 1 < blanks.length) {
         blanks[blankIndex + 1].state = "active";
@@ -143,7 +143,7 @@ document.addEventListener("alpine:init", () => {
         return;
       }
 
-      this.moveToNextBlank(this.activeBlank.hasIncorrect ? "incorrect" : "correct");
+      this.moveToNextBlank();
 
       if (!this.activeBlank) {
         this.index++;

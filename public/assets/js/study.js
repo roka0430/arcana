@@ -122,7 +122,7 @@ document.addEventListener("alpine:init", () => {
       return blanks.find((blank) => blank.state === "active");
     },
 
-    advanceBlank() {
+    advance() {
       const blanks = this.questions[this.index].blanks;
       const blankIndex = blanks.findIndex((blank) => blank.state === "active");
 
@@ -139,6 +139,11 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.index++;
+
+      if (this.index >= this.questions.length) {
+        location.replace("/result");
+        return;
+      }
     },
 
     submitAnswer() {
@@ -150,7 +155,7 @@ document.addEventListener("alpine:init", () => {
         return;
       }
 
-      this.advanceBlank();
+      this.advance();
     },
 
     revealAnswer() {
@@ -160,7 +165,7 @@ document.addEventListener("alpine:init", () => {
 
     skipAnswer(e) {
       this.activeBlank.hasIncorrect = true;
-      this.advanceBlank();
+      this.advance();
       e.preventDefault();
     },
   }));

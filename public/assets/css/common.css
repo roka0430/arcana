@@ -11,6 +11,9 @@
   --color-primary: #10a37f;
   --color-link: #66b3ff;
   --color-border: #444444;
+
+  --color-correct: #1597d0;
+  --color-incorrect: #ef5350;
 }
 
 * {

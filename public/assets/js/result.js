@@ -9,7 +9,7 @@ document.addEventListener("alpine:init", () => {
       this.result = AppState.getStudyResult();
 
       if (this.result === null) {
-        location.replace("/");
+        // location.replace("/");
         return;
       }
 

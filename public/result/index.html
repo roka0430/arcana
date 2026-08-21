@@ -4,13 +4,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/css/result.css">
   <link rel="stylesheet" href="../assets/css/common.css">
   <title>Arcana | Result</title>
 </head>
 
 <body>
   <main x-data="main">
-    result
+    <section class="result">
+      <div class="result__blanks">
+        <span class="result__blank correct">パケット</span>
+        <span class="result__blank correct">送信元</span>
+        <span class="result__blank correct">宛先</span>
+        <span class="result__blank incorrect">ヘッダ</span>
+        <span class="result__blank incorrect">ルータ</span>
+        <span class="result__blank incorrect">再構成</span>
+      </div>
+    </section>
   </main>
 
   <aside class="shortcut-bar">

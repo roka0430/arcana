@@ -41,6 +41,9 @@ document.addEventListener("alpine:init", () => {
       this.settings = AppState.getStudySettings();
       this.subject = await loadSubject();
 
+      this.review = AppState.getStudyReview();
+      AppState.setStudyReview(null);
+
       if (!this.subject) {
         location.replace("/");
         return;
@@ -82,6 +85,10 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.questions = this.questions.filter((question) => question.blank_count > 0);
+
+      if (this.review !== null) {
+        this.questions = this.questions.filter((question) => this.review.incorrect.includes(question.id));
+      }
 
       for (const question of this.questions) {
         const matches = [...question.question.matchAll(/；(.*?)；/g)];

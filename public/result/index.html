@@ -15,7 +15,7 @@
       <template x-for="question in questions">
         <div class="result__blanks">
           <template x-for="blank in question.blanks">
-            <span class="result__blank" :class="blank.incorrect ? 'incorrect' : 'correct'" x-text="blank.answer">パケット</span>
+            <span class="result__blank" :class="blank.incorrect ? 'incorrect' : 'correct'" x-text="blank.answer"></span>
           </template>
         </div>
       </template>

@@ -11,15 +11,20 @@
 
 <body>
   <main x-data="main">
-    <section class="result">
-      <div class="result__blanks">
-        <span class="result__blank correct">パケット</span>
-        <span class="result__blank correct">送信元</span>
-        <span class="result__blank correct">宛先</span>
-        <span class="result__blank incorrect">ヘッダ</span>
-        <span class="result__blank incorrect">ルータ</span>
-        <span class="result__blank incorrect">再構成</span>
-      </div>
+    <section class="result" x-data="result">
+      <template x-for="question in result">
+        <div class="result__blanks">
+          <template x-for="blank in question.blanks">
+            <span class="result__blank" :class="blank.incorrect ? 'incorrect' : 'correct'" x-text="blank.answer">パケット</span>
+          </template>
+        </div>
+      </template>
+    </section>
+
+    <section class="result-menu" x-data="menu" @click="handleAction($event)">
+      <button class="result-menu__button" value="home">ホームへ戻る</button>
+      <button class="result-menu__button" value="retry">もう一度</button>
+      <button class="result-menu__button disabled" value="review">間違いのみ</button>
     </section>
   </main>
 

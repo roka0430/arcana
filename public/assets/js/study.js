@@ -96,12 +96,20 @@ document.addEventListener("alpine:init", () => {
         return "";
       }
 
-      const question = this.questions[this.index].question;
-
+      const question = this.questions[this.index];
       let blankIndex = 0;
-      return question.replace(/；(.*?)；/g, (_, content) => {
-        const className = blankIndex++ === 0 ? "blank target" : "blank";
-        return `<span class="${className}">${content}</span>`;
+
+      return question.question.replace(/；(.*?)；/g, () => {
+        const blank = question.blanks[blankIndex++];
+        const className = ["blank"];
+
+        if (blank.state === "active") {
+          className.push("active");
+        } else if (blank.state === "correct" || blank.state === "incorrect") {
+          className.push("opened");
+        }
+
+        return `<span class="${className.join(" ")}">${blank.answer}</span>`;
       });
     },
 

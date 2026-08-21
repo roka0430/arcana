@@ -2,7 +2,8 @@ main {
   display: flex;
   gap: 16px;
   flex-direction: column;
-  justify-content: center;
+
+  padding-block: 90px 64px;
 }
 
 /*------------------------------ study-header ------------------------------*/
@@ -53,7 +54,8 @@ main {
 /*------------------------------ study-question ------------------------------*/
 
 .study-question {
-  height: 350px;
+  flex: 1;
+
   padding-block: 12px;
   padding-inline: 16px;
 
@@ -103,7 +105,7 @@ main {
 /*------------------------------ study-answer ------------------------------*/
 
 .study-answer {
-  margin-bottom: 60px;
+  margin-top: 16px;
 }
 
 .study-answer__input {

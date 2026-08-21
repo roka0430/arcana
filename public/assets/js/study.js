@@ -220,7 +220,7 @@ document.addEventListener("alpine:init", () => {
     },
 
     focusAnswerInput(e) {
-      if (document.activeElement !== this.$refs.answerInput) {
+      if (this.settings.answer === "input" && document.activeElement !== this.$refs.answerInput) {
         this.$refs.answerInput.focus();
         e.preventDefault();
       }

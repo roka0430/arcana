@@ -1,0 +1,111 @@
+main {
+  display: flex;
+  gap: 32px;
+  flex-direction: column;
+}
+
+/*------------------------------ result ------------------------------*/
+
+.result {
+  flex: 1;
+
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+
+  padding: 16px;
+
+  border: solid 1px var(--color-border);
+  border-radius: 8px;
+
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.result__blanks {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.result__blank {
+  position: relative;
+
+  padding-bottom: 2px;
+  padding-inline: 25px 5px;
+
+  border: solid 2px var(--color-border);
+  border-radius: 4px;
+
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.result__blank.correct::before {
+  content: "";
+
+  position: absolute;
+  top: 50%;
+  left: 7px;
+  transform: translateY(-50%);
+
+  width: 10px;
+  height: 10px;
+
+  border: solid 2px var(--color-correct);
+  border-radius: 100%;
+}
+
+.result__blank.incorrect::before,
+.result__blank.incorrect::after {
+  content: "";
+
+  position: absolute;
+  top: 50%;
+  left: 6px;
+
+  width: 14px;
+  height: 0;
+
+  border-top: solid 2px var(--color-incorrect);
+}
+
+.result__blank.incorrect::before {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.result__blank.incorrect::after {
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+/*------------------------------ result-menu ------------------------------*/
+
+.result-menu {
+  display: flex;
+  gap: 20px;
+}
+
+.result-menu__button {
+  flex: 1;
+
+  padding-block: 10px 11px;
+  padding-inline: 16px;
+
+  background: var(--color-surface);
+  border: solid 1px var(--color-border);
+  border-radius: 8px;
+
+  color: var(--color-text);
+  font-size: 0.9rem;
+
+  cursor: pointer;
+}
+
+.result-menu__button:hover {
+  text-decoration: underline;
+}
+
+.result-menu__button.disabled {
+  color: var(--color-text-muted);
+  pointer-events: none;
+}

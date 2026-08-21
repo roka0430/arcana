@@ -1,14 +1,17 @@
 import express from "express";
-import * as routes from "./api/routes.js";
+import path from "path";
+import routes from "./api/routes.js";
 
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
 app.use(express.static("public"));
+app.use("/api", routes);
 
-for (const [name, route] of Object.entries(routes)) {
-  app.use(`/api/${name}`, route);
-}
+app.get("/study/:id", (req, res) => {
+  res.sendFile(path.resolve("public/study/index.html"));
+});
 
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

@@ -4,21 +4,136 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>arcana</title>
+  <link rel="stylesheet" href="assets/css/common.css">
+  <link rel="stylesheet" href="assets/css/home.css">
+  <title>Arcana</title>
 </head>
 
 <body>
-  <h1>arcana</h1>
+  <main x-data="main">
+    <section class="category-control" x-data="category">
+      <div class="category-control__selector" @click.outside="isOpen = false">
+        <button class="category-control__current" :class="{ 'is-open': isOpen, 'no-category': notice === 'no-category' }" @click="isOpen = !isOpen">
+          <span class="category-name" x-text="name"></span>
+          <span class="caret-down"></span>
+        </button>
 
-  <div class="question-list" x-data="questionList">
-    <template x-for="question in questions" :key="question.id">
-      <div>
-        <a href="/study/" x-text="question.name" @click="startStudy(question.id)"></a>
+        <div class="category-control__dropdown" x-show="isOpen" x-cloak>
+          <div class="dropdown__label">Select category</div>
+          <div class="dropdown__options">
+            <template x-for="category in categories">
+              <div x-text="category.name" :class="{ 'current': currentCategory?.id === category.id }" @click="selectCategory(category.id)"></div>
+            </template>
+          </div>
+        </div>
       </div>
-    </template>
-  </div>
 
-  <script type="module" src="assets/js/home.js" deffer></script>
+      <a href="edit" class=" category-control__edit">
+        <svg class="edit-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+          <path d="M13.5 6.5l4 4" />
+        </svg>
+      </a>
+    </section>
+
+    <section class="study-settings" x-data="settings">
+      <form class="study-settings__form">
+        <div class="study-settings__item">
+          <span class="study-settings__label">出題順</span>
+          <div class="study-settings__options">
+            <label><input type="radio" name="order" value="ordered" x-model="settings.order">設定順</label>
+            <label><input type="radio" name="order" value="random" x-model="settings.order">ランダム</label>
+          </div>
+        </div>
+        <div class="study-settings__item">
+          <span class="study-settings__label">解答方式</span>
+          <div class="study-settings__options">
+            <label><input type="radio" name="answer" value="input" x-model="settings.answer">入力</label>
+            <label><input type="radio" name="answer" value="flip" x-model="settings.answer">めくり</label>
+          </div>
+        </div>
+        <div class="study-settings__item">
+          <span class="study-settings__label">出題形式</span>
+          <div class="study-settings__options">
+            <label><input type="radio" name="format" value="individual" x-model="settings.format">個別</label>
+            <label><input type="radio" name="format" value="combined" x-model="settings.format">一括</label>
+          </div>
+        </div>
+        <div class="study-settings__item">
+          <span class="study-settings__label">穴サイズ</span>
+          <div class="study-settings__options">
+            <label><input type="radio" name="blank" value="text" x-model="settings.blank">文字幅</label>
+            <label><input type="radio" name="blank" value="fixed" x-model="settings.blank">固定幅</label>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <template x-if="notice !== null" x-cloak>
+      <section class="notice">
+        <div class="notice__content" x-show="notice === 'no-category'">
+          <p class="notice__message">利用可能なカテゴリがありません</p>
+          <p class="notice__description">学習を始めるには、まずカテゴリを作成してください。</p>
+          <a class="notice__action" href="/edit/category">カテゴリを作成</a>
+        </div>
+        <div class="notice__content" x-show="notice === 'no-subject'">
+          <p class="notice__message">表示できる科目がありません</p>
+          <p class="notice__description">学習を始めるには、まず問題を作成してください。</p>
+          <a class="notice__action" href="/edit">問題を作成</a>
+        </div>
+      </section>
+    </template>
+
+    <section
+      class="subject-list"
+      x-data="subjects"
+      @keydown.window.arrow-down="moveSelectedSubject(1)"
+      @keydown.window.arrow-up="moveSelectedSubject(-1)"
+      @keydown.window.enter="activateSelectedSubject()">
+      <template x-for="subject in subjects">
+        <a
+          class="subject-list__item"
+          :href=`/study/${subject.id}`
+          :class="{'selected': subject.id === selectedId, 'disabled': subject.question_count === 0}"
+          @click="setSelectedId(subject.id)">
+          <span class="subject-name" x-text="subject.name"></span>
+          <span class="subject-info">
+            <span class="subject-info__item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-letter-q">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M18 9a5 5 0 0 0 -5 -5h-2a5 5 0 0 0 -5 5v6a5 5 0 0 0 5 5h2a5 5 0 0 0 5 -5v-6" />
+                <path d="M13 15l5 5" />
+              </svg>
+              <span x-text="subject.question_count"></span>
+            </span>
+            <span class="subject-info__item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-help-square">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14" />
+                <path d="M12 16v.01" />
+                <path d="M12 13a2 2 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483" />
+              </svg>
+              <span x-text="subject.blank_count"></span>
+            </span>
+          </span>
+        </a>
+      </template>
+    </section>
+  </main>
+
+  <aside class="shortcut-bar">
+    <div class="shortcut-item">
+      <kbd>Ctrl+S</kbd>
+      <span>保存</span>
+    </div>
+    <div class="shortcut-item">
+      <kbd>Ctrl+S</kbd>
+      <span>保存</span>
+    </div>
+  </aside>
+
+  <script type="module" src="assets/js/home.js" defer></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 

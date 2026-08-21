@@ -4,29 +4,54 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>arcana</title>
-
-  <style>
-    .blank {
-      border: solid 1px black;
-    }
-
-    .blank.target {
-      border-color: red;
-    }
-  </style>
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="../assets/css/study.css">
+  <title>Arcana | Study</title>
 </head>
 
 <body>
-  <h1>study</h1>
+  <main x-data="main">
+    <section class="study-header">
+      <div class="study-header__location">
+        <span class="location__category" x-text="subject?.category_name ?? ''"></span>
+        <span class="location__separator"></span>
+        <span class="location__subject" x-text="subject?.name ?? ''"></span>
+      </div>
+      <div class="study-header__info" x-show="settings.format === 'individual'" x-text="`${index + 1} / ${questions.length}`"></div>
+      <div class="study-header__menu">menu</div>
+    </section>
 
-  <div x-data="studyContent">
-    <div x-text="question?.name"></div>
-    <div x-html="currentQuestionHtml"></div>
-    <input type="text" x-model="input" @keydown.enter="checkAnswer()">
-  </div>
+    <section class="study-question" x-ref="question" x-html="currentQuestionHtml"></section>
 
-  <script type="module" src="../assets/js/study.js" deffer></script>
+    <section class="study-answer" x-show="settings.answer === 'input'">
+      <input
+        type="text"
+        class="study-answer__input"
+        autofocus="true"
+        x-ref="answerInput"
+        x-model="answer"
+        @focus="$el.select()"
+        @keydown.enter="submitAnswer()"
+        @keydown.insert="revealAnswer()"
+        @keydown.end="revealAnswer()"
+        @keydown.tab="skipAnswer($event)"
+        @keydown.arrow-up="restorePreviousAnswer()"
+        @keydown.window="focusAnswerInput($event)">
+    </section>
+  </main>
+
+  <aside class="shortcut-bar">
+    <div class="shortcut-item">
+      <kbd>Ctrl+S</kbd>
+      <span>保存</span>
+    </div>
+    <div class="shortcut-item">
+      <kbd>Ctrl+S</kbd>
+      <span>保存</span>
+    </div>
+  </aside>
+
+  <script type="module" src="../assets/js/study.js" defer></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 

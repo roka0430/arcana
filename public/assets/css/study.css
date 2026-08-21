@@ -1,0 +1,123 @@
+main {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+
+  padding-block: 90px 64px;
+}
+
+/*------------------------------ study-header ------------------------------*/
+
+.study-header {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  padding-inline: 8px;
+}
+
+.study-header__location {
+  grid-column: 1 / 2;
+  display: flex;
+  font-size: 0.8rem;
+}
+
+.location__separator {
+  position: relative;
+  width: 22px;
+}
+
+.location__separator::after {
+  content: "";
+
+  position: absolute;
+  top: calc(50% + 1px);
+  left: calc(50% - 1px);
+  transform: translate(-50%, -50%) scaleX(0.8) rotate(45deg);
+
+  width: 5px;
+  height: 5px;
+
+  border-top: 2px solid var(--color-text);
+  border-right: 2px solid var(--color-text);
+}
+
+.study-header__info {
+  grid-column: 2 / 3;
+  text-align: center;
+}
+
+.study-header__menu {
+  grid-column: 3 / 4;
+  text-align: right;
+}
+
+/*------------------------------ study-question ------------------------------*/
+
+.study-question {
+  flex: 1;
+
+  padding-block: 12px;
+  padding-inline: 16px;
+
+  border: solid 1px var(--color-border);
+  border-radius: 8px;
+
+  line-height: 2.4;
+  white-space: pre-wrap;
+
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.blank {
+  position: relative;
+
+  margin-inline: 4px;
+  padding-bottom: 2px;
+  padding-inline: 5px;
+
+  white-space: nowrap;
+}
+
+.blank::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background: var(--color-border);
+  border: solid 2px var(--color-border);
+  border-radius: 4px;
+}
+
+.blank.active::after {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.blank.opened::after {
+  background: none;
+}
+
+/*------------------------------ study-answer ------------------------------*/
+
+.study-answer {
+  margin-top: 16px;
+}
+
+.study-answer__input {
+  width: 100%;
+  padding-block: 12px;
+  padding-inline: 16px;
+
+  background: none;
+  border: none;
+  border-bottom: solid 1px var(--color-border);
+  outline: none;
+
+  font-size: 2.6rem;
+  text-align: center;
+}

@@ -34,7 +34,9 @@ document.addEventListener("alpine:init", () => {
     questions: [],
     results: {},
     index: 0,
+
     answer: "",
+    previousAnswer: "",
 
     async init() {
       this.settings = AppState.getStudySettings();
@@ -147,10 +149,10 @@ document.addEventListener("alpine:init", () => {
     },
 
     submitAnswer() {
-      const answer = this.answer;
+      this.previousAnswer = this.answer;
       this.answer = "";
 
-      if (answer !== this.activeBlank.answer) {
+      if (this.previousAnswer !== this.activeBlank.answer) {
         this.activeBlank.hasIncorrect = true;
         return;
       }
@@ -167,6 +169,15 @@ document.addEventListener("alpine:init", () => {
       this.activeBlank.hasIncorrect = true;
       this.advance();
       e.preventDefault();
+    },
+
+    restorePreviousAnswer() {
+      this.answer = this.previousAnswer;
+
+      this.$nextTick(() => {
+        const input = this.$refs.answerInput;
+        input.setSelectionRange(input.value.length, input.value.length);
+      });
     },
   }));
 });

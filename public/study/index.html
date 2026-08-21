@@ -28,13 +28,14 @@
       <input
         type="text"
         class="study-answer__input"
+        x-ref="answerInput"
         x-model="answer"
         @focus="$el.select()"
         @keydown.enter="submitAnswer()"
         @keydown.insert="revealAnswer()"
         @keydown.end="revealAnswer()"
         @keydown.tab="skipAnswer($event)"
-        @keydown.arrow-up="">
+        @keydown.arrow-up="restorePreviousAnswer()">
     </section>
   </main>
 

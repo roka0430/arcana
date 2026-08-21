@@ -1,3 +1,9 @@
+main {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
 /*------------------------------ study-header ------------------------------*/
 
 .study-header {
@@ -19,5 +25,10 @@
 }
 
 /*------------------------------ study-question ------------------------------*/
+
+.study-question {
+  border: solid 1px var(--color-border);
+  border-radius: 8px;
+}
 
 /*------------------------------ study-answer ------------------------------*/

@@ -14,12 +14,22 @@ const loadSubject = async () => {
   }
 };
 
+const randomShuffle = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
+
 // Alpine.js
 
 document.addEventListener("alpine:init", () => {
   Alpine.data("main", () => ({
     settings: {},
     subject: {},
+    questions: [],
+    mistakes: [],
 
     async init() {
       this.settings = AppState.getStudySettings();
@@ -31,7 +41,13 @@ document.addEventListener("alpine:init", () => {
         return;
       }
 
-      console.log(this.subject);
+      this.questions = this.subject.questions;
+
+      if (this.settings.order === "random") {
+        randomShuffle(this.questions);
+      }
+
+      console.log(this.questions);
     },
   }));
 

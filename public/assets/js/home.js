@@ -1,4 +1,5 @@
 import AppState from "./state/AppState.js";
+import Shortcut from "./shortcut/Shortcut.js";
 import Category from "./api/Category.js";
 
 // settings
@@ -63,6 +64,8 @@ document.addEventListener("alpine:init", () => {
     notice: null,
 
     async init() {
+      Shortcut.setContext("home");
+
       this.categories = await Category.getCategories();
 
       if (this.categories.length === 0) {
@@ -117,6 +120,10 @@ document.addEventListener("alpine:init", () => {
     selectedId: null,
 
     init() {
+      Shortcut.register("home", "ENTER", () => this.activateSelectedSubject());
+      Shortcut.register("home", "ARROWUP", () => this.moveSelectedSubject(-1));
+      Shortcut.register("home", "ARROWDOWN", () => this.moveSelectedSubject(1));
+
       this.selectedId = AppState.getSubjectSelector();
 
       this.$watch("subjects", () => {

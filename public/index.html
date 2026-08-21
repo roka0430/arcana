@@ -87,10 +87,7 @@
 
     <section
       class="subject-list"
-      x-data="subjects"
-      @keydown.window.arrow-down="moveSelectedSubject(1)"
-      @keydown.window.arrow-up="moveSelectedSubject(-1)"
-      @keydown.window.enter="activateSelectedSubject()">
+      x-data="subjects">
       <template x-for="subject in subjects">
         <a
           class="subject-list__item"

@@ -15,14 +15,11 @@ subjects:
         question: 3 あ→；あ；　い→；い；　う→；う；
   - id: 2
     name: いいい
-    blank_count: 9
+    blank_count: 5
     questions:
       - id: 1
-        blank_count: 3
-        question: 4 あ→；あ；　い→；い；　う→；う；
+        blank_count: 2
+        question: コンピュータネットワークでは、データを小さな単位に分割して送信する方式が広く利用されている。この単位を；パケット；と呼び、パケットにはデータ本体だけでなく、送信元や宛先などの；情報；も付加される。
       - id: 2
         blank_count: 3
-        question: 5 あ→；あ；　い→；い；　う→；う；
-      - id: 3
-        blank_count: 3
-        question: 6 あ→；あ；　い→；い；　う→；う；
+        question: 例えば、Webブラウザからサーバへデータを要求すると、まず；クライアント；から；サーバ；へ要求が送信される。サーバは要求されたデータを処理し、その結果を；レスポンス；としてクライアントへ返す。

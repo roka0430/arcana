@@ -48,8 +48,6 @@ document.addEventListener("alpine:init", () => {
 
       this.prepareQuestions();
       this.initResults();
-
-      console.log(this.results);
     },
 
     prepareQuestions() {
@@ -80,6 +78,18 @@ document.addEventListener("alpine:init", () => {
   }));
 
   Alpine.data("question", () => ({
-    async init() {},
+    get currentQuestionHtml() {
+      if (this.questions.length === 0) {
+        return "";
+      }
+
+      const question = this.questions[this.index].question;
+
+      let blankIndex = 0;
+      return question.replace(/；(.*?)；/g, (_, content) => {
+        const className = blankIndex++ === 0 ? "blank target" : "blank";
+        return `<span class="${className}">${content}</span>`;
+      });
+    },
   }));
 });

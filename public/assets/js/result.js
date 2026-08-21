@@ -2,11 +2,12 @@ import AppState from "./state/AppState.js";
 import Category from "./api/Category.js";
 
 document.addEventListener("alpine:init", () => {
-  Alpine.data("main", () => ({}));
+  Alpine.data("main", () => ({
+    subjectId: -1,
+  }));
 
   Alpine.data("result", () => ({
     result: {},
-    subjectId: [],
     questions: [],
 
     init() {
@@ -33,7 +34,7 @@ document.addEventListener("alpine:init", () => {
           location.replace("/");
           break;
         case "retry":
-          location.replace("/study");
+          location.replace(`/study/${this.subjectId}`);
           break;
         case "review":
           break;

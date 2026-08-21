@@ -3,8 +3,6 @@ import Category from "./api/Category.js";
 
 // main
 
-// subject
-
 const loadSubject = async () => {
   const categoryId = AppState.getCurrentCategoryId();
   const subjectId = Number(location.pathname.split("/").at(-1));
@@ -21,16 +19,11 @@ const loadSubject = async () => {
 document.addEventListener("alpine:init", () => {
   Alpine.data("main", () => ({
     settings: {},
-
-    init() {
-      this.settings = AppState.getStudySettings();
-    },
-  }));
-
-  Alpine.data("question", () => ({
     subject: {},
 
     async init() {
+      this.settings = AppState.getStudySettings();
+
       this.subject = await loadSubject();
 
       if (!this.subject) {
@@ -40,5 +33,17 @@ document.addEventListener("alpine:init", () => {
 
       console.log(this.subject);
     },
+
+    get categoryName() {
+      return this.subject?.category_name ?? "";
+    },
+
+    get subjectName() {
+      return this.subject?.name ?? "";
+    },
+  }));
+
+  Alpine.data("question", () => ({
+    async init() {},
   }));
 });

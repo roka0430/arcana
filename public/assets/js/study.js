@@ -33,6 +33,7 @@ document.addEventListener("alpine:init", () => {
     subject: {},
     questions: [],
     results: {},
+    index: 0,
 
     async init() {
       this.settings = AppState.getStudySettings();
@@ -44,6 +45,7 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.questions = this.subject.questions;
+
       this.orderQuestions();
       this.initResults();
 

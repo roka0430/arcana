@@ -17,7 +17,7 @@
         <span class="location__separator"></span>
         <span class="location__subject" x-text="subject?.name ?? ''"></span>
       </div>
-      <div class="study-header__info" x-show="settings.format === 'individual'">5 / 10</div>
+      <div class="study-header__info" x-show="settings.format === 'individual'" x-text="`${index + 1} / ${questions.length}`"></div>
       <div class="study-header__menu">menu</div>
     </section>
 

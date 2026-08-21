@@ -1,0 +1,23 @@
+/*------------------------------ study-header ------------------------------*/
+
+.study-header {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.study-header__subject-name {
+  font-size: 0.8rem;
+}
+
+.study-header__info {
+  text-align: center;
+}
+
+.study-header__menu {
+  text-align: right;
+}
+
+/*------------------------------ study-question ------------------------------*/
+
+/*------------------------------ study-answer ------------------------------*/

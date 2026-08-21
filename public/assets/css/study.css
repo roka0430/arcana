@@ -1,6 +1,6 @@
 main {
   display: flex;
-  gap: 10px;
+  gap: 16px;
   flex-direction: column;
 }
 
@@ -27,8 +27,15 @@ main {
 /*------------------------------ study-question ------------------------------*/
 
 .study-question {
+  height: 300px;
+  padding-block: 12px;
+  padding-inline: 16px;
+
   border: solid 1px var(--color-border);
   border-radius: 8px;
+
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 /*------------------------------ study-answer ------------------------------*/

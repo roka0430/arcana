@@ -11,10 +11,32 @@ main {
   display: grid;
   align-items: center;
   grid-template-columns: repeat(3, 1fr);
+  padding-inline: 8px;
 }
 
-.study-header__subject-name {
+.study-header__location {
+  display: flex;
   font-size: 0.8rem;
+}
+
+.location__separator {
+  position: relative;
+  width: 22px;
+}
+
+.location__separator::after {
+  content: "";
+
+  position: absolute;
+  top: calc(50% + 1px);
+  left: calc(50% - 1px);
+  transform: translate(-50%, -50%) scaleX(0.8) rotate(45deg);
+
+  width: 5px;
+  height: 5px;
+
+  border-top: 2px solid var(--color-text);
+  border-right: 2px solid var(--color-text);
 }
 
 .study-header__info {

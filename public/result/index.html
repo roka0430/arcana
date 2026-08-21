@@ -24,7 +24,7 @@
     <section class="result-menu" x-data="menu" @click="handleAction($event)">
       <button class="result-menu__button" value="home">ホームへ戻る</button>
       <button class="result-menu__button" value="retry">もう一度</button>
-      <button class="result-menu__button disabled" value="review">間違いのみ</button>
+      <button class="result-menu__button" value="review" :class="{'disabled': !canReview}">間違いのみ</button>
     </section>
   </main>
 

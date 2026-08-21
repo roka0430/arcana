@@ -4,6 +4,7 @@ import Category from "./api/Category.js";
 document.addEventListener("alpine:init", () => {
   Alpine.data("main", () => ({
     subjectId: -1,
+    canReview: false,
   }));
 
   Alpine.data("result", () => ({
@@ -11,9 +12,9 @@ document.addEventListener("alpine:init", () => {
     questions: [],
 
     init() {
-      this.result = AppState.getStudyResult() ?? {};
+      this.result = AppState.getStudyResult();
 
-      if (!this.result) {
+      if (this.result === null) {
         // location.replace("/");
         return;
       }
@@ -22,6 +23,8 @@ document.addEventListener("alpine:init", () => {
 
       this.subjectId = this.result.subjectId;
       this.questions = this.result.questions;
+
+      this.canReview = this.questions.some((question) => question.blanks.some((blank) => blank.incorrect));
     },
   }));
 

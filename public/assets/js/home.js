@@ -119,7 +119,7 @@ document.addEventListener("alpine:init", () => {
     init() {
       this.selectedId = AppState.getSubjectSelector();
 
-      this.$watch("subjects", (subjects) => {
+      this.$watch("subjects", () => {
         this.validateSelectedId();
         this.updateNotice();
       });
@@ -136,7 +136,14 @@ document.addEventListener("alpine:init", () => {
 
     get subjects() {
       const subjects = this.currentCategory?.subjects ?? [];
-      return subjects.sort((a, b) => a.name.localeCompare(b.name));
+
+      subjects.sort((a, b) => a.name.localeCompare(b.name));
+
+      for (const subject of subjects) {
+        subject.question_count = subject.questions.filter(({ blank_count }) => blank_count > 0).length;
+      }
+
+      return subjects;
     },
 
     setSelectedId(id) {

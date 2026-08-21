@@ -1,6 +1,10 @@
 import AppState from "./state/AppState.js";
 import Category from "./api/Category.js";
 
+// main
+
+// subject
+
 const loadSubject = async () => {
   const categoryId = AppState.getCurrentCategoryId();
   const subjectId = Number(location.pathname.split("/").at(-1));
@@ -12,7 +16,17 @@ const loadSubject = async () => {
   }
 };
 
+// Alpine.js
+
 document.addEventListener("alpine:init", () => {
+  Alpine.data("main", () => ({
+    settings: {},
+
+    init() {
+      this.settings = AppState.getStudySettings();
+    },
+  }));
+
   Alpine.data("subject", () => ({
     subject: {},
 

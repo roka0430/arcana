@@ -15,6 +15,7 @@ main {
 }
 
 .study-header__location {
+  grid-column: 1 / 2;
   display: flex;
   font-size: 0.8rem;
 }
@@ -40,10 +41,12 @@ main {
 }
 
 .study-header__info {
+  grid-column: 2 / 3;
   text-align: center;
 }
 
 .study-header__menu {
+  grid-column: 3 / 4;
   text-align: right;
 }
 

@@ -33,14 +33,6 @@ document.addEventListener("alpine:init", () => {
 
       console.log(this.subject);
     },
-
-    get categoryName() {
-      return this.subject?.category_name ?? "";
-    },
-
-    get subjectName() {
-      return this.subject?.name ?? "";
-    },
   }));
 
   Alpine.data("question", () => ({

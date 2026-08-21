@@ -13,11 +13,11 @@
   <main x-data="main">
     <section class="study-header">
       <div class="study-header__location">
-        <span class="location__category" x-text="categoryName"></span>
+        <span class="location__category" x-text="subject?.category_name ?? ''"></span>
         <span class="location__separator"></span>
-        <span class="location__subject" x-text="subjectName"></span>
+        <span class="location__subject" x-text="subject?.name ?? ''"></span>
       </div>
-      <div class="study-header__info">5 / 10</div>
+      <div class="study-header__info" x-show="settings.format === 'individual'">5 / 10</div>
       <div class="study-header__menu">menu</div>
     </section>
 

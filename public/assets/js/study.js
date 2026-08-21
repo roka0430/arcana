@@ -155,7 +155,7 @@ document.addEventListener("alpine:init", () => {
     },
 
     finish() {
-      const result = this.questions.map((question) => {
+      const questions = this.questions.map((question) => {
         return {
           id: question.id,
           incorrect: question.blanks.some((blank) => blank.hasIncorrect),
@@ -165,6 +165,11 @@ document.addEventListener("alpine:init", () => {
           })),
         };
       });
+
+      const result = {
+        subjectId: this.subject.id,
+        questions: questions,
+      };
 
       AppState.setStudyResult(result);
       location.replace("/result");

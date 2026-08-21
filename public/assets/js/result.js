@@ -5,24 +5,39 @@ document.addEventListener("alpine:init", () => {
   Alpine.data("main", () => ({}));
 
   Alpine.data("result", () => ({
-    result: [],
+    result: {},
+    subjectId: [],
+    questions: [],
 
     init() {
-      this.result = AppState.getStudyResult() ?? [];
+      this.result = AppState.getStudyResult() ?? {};
 
-      if (this.result.length === 0) {
+      if (!this.result) {
         // location.replace("/");
         return;
       }
 
       AppState.setStudyResult(null);
+
+      this.subjectId = this.result.subjectId;
+      this.questions = this.result.questions;
     },
   }));
 
   Alpine.data("menu", () => ({
     handleAction(e) {
       const action = e.target.value;
-      console.log(action);
+
+      switch (action) {
+        case "home":
+          location.replace("/");
+          break;
+        case "retry":
+          location.replace("/study");
+          break;
+        case "review":
+          break;
+      }
     },
   }));
 });

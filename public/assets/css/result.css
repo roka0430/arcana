@@ -107,4 +107,5 @@ main {
 
 .result-menu__button.disabled {
   color: var(--color-text-muted);
+  pointer-events: none;
 }

@@ -114,33 +114,42 @@ document.addEventListener("alpine:init", () => {
       });
     },
 
+    get activeBlank() {
+      const blanks = this.questions[this.index].blanks;
+      return blanks.find((blank) => blank.state === "active");
+    },
+
+    moveToNextBlank(state) {
+      const blanks = this.questions[this.index].blanks;
+      const blankIndex = blanks.findIndex((blank) => blank.state === "active");
+
+      if (blankIndex === -1) {
+        return;
+      }
+
+      blanks[blankIndex].state = state;
+
+      if (blankIndex + 1 < blanks.length) {
+        blanks[blankIndex + 1].state = "active";
+      }
+    },
+
     submitAnswer() {
       const answer = this.answer;
       this.answer = "";
 
-      const blanks = this.questions[this.index].blanks;
-      const blankIndex = blanks.findIndex((blank) => blank.state === "active");
-      const blank = blanks[blankIndex];
-
-      if (!blank) {
-        console.log("no blank");
+      if (answer !== this.activeBlank.answer) {
+        this.activeBlank.hasIncorrect = true;
         return;
       }
 
-      if (answer === blank.answer) {
-        blank.state = blank.hasIncorrect ? "incorrect" : "correct";
+      this.moveToNextBlank(this.activeBlank.hasIncorrect ? "incorrect" : "correct");
 
-        const nextBlank = blanks[blankIndex + 1];
-
-        if (!nextBlank) {
-          this.index++;
-          return;
-        }
-
-        nextBlank.state = "active";
-      } else {
-        blank.hasIncorrect = true;
+      if (!this.activeBlank) {
+        this.index++;
       }
     },
+
+    revealAnswer() {},
   }));
 });

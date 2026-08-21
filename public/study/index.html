@@ -31,8 +31,8 @@
         x-model="answer"
         @focus="$el.select()"
         @keydown.enter="submitAnswer()"
-        @keydown.insert=""
-        @keydown.end=""
+        @keydown.insert="revealAnswer()"
+        @keydown.end="revealAnswer()"
         @keydown.arrow-up="">
     </section>
   </main>

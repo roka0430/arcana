@@ -36,8 +36,8 @@ export default class AppState {
     return this.get(this.#STUDY_SETTINGS);
   }
 
-  static setStudySettings(id) {
-    this.set(this.#STUDY_SETTINGS, id);
+  static setStudySettings(settings) {
+    this.set(this.#STUDY_SETTINGS, settings);
   }
 
   // Subject selector

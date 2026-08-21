@@ -198,5 +198,12 @@ document.addEventListener("alpine:init", () => {
         input.setSelectionRange(input.value.length, input.value.length);
       });
     },
+
+    focusAnswerInput(e) {
+      if (document.activeElement !== this.$refs.answerInput) {
+        this.$refs.answerInput.focus();
+        e.preventDefault();
+      }
+    },
   }));
 });

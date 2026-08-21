@@ -35,7 +35,8 @@
         @keydown.insert="revealAnswer()"
         @keydown.end="revealAnswer()"
         @keydown.tab="skipAnswer($event)"
-        @keydown.arrow-up="restorePreviousAnswer()">
+        @keydown.arrow-up="restorePreviousAnswer()"
+        @keydown.window="focusAnswerInput($event)">
     </section>
   </main>
 

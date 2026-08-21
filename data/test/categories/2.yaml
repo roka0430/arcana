@@ -6,23 +6,23 @@ subjects:
     questions:
       - id: 1
         blank_count: 3
-        question: あ→；あ；　い→；い；　う→；う；
+        question: 1 あ→；あ；　い→；い；　う→；う；
       - id: 2
         blank_count: 3
-        question: あ→；あ；　い→；い；　う→；う；
+        question: 2 あ→；あ；　い→；い；　う→；う；
       - id: 3
         blank_count: 3
-        question: あ→；あ；　い→；い；　う→；う；
+        question: 3 あ→；あ；　い→；い；　う→；う；
   - id: 2
     name: いいい
     blank_count: 9
     questions:
       - id: 1
         blank_count: 3
-        question: あ→；あ；　い→；い；　う→；う；
+        question: 4 あ→；あ；　い→；い；　う→；う；
       - id: 2
         blank_count: 3
-        question: あ→；あ；　い→；い；　う→；う；
+        question: 5 あ→；あ；　い→；い；　う→；う；
       - id: 3
         blank_count: 3
-        question: あ→；あ；　い→；い；　う→；う；
+        question: 6 あ→；あ；　い→；い；　う→；う；

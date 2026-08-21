@@ -29,11 +29,10 @@ document.addEventListener("alpine:init", () => {
     settings: {},
     subject: {},
     questions: [],
-    mistakes: [],
+    results: {},
 
     async init() {
       this.settings = AppState.getStudySettings();
-
       this.subject = await loadSubject();
 
       if (!this.subject) {
@@ -42,12 +41,25 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.questions = this.subject.questions;
+      this.orderQuestions();
+      this.initResults();
 
+      console.log(this.results);
+    },
+
+    orderQuestions() {
       if (this.settings.order === "random") {
         randomShuffle(this.questions);
       }
+    },
 
-      console.log(this.questions);
+    initResults() {
+      this.questions.forEach((question) => {
+        this.results[question.id] = {
+          isCorrect: null,
+          blanks: Array(question.blank_count).fill(null),
+        };
+      });
     },
   }));
 

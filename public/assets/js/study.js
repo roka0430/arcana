@@ -50,6 +50,12 @@ document.addEventListener("alpine:init", () => {
       this.questions = this.subject.questions;
 
       this.prepareQuestions();
+
+      if (this.questions.length === 0) {
+        location.replace("/");
+        return;
+      }
+
       this.initResults();
     },
 

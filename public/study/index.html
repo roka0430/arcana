@@ -21,15 +21,16 @@
       <div class="study-header__menu">menu</div>
     </section>
 
-    <section class="study-question" x-data="question" x-html="currentQuestionHtml">
+    <section class="study-question" x-html="currentQuestionHtml">
     </section>
 
     <section class="study-answer" x-show="settings.answer === 'input'">
       <input
         type="text"
         class="study-answer__input"
+        x-model="answer"
         @focus="$el.select()"
-        @keydown.enter=""
+        @keydown.enter="submitAnswer()"
         @keydown.insert=""
         @keydown.end=""
         @keydown.arrow-up="">

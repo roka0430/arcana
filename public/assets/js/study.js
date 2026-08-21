@@ -34,6 +34,7 @@ document.addEventListener("alpine:init", () => {
     questions: [],
     results: {},
     index: 0,
+    answer: "",
 
     async init() {
       this.settings = AppState.getStudySettings();
@@ -75,9 +76,7 @@ document.addEventListener("alpine:init", () => {
         };
       });
     },
-  }));
 
-  Alpine.data("question", () => ({
     get currentQuestionHtml() {
       if (this.questions.length === 0) {
         return "";
@@ -90,6 +89,10 @@ document.addEventListener("alpine:init", () => {
         const className = blankIndex++ === 0 ? "blank target" : "blank";
         return `<span class="${className}">${content}</span>`;
       });
+    },
+
+    submitAnswer() {
+      this.answer = "";
     },
   }));
 });

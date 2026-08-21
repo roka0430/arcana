@@ -27,7 +27,7 @@ document.addEventListener("alpine:init", () => {
     },
   }));
 
-  Alpine.data("subject", () => ({
+  Alpine.data("question", () => ({
     subject: {},
 
     async init() {

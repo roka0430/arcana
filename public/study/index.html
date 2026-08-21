@@ -11,15 +11,13 @@
 
 <body>
   <main x-data="main">
-    <div x-data="subject"></div>
-
     <section class="study-header">
       <div class="study-header__subject-name">前期中間試験 > 国語</div>
       <div class="study-header__info">5 / 10</div>
       <div class="study-header__menu">menu</div>
     </section>
 
-    <section class="study-question">question</section>
+    <section class="study-question" x-data="question">question</section>
 
     <section class="study-answer" x-show="settings.answer === 'input'">answer</section>
   </main>

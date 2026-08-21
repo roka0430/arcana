@@ -159,6 +159,10 @@ document.addEventListener("alpine:init", () => {
         return {
           id: question.id,
           incorrect: question.blanks.some((blank) => blank.hasIncorrect),
+          blanks: question.blanks.map((blank) => ({
+            answer: blank.answer,
+            incorrect: blank.hasIncorrect,
+          })),
         };
       });
 

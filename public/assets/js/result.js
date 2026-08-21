@@ -3,16 +3,18 @@ import Category from "./api/Category.js";
 
 document.addEventListener("alpine:init", () => {
   Alpine.data("main", () => ({
-    init() {
-      const result = AppState.getStudyResult();
+    result: [],
 
-      if (result === null) {
+    init() {
+      this.result = AppState.getStudyResult();
+
+      if (this.result === null) {
         location.replace("/");
         return;
       }
 
       AppState.setStudyResult(null);
-      console.log(result);
+      console.log(this.result);
     },
   }));
 });

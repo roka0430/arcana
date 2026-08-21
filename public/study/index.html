@@ -24,7 +24,14 @@
     <section class="study-question" x-data="question"></section>
 
     <section class="study-answer" x-show="settings.answer === 'input'">
-      <input type="text" class="study-answer__input" value="これは解答例です" @focus="$el.select()">
+      <input
+        type="text"
+        class="study-answer__input"
+        @focus="$el.select()"
+        @keydown.enter=""
+        @keydown.insert=""
+        @keydown.end=""
+        @keydown.arrow-up="">
     </section>
   </main>
 

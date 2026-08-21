@@ -32,7 +32,6 @@ document.addEventListener("alpine:init", () => {
     settings: {},
     subject: {},
     questions: [],
-    results: {},
     index: 0,
 
     answer: "",
@@ -55,8 +54,6 @@ document.addEventListener("alpine:init", () => {
         location.replace("/");
         return;
       }
-
-      this.initResults();
 
       this.$watch("currentQuestionHtml", () => {
         this.$nextTick(() => {
@@ -99,15 +96,6 @@ document.addEventListener("alpine:init", () => {
           };
         });
       }
-    },
-
-    initResults() {
-      this.questions.forEach((question) => {
-        this.results[question.id] = {
-          isCorrect: null,
-          blanks: Array(question.blank_count).fill(null),
-        };
-      });
     },
 
     get currentQuestionHtml() {
@@ -155,12 +143,28 @@ document.addEventListener("alpine:init", () => {
         return;
       }
 
+      this.nextQuestion();
+    },
+
+    nextQuestion() {
       this.index++;
 
       if (this.index >= this.questions.length) {
-        location.replace("/result");
-        return;
+        this.finish();
       }
+    },
+
+    finish() {
+      const result = this.questions.map((question) => {
+        return {
+          id: question.id,
+          incorrect: question.blanks.some((blank) => blank.hasIncorrect),
+        };
+      });
+
+      AppState.setStudyResult(result);
+      location.replace("/result");
+      return;
     },
 
     submitAnswer() {

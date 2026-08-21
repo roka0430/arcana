@@ -2,6 +2,7 @@ export default class AppState {
   static #CURRENT_CATEGORY_ID = "arcana:current_category_id";
   static #STUDY_SETTINGS = "arcana:study_settings";
   static #SUBJECT_SELECTOR = "arcana:subject_selector";
+  static #STUDY_RESULT = "arcana:study_result";
 
   static get(key) {
     const value = localStorage.getItem(key);
@@ -47,5 +48,15 @@ export default class AppState {
 
   static setSubjectSelector(id) {
     this.set(this.#SUBJECT_SELECTOR, id);
+  }
+
+  // Study result
+
+  static getStudyResult() {
+    return this.get(this.#STUDY_RESULT);
+  }
+
+  static setStudyResult(result) {
+    this.set(this.#STUDY_RESULT, result);
   }
 }

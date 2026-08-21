@@ -64,7 +64,7 @@ button {
 
 main,
 .shortcut-bar {
-  width: min(calc(100% - 64px), 750px);
+  width: min(calc(100% - 64px), 800px);
 }
 
 main {

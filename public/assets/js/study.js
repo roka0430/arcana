@@ -57,6 +57,15 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.initResults();
+
+      this.$watch("currentQuestionHtml", () => {
+        this.$nextTick(() => {
+          this.$refs.question.querySelector(".blank.active")?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        });
+      });
     },
 
     prepareQuestions() {

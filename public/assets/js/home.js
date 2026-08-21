@@ -207,7 +207,13 @@ document.addEventListener("alpine:init", () => {
         return;
       }
 
-      window.location.href = `/study/${this.selectedId}`;
+      const subject = this.subjects.find(({ id }) => id === this.selectedId);
+
+      if (!subject || subject.question_count === 0) {
+        return;
+      }
+
+      window.location.href = `/study/${subject.id}`;
     },
   }));
 });

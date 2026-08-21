@@ -92,7 +92,11 @@
       @keydown.window.arrow-up="moveSelectedSubject(-1)"
       @keydown.window.enter="activateSelectedSubject()">
       <template x-for="subject in subjects">
-        <a class="subject-list__item" :href=`/study/${subject.id}` :class="{'selected': subject.id === selectedId}" @click="setSelectedId(subject.id)">
+        <a
+          class="subject-list__item"
+          :href=`/study/${subject.id}`
+          :class="{'selected': subject.id === selectedId, 'disabled': subject.question_count === 0}"
+          @click="setSelectedId(subject.id)">
           <span class="subject-name" x-text="subject.name"></span>
           <span class="subject-info">
             <span class="subject-info__item">

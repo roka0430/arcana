@@ -320,6 +320,11 @@ main {
   text-decoration: none !important;
 }
 
+.subject-list__item.disabled {
+  pointer-events: none;
+  color: var(--color-text-muted);
+}
+
 .subject-list__item.selected {
   background: var(--color-surface);
 }

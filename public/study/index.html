@@ -30,13 +30,8 @@
         autofocus="true"
         x-ref="answerInput"
         x-model="answer"
-        @focus="$el.select()"
-        @keydown.enter="submitAnswer()"
-        @keydown.insert="revealAnswer()"
-        @keydown.end="revealAnswer()"
-        @keydown.tab="skipAnswer($event)"
-        @keydown.arrow-up="restorePreviousAnswer()"
-        @keydown.window="focusAnswerInput($event)">
+        @focus="handleFocusAnswerInput()"
+        @blur="handleBlurAnswerInput()">
     </section>
   </main>
 

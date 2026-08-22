@@ -42,14 +42,57 @@ document.addEventListener("alpine:init", () => {
     previousAnswer: "",
 
     async init() {
-      Shortcut.setContext("study");
-      Shortcut.setOrder("study", ["Escape"]);
+      Shortcut.setContext("focused");
+      Shortcut.setOrder("focused", ["Escape", "Enter", "Insert", "End", "Tab", "ArrowUp"]);
+      Shortcut.setOrder("blurred", ["Escape", "*"]);
 
-      Shortcut.register("study", {
+      Shortcut.register(["focused", "blurred"], {
         key: "Escape",
         kbd: "Esc",
         description: "中断",
         handler: () => (location.href = "/"),
+      });
+
+      Shortcut.register("focused", {
+        key: "Enter",
+        kbd: "Enter",
+        description: "解答",
+        handler: () => this.submitAnswer(),
+      });
+
+      Shortcut.register("focused", {
+        key: "Insert",
+        kbd: "Insert",
+        description: "表示",
+        handler: () => this.revealAnswer(),
+      });
+
+      Shortcut.register("focused", {
+        key: "End",
+        kbd: "End",
+        description: "表示",
+        handler: () => this.revealAnswer(),
+      });
+
+      Shortcut.register("focused", {
+        key: "Tab",
+        kbd: "Tab",
+        description: "スキップ",
+        handler: (e) => this.skipAnswer(e),
+      });
+
+      Shortcut.register("focused", {
+        key: "ArrowUp",
+        kbd: "↑",
+        description: "前の解答",
+        handler: () => this.restorePreviousAnswer(),
+      });
+
+      Shortcut.register("blurred", {
+        key: "*",
+        kbd: "*",
+        description: "フォーカス",
+        handler: (e) => this.focusAnswerInput(e),
       });
 
       this.settings = AppState.getStudySettings();
@@ -195,6 +238,15 @@ document.addEventListener("alpine:init", () => {
       AppState.setStudyResult(result);
       location.replace("/result");
       return;
+    },
+
+    handleFocusAnswerInput() {
+      this.$refs.answerInput.select();
+      Shortcut.setContext("focused");
+    },
+
+    handleBlurAnswerInput() {
+      Shortcut.setContext("blurred");
     },
 
     submitAnswer() {

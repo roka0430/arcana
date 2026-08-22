@@ -68,6 +68,7 @@ document.addEventListener("alpine:init", () => {
 
     async init() {
       Shortcut.setContext("home");
+      Shortcut.setOrder("home", ["Enter", "ArrowUp", "ArrowDown"]);
 
       this.categories = await Category.getCategories();
 

@@ -2,13 +2,25 @@ class Shortcut {
   constructor() {
     this.context = null;
     this.shortcuts = {};
+    this.order = {};
 
     window.addEventListener("keydown", this.handleKeydown.bind(this));
   }
 
   get availableShortcuts() {
-    const shortcuts = this.shortcuts[this.context] ?? [];
-    return Object.entries(shortcuts).map(([key, { kbd, description }]) => ({ key, kbd, description }));
+    const order = this.order[this.context] ?? [];
+    const orderIndex = new Map(order.map((key, index) => [key, index]));
+
+    const shortcuts = this.shortcuts[this.context] ?? {};
+    const shortcutList = Object.entries(shortcuts).map(([key, { kbd, description }]) => ({ key, kbd, description }));
+
+    shortcutList.sort((a, b) => {
+      const aIndex = orderIndex.get(a.key) ?? Infinity;
+      const bIndex = orderIndex.get(b.key) ?? Infinity;
+      return aIndex - bIndex;
+    });
+
+    return shortcutList;
   }
 
   notifyChange() {
@@ -18,6 +30,10 @@ class Shortcut {
   setContext(context) {
     this.context = context;
     this.notifyChange();
+  }
+
+  setOrder(context, order) {
+    this.order[context] = order;
   }
 
   register(context, { key, kbd, description, handler }) {

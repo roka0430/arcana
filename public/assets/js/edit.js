@@ -10,10 +10,10 @@ document.addEventListener("alpine:init", () => {
 
   Alpine.data("main", () => ({
     categories: [],
-    category: null,
+    currentCategory: null,
 
     subjects: [],
-    subject: null,
+    currentSubject: null,
 
     async init() {
       this.initShortcut();

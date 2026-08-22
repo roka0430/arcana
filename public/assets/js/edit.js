@@ -55,15 +55,20 @@ document.addEventListener("alpine:init", () => {
 
       this.subjects.sort((a, b) => a.name.localeCompare(b.name));
 
-      let subjectId = AppState.getSubjectSelector();
-      if (subjectId === null) {
-        subjectId = this.subjects[0].id;
+      const subjectId = AppState.getSubjectSelector();
+      this.currentSubject = this.getCurrentSubject(subjectId);
+    },
+
+    getCurrentSubject(subjectId) {
+      if (subjectId !== null) {
+        const subject = this.subjects.find((subject) => subject.id === subjectId);
+
+        if (subject) {
+          return subject;
+        }
       }
 
-      this.currentSubject = this.subjects.find((subject) => subject.id === subjectId);
-      if (!this.currentSubject) {
-        this.currentSubject = this.subjects[0];
-      }
+      return this.subjects[0];
     },
 
     selectSubject(subjectId) {

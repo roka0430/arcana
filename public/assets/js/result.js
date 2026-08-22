@@ -16,7 +16,7 @@ document.addEventListener("alpine:init", () => {
       const result = AppState.getStudyResult();
 
       if (result === null) {
-        // location.replace("/");
+        location.replace("/");
         return;
       }
 

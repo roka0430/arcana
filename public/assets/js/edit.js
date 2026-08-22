@@ -75,6 +75,8 @@ document.addEventListener("alpine:init", () => {
       if (subjectId === this.currentSubject.id) {
         return;
       }
+
+      this.currentSubject = this.getCurrentSubject(subjectId);
     },
   }));
 });

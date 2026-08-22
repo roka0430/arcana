@@ -10,9 +10,18 @@ document.addEventListener("alpine:init", () => {
 
   Alpine.data("main", () => ({
     categories: [],
-    currentCategory: null,
+    category: null,
+
+    subjects: [],
+    subject: null,
 
     async init() {
+      this.initShortcut();
+      await this.loadCategory();
+      this.loadSubject();
+    },
+
+    initShortcut() {
       Shortcut.setContext("edit");
       Shortcut.setOrder("edit", []);
 
@@ -22,7 +31,9 @@ document.addEventListener("alpine:init", () => {
         description: "dummy",
         handler: null,
       });
+    },
 
+    async loadCategory() {
       this.categories = await Category.getCategories();
 
       if (this.categories.length === 0) {
@@ -31,8 +42,9 @@ document.addEventListener("alpine:init", () => {
         return;
       }
 
-      this.currentCategory = await getCurrentCategory(this.categories);
-      console.log(this.currentCategory);
+      this.category = await getCurrentCategory(this.categories);
     },
+
+    loadSubject() {},
   }));
 });

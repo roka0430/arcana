@@ -42,11 +42,11 @@ document.addEventListener("alpine:init", () => {
         return;
       }
 
-      this.category = await getCurrentCategory(this.categories);
+      this.currentCategory = await getCurrentCategory(this.categories);
     },
 
     loadSubject() {
-      this.subjects = this.category.subjects;
+      this.subjects = this.currentCategory.subjects;
 
       if (this.subjects.length === 0) {
         console.log("no-subject");
@@ -60,9 +60,9 @@ document.addEventListener("alpine:init", () => {
         subjectId = this.subjects[0].id;
       }
 
-      this.subject = this.subjects.find((subject) => subject.id === subjectId);
-      if (!this.subject) {
-        this.subject = this.subjects[0];
+      this.currentSubject = this.subjects.find((subject) => subject.id === subjectId);
+      if (!this.currentSubject) {
+        this.currentSubject = this.subjects[0];
       }
     },
   }));

@@ -14,10 +14,9 @@
     <section class="edit-header">header</section>
 
     <section class="edit-directory">
-      <div class="edit-directory__item">国語</div>
-      <div class="edit-directory__item current">国語</div>
-      <div class="edit-directory__item">国語</div>
-      <div class="edit-directory__item">国語</div>
+      <template x-for="subject in subjects">
+        <div class="edit-directory__item" :class="{'current': subject.id === currentSubject?.id}" x-text="subject.name"></div>
+      </template>
     </section>
 
     <section class="edit-main">

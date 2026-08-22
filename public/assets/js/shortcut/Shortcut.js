@@ -56,7 +56,7 @@ class Shortcut {
     const key = this.createKey(e);
 
     const shortcuts = this.shortcuts[this.context];
-    const handler = shortcuts?.[key]?.handler ?? shortcuts["*"]?.handler;
+    const handler = shortcuts?.[key]?.handler ?? shortcuts?.["*"]?.handler;
 
     if (!handler) {
       return;

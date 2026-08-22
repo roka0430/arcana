@@ -1,7 +1,7 @@
 class Shortcut {
   constructor() {
     this.context = null;
-    this.shortcuts = new Map();
+    this.shortcuts = {};
 
     window.addEventListener("keydown", this.handleKeydown.bind(this));
   }
@@ -20,18 +20,18 @@ class Shortcut {
   }
 
   register(context, key, handler) {
-    if (!this.shortcuts.has(context)) {
-      this.shortcuts.set(context, new Map());
+    if (!this.shortcuts[context]) {
+      this.shortcuts[context] = {};
     }
 
-    this.shortcuts.get(context).set(key, handler);
+    this.shortcuts[context][key] = handler;
     this.notifyChange();
   }
 
   handleKeydown(e) {
     const key = this.createKey(e);
 
-    const handler = this.shortcuts.get(this.context)?.get(key);
+    const handler = this.shortcuts[this.context]?.[key];
 
     if (!handler) {
       return;

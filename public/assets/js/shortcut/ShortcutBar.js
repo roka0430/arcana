@@ -12,5 +12,7 @@ export default () => ({
 
     this.update();
     window.addEventListener("shortcut-change", this.update);
+
+    console.log(this.shortcuts);
   },
 });

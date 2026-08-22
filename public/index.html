@@ -119,15 +119,13 @@
     </section>
   </main>
 
-  <aside class="shortcut-bar">
-    <div class="shortcut-item">
-      <kbd>Ctrl+S</kbd>
-      <span>保存</span>
-    </div>
-    <div class="shortcut-item">
-      <kbd>Ctrl+S</kbd>
-      <span>保存</span>
-    </div>
+  <aside class="shortcut-bar" x-data="shortcutBar">
+    <template x-for="shortcut in shortcuts" :key="shortcut.key">
+      <div class="shortcut-item">
+        <kbd x-text="shortcut.key"></kbd>
+        <span x-text="shortcut.label"></span>
+      </div>
+    </template>
   </aside>
 
   <script type="module" src="assets/js/home.js" defer></script>

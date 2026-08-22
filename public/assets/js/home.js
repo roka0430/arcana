@@ -1,5 +1,6 @@
 import AppState from "./state/AppState.js";
 import Shortcut from "./shortcut/Shortcut.js";
+import ShortcutBar from "./shortcut/ShortcutBar.js";
 import Category from "./api/Category.js";
 
 // settings
@@ -58,6 +59,8 @@ const getCurrentCategory = async (categories) => {
 // Alpine.js
 
 document.addEventListener("alpine:init", () => {
+  Alpine.data("shortcutBar", ShortcutBar);
+
   Alpine.data("main", () => ({
     categories: [],
     currentCategory: null,

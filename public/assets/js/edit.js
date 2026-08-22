@@ -5,6 +5,15 @@ import ShortcutBar from "./shortcut/ShortcutBar.js";
 import Category from "./category/Category.js";
 import { getCurrentCategory } from "./category/currentCategory.js";
 
+const escapeHtml = (str) => {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+};
+
 document.addEventListener("alpine:init", () => {
   Alpine.data("shortcutBar", ShortcutBar);
 
@@ -16,6 +25,7 @@ document.addEventListener("alpine:init", () => {
     currentSubject: null,
 
     content: "",
+    timeout: null,
 
     async init() {
       this.initShortcut();
@@ -87,6 +97,43 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.content = questions.map(({ question }) => question).join("\n\n");
+    },
+
+    saveContent() {
+      const splitted = this.content.split(/\n{2,}/);
+      const shaped = splitted.filter((item) => item.trim() !== "");
+      const escaped = shaped.map(escapeHtml);
+
+      const questions = [];
+      let blankCount = 0;
+      for (const [i, question] of Object.entries(escaped)) {
+        const blanks = question.match(/；.*?；/g) ?? [];
+        blankCount += blanks.length;
+
+        questions.push({
+          id: Number(i) + 1,
+          blank_count: blanks.length,
+          question: question,
+        });
+      }
+
+      this.currentSubject.blank_count = blankCount;
+      this.currentSubject.questions = questions;
+
+      this.saveCategory();
+    },
+
+    saveCategory() {
+      const blankCount = this.subjects.reduce((sum, { blank_count }) => sum + blank_count, 0);
+      this.currentCategory.blank_count = blankCount;
+
+      console.log(JSON.parse(JSON.stringify(this.currentCategory)));
+      // ここでsave
+    },
+
+    inputContent() {
+      if (this.timeout) clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => this.saveContent(), 1000);
     },
 
     selectSubject(subjectId) {

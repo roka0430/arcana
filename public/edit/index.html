@@ -15,7 +15,7 @@
 
     <section class="edit-directory">
       <template x-for="subject in subjects">
-        <div class="edit-directory__item" :class="{'current': subject.id === currentSubject?.id}" x-text="subject.name"></div>
+        <div class="edit-directory__item" :class="{'current': subject.id === currentSubject?.id}" x-text="subject.name" @click="selectSubject(subject.id)"></div>
       </template>
     </section>
 

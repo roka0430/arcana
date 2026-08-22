@@ -65,5 +65,11 @@ document.addEventListener("alpine:init", () => {
         this.currentSubject = this.subjects[0];
       }
     },
+
+    selectSubject(subjectId) {
+      if (subjectId === this.currentSubject.id) {
+        return;
+      }
+    },
   }));
 });

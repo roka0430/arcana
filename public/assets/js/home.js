@@ -123,9 +123,26 @@ document.addEventListener("alpine:init", () => {
     selectedId: null,
 
     init() {
-      Shortcut.register("home", "ENTER", "label", () => this.activateSelectedSubject());
-      Shortcut.register("home", "ARROWUP", "label", () => this.moveSelectedSubject(-1));
-      Shortcut.register("home", "ARROWDOWN", "label", () => this.moveSelectedSubject(1));
+      Shortcut.register("home", {
+        key: "ENTER",
+        kbd: "Enter",
+        description: "問題を解く",
+        handler: () => this.activateSelectedSubject(),
+      });
+
+      Shortcut.register("home", {
+        key: "ARROWUP",
+        kbd: "↑",
+        description: "上へ移動",
+        handler: () => this.moveSelectedSubject(-1),
+      });
+
+      Shortcut.register("home", {
+        key: "ARROWDOWN",
+        kbd: "↓",
+        description: "下へ移動",
+        handler: () => this.moveSelectedSubject(1),
+      });
 
       this.selectedId = AppState.getSubjectSelector();
 

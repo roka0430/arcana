@@ -122,8 +122,8 @@
   <aside class="shortcut-bar" x-data="shortcutBar">
     <template x-for="shortcut in shortcuts" :key="shortcut.key">
       <div class="shortcut-item">
-        <kbd x-text="shortcut.key"></kbd>
-        <span x-text="shortcut.label"></span>
+        <kbd x-text="shortcut.kbd"></kbd>
+        <span x-text="shortcut.description"></span>
       </div>
     </template>
   </aside>

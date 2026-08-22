@@ -80,6 +80,7 @@ main {
   display: flex;
   gap: 8px;
 
+  height: 60px;
   padding-block: 16px;
 
   color: var(--color-text-muted);

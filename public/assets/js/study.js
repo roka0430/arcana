@@ -211,11 +211,12 @@ document.addEventListener("alpine:init", () => {
     },
 
     nextQuestion() {
-      this.index++;
-
-      if (this.index >= this.questions.length) {
+      if (this.index + 1 >= this.questions.length) {
         this.finish();
+        return;
       }
+
+      this.index++;
     },
 
     finish() {

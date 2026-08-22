@@ -6,8 +6,17 @@ class Shortcut {
     window.addEventListener("keydown", this.handleKeydown.bind(this));
   }
 
+  get availableShortcuts() {
+    return this.shortcuts[this.context] ?? [];
+  }
+
+  notifyChange() {
+    window.dispatchEvent(new CustomEvent("shortcut-change"));
+  }
+
   setContext(context) {
     this.context = context;
+    this.notifyChange();
   }
 
   register(context, key, handler) {
@@ -16,6 +25,7 @@ class Shortcut {
     }
 
     this.shortcuts.get(context).set(key, handler);
+    this.notifyChange();
   }
 
   handleKeydown(e) {

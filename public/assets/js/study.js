@@ -1,7 +1,7 @@
 import AppState from "./state/AppState.js";
 import Shortcut from "./shortcut/Shortcut.js";
 import ShortcutBar from "./shortcut/ShortcutBar.js";
-import Category from "./api/Category.js";
+import Category from "./category/Category.js";
 
 // main
 

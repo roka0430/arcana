@@ -1,7 +1,9 @@
 import AppState from "./state/AppState.js";
 import Shortcut from "./shortcut/Shortcut.js";
 import ShortcutBar from "./shortcut/ShortcutBar.js";
-import Category from "./api/Category.js";
+
+import Category from "./category/Category.js";
+import { getCurrentCategory } from "./category/currentCategory.js";
 
 // settings
 
@@ -35,25 +37,6 @@ const getStoredSettings = () => {
   }
 
   return settings;
-};
-
-// subjects
-
-const initCurrentCategoryId = (categories) => {
-  const categoryId = Math.min(...categories.map(({ id }) => id));
-  AppState.setCurrentCategoryId(categoryId);
-  return categoryId;
-};
-
-const getCurrentCategory = async (categories) => {
-  const categoryId = AppState.getCurrentCategoryId() ?? initCurrentCategoryId(categories);
-
-  try {
-    return await Category.getCategory(categoryId);
-  } catch {
-    const categoryId = initCurrentCategoryId(categories);
-    return await Category.getCategory(categoryId);
-  }
 };
 
 // Alpine.js

@@ -123,9 +123,9 @@ document.addEventListener("alpine:init", () => {
     selectedId: null,
 
     init() {
-      Shortcut.register("home", "ENTER", () => this.activateSelectedSubject());
-      Shortcut.register("home", "ARROWUP", () => this.moveSelectedSubject(-1));
-      Shortcut.register("home", "ARROWDOWN", () => this.moveSelectedSubject(1));
+      Shortcut.register("home", "ENTER", "label", () => this.activateSelectedSubject());
+      Shortcut.register("home", "ARROWUP", "label", () => this.moveSelectedSubject(-1));
+      Shortcut.register("home", "ARROWDOWN", "label", () => this.moveSelectedSubject(1));
 
       this.selectedId = AppState.getSubjectSelector();
 

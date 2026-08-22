@@ -7,7 +7,8 @@ class Shortcut {
   }
 
   get availableShortcuts() {
-    return this.shortcuts[this.context] ?? [];
+    const shortcuts = this.shortcuts[this.context] ?? [];
+    return Object.entries(shortcuts).map(([key, { label }]) => ({ key, label }));
   }
 
   notifyChange() {
@@ -19,19 +20,19 @@ class Shortcut {
     this.notifyChange();
   }
 
-  register(context, key, handler) {
+  register(context, key, label, handler) {
     if (!this.shortcuts[context]) {
       this.shortcuts[context] = {};
     }
 
-    this.shortcuts[context][key] = handler;
+    this.shortcuts[context][key] = { label, handler };
     this.notifyChange();
   }
 
   handleKeydown(e) {
     const key = this.createKey(e);
 
-    const handler = this.shortcuts[this.context]?.[key];
+    const handler = this.shortcuts[this.context]?.[key]?.handler;
 
     if (!handler) {
       return;

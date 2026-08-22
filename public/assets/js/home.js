@@ -68,7 +68,14 @@ document.addEventListener("alpine:init", () => {
 
     async init() {
       Shortcut.setContext("home");
-      Shortcut.setOrder("home", ["Enter", "ArrowUp", "ArrowDown"]);
+      Shortcut.setOrder("home", ["Enter", "ArrowUp", "ArrowDown", "e"]);
+
+      Shortcut.register("home", {
+        key: "e",
+        kbd: "E",
+        description: "編集",
+        handler: () => (location.href = "/edit"),
+      });
 
       this.categories = await Category.getCategories();
 

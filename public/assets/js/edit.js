@@ -45,6 +45,25 @@ document.addEventListener("alpine:init", () => {
       this.category = await getCurrentCategory(this.categories);
     },
 
-    loadSubject() {},
+    loadSubject() {
+      this.subjects = this.category.subjects;
+
+      if (this.subjects.length === 0) {
+        console.log("no-subject");
+        return;
+      }
+
+      this.subjects.sort((a, b) => a.name.localeCompare(b.name));
+
+      let subjectId = AppState.getSubjectSelector();
+      if (subjectId === null) {
+        subjectId = this.subjects[0].id;
+      }
+
+      this.subject = this.subjects.find((subject) => subject.id === subjectId);
+      if (!this.subject) {
+        this.subject = this.subjects[0];
+      }
+    },
   }));
 });

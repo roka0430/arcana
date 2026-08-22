@@ -57,8 +57,7 @@ class Shortcut {
       keys.push("Alt");
     }
 
-    keys.push(e.key.toUpperCase());
-
+    keys.push(e.key);
     return keys.join("+");
   }
 }

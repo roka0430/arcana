@@ -124,21 +124,21 @@ document.addEventListener("alpine:init", () => {
 
     init() {
       Shortcut.register("home", {
-        key: "ENTER",
+        key: "Enter",
         kbd: "Enter",
         description: "問題を解く",
         handler: () => this.activateSelectedSubject(),
       });
 
       Shortcut.register("home", {
-        key: "ARROWUP",
+        key: "ArrowUp",
         kbd: "↑",
         description: "上へ移動",
         handler: () => this.moveSelectedSubject(-1),
       });
 
       Shortcut.register("home", {
-        key: "ARROWDOWN",
+        key: "ArrowDown",
         kbd: "↓",
         description: "下へ移動",
         handler: () => this.moveSelectedSubject(1),

@@ -10,6 +10,13 @@ document.addEventListener("alpine:init", () => {
     init() {
       Shortcut.setContext("edit");
       Shortcut.setOrder("edit", []);
+
+      Shortcut.register("edit", {
+        key: "dummy",
+        kbd: "dummy",
+        description: "dummy",
+        handler: null,
+      });
     },
   }));
 });

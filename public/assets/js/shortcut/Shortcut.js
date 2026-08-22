@@ -36,12 +36,19 @@ class Shortcut {
     this.order[context] = order;
   }
 
-  register(context, { key, kbd, description, handler }) {
-    if (!this.shortcuts[context]) {
-      this.shortcuts[context] = {};
+  register(contexts, { key, kbd, description, handler }) {
+    if (!Array.isArray(contexts)) {
+      contexts = [contexts];
     }
 
-    this.shortcuts[context][key] = { kbd, description, handler };
+    for (const context of contexts) {
+      if (!this.shortcuts[context]) {
+        this.shortcuts[context] = {};
+      }
+
+      this.shortcuts[context][key] = { kbd, description, handler };
+    }
+
     this.notifyChange();
   }
 

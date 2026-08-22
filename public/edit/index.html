@@ -12,8 +12,17 @@
 <body>
   <main x-data="main">
     <section class="edit-header">header</section>
-    <section class="edit-directory">directory</section>
-    <section class="edit-main">main</section>
+
+    <section class="edit-directory">
+      <div class="edit-directory__item">国語</div>
+      <div class="edit-directory__item current">国語</div>
+      <div class="edit-directory__item">国語</div>
+      <div class="edit-directory__item">国語</div>
+    </section>
+
+    <section class="edit-main">
+      <textarea class="edit-main__textarea"></textarea>
+    </section>
   </main>
 
   <aside class="shortcut-bar" x-data="shortcutBar">

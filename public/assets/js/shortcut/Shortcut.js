@@ -55,7 +55,8 @@ class Shortcut {
   handleKeydown(e) {
     const key = this.createKey(e);
 
-    const handler = this.shortcuts[this.context]?.[key]?.handler;
+    const shortcuts = this.shortcuts[this.context];
+    const handler = shortcuts?.[key]?.handler ?? shortcuts["*"]?.handler;
 
     if (!handler) {
       return;

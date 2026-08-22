@@ -15,6 +15,8 @@ document.addEventListener("alpine:init", () => {
     subjects: [],
     currentSubject: null,
 
+    content: "",
+
     async init() {
       this.initShortcut();
       await this.loadCategory();
@@ -56,7 +58,12 @@ document.addEventListener("alpine:init", () => {
       this.subjects.sort((a, b) => a.name.localeCompare(b.name));
 
       const subjectId = AppState.getSubjectSelector();
+      this.setCurrentSubject(subjectId);
+    },
+
+    setCurrentSubject(subjectId) {
       this.currentSubject = this.getCurrentSubject(subjectId);
+      this.loadContent();
     },
 
     getCurrentSubject(subjectId) {
@@ -71,12 +78,23 @@ document.addEventListener("alpine:init", () => {
       return this.subjects[0];
     },
 
+    loadContent() {
+      const questions = this.currentSubject.questions;
+
+      if (!questions) {
+        this.content = "";
+        return;
+      }
+
+      this.content = questions.map(({ question }) => question).join("\n\n");
+    },
+
     selectSubject(subjectId) {
       if (subjectId === this.currentSubject.id) {
         return;
       }
 
-      this.currentSubject = this.getCurrentSubject(subjectId);
+      this.setCurrentSubject(subjectId);
     },
   }));
 });

@@ -1,4 +1,6 @@
 import AppState from "./state/AppState.js";
+import Shortcut from "./shortcut/Shortcut.js";
+import ShortcutBar from "./shortcut/ShortcutBar.js";
 import Category from "./api/Category.js";
 
 // main
@@ -28,6 +30,8 @@ const randomShuffle = (array) => {
 // Alpine.js
 
 document.addEventListener("alpine:init", () => {
+  Alpine.data("shortcutBar", ShortcutBar);
+
   Alpine.data("main", () => ({
     settings: {},
     subject: {},
@@ -38,6 +42,16 @@ document.addEventListener("alpine:init", () => {
     previousAnswer: "",
 
     async init() {
+      Shortcut.setContext("study");
+      Shortcut.setOrder("study", ["Escape"]);
+
+      Shortcut.register("study", {
+        key: "Escape",
+        kbd: "Esc",
+        description: "中断",
+        handler: () => (location.href = "/"),
+      });
+
       this.settings = AppState.getStudySettings();
       this.subject = await loadSubject();
 

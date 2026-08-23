@@ -24,8 +24,71 @@ export default class Category {
     const subject = category.subjects?.find(({ id }) => id === subjectId);
     subject.category_name = category.name;
 
-    if (!subject) throw new Error("subject not found");
+    if (!subject) {
+      throw new Error("subject not found.");
+    }
 
     return subject;
+  }
+
+  static async renameCategory(categoryId, newName = null) {
+    if (newName === null || newName.trim() === "") {
+      throw new Error("Category name is required.");
+    }
+
+    const res = await fetch(`/api/category/${categoryId}`, {
+      method: "patch",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: newName,
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to rename category.");
+    }
+
+    return await res.json();
+  }
+
+  static async overwriteCategory(data) {
+    const keys = Object.keys(data);
+    const expectedKeys = ["id", "name", "blank_count", "subjects"];
+
+    if (expectedKeys.length !== keys.length || !expectedKeys.every((key) => keys.includes(key))) {
+      throw new Error("Invalid category data keys.");
+    }
+
+    const res = await fetch("/api/category", {
+      method: "put",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to overwrite category.");
+    }
+
+    return await res.json();
+  }
+
+  static async createCategory(newName = null) {
+    if (newName === null || newName.trim() === "") {
+      throw new Error("Category name is required.");
+    }
+
+    const res = await fetch("/api/category", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: newName,
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to create category.");
+    }
+
+    return await res.json();
   }
 }

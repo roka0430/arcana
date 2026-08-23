@@ -93,7 +93,7 @@ main {
   align-items: center;
 
   padding-block: 1px 3px;
-  padding-inline: 5px;
+  padding-inline: 8px;
 
   background: var(--color-surface);
   border-radius: 5px;

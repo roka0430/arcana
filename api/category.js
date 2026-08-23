@@ -1,6 +1,6 @@
 import express from "express";
 import fs from "fs";
-import { load } from "js-yaml";
+import { load, dump } from "js-yaml";
 
 const INDEX_FILE = "./data/test/index.yaml";
 const CATEGORY_DIR = "./data/test/categories";
@@ -32,6 +32,7 @@ router.get("/:id", (req, res) => {
         error: "category data not found.",
       });
     }
+
     return res.status(500).json({
       error: "failed to read category",
     });
@@ -40,6 +41,29 @@ router.get("/:id", (req, res) => {
 
 router.get("/", (req, res) => {
   res.json(indexData);
+});
+
+router.put("/", (req, res) => {
+  const { id, name, ...data } = req.body;
+  const path = `${CATEGORY_DIR}/${id}.yaml`;
+
+  if (!fs.existsSync(path)) {
+    return res.status(404).json({
+      error: "category data not found",
+    });
+  }
+
+  try {
+    fs.writeFileSync(path, dump(data), "utf-8");
+
+    res.status(200).json({
+      message: "category saved.",
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "failed to save category.",
+    });
+  }
 });
 
 export default router;

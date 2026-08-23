@@ -64,14 +64,7 @@ document.addEventListener("alpine:init", () => {
 
     initShortcut() {
       Shortcut.setContext("edit");
-      Shortcut.setOrder("edit", []);
-
-      Shortcut.register("edit", {
-        key: "dummy",
-        kbd: "dummy",
-        description: "dummy",
-        handler: null,
-      });
+      Shortcut.setOrder("edit", ["Escape"]);
     },
 
     async initCategory() {
@@ -136,12 +129,26 @@ document.addEventListener("alpine:init", () => {
   Alpine.data("edit", () => ({
     timeout: null,
 
+    init() {
+      Shortcut.register("edit", {
+        key: "Escape",
+        kbd: "Esc",
+        description: "保存して終了",
+        handler: () => this.exit(),
+      });
+    },
+
+    async exit() {
+      await this.saveContent();
+      location.href = "/";
+    },
+
     inputContent() {
       if (this.timeout) clearTimeout(this.timeout);
       this.timeout = setTimeout(() => this.saveContent(), 1000);
     },
 
-    saveContent() {
+    async saveContent() {
       const splitted = this.content.split(/\n{2,}/);
       const shaped = splitted.filter((item) => item.trim() !== "");
       const escaped = shaped.map(escapeHtml);
@@ -162,7 +169,7 @@ document.addEventListener("alpine:init", () => {
       this.currentSubject.blank_count = blankCount;
       this.currentSubject.questions = questions;
 
-      this.saveCategory();
+      await this.saveCategory();
     },
 
     async saveCategory() {

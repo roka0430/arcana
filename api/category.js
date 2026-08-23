@@ -31,11 +31,10 @@ router.get("/:id", (req, res) => {
       return res.status(404).json({
         error: "category data not found.",
       });
-
-      return res.status(500).json({
-        error: "failed to read category",
-      });
     }
+    return res.status(500).json({
+      error: "failed to read category",
+    });
   }
 });
 

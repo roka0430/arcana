@@ -34,7 +34,7 @@ router.get("/:id", (req, res) => {
     }
 
     return res.status(500).json({
-      error: "failed to read category",
+      error: "failed to read category.",
     });
   }
 });
@@ -43,13 +43,36 @@ router.get("/", (req, res) => {
   res.json(indexData);
 });
 
+router.patch("/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const { name } = req.body;
+
+  try {
+    const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
+    const category = indexData.find((category) => category.id === id);
+
+    if (!category) {
+      return res.status(404).json({
+        error: "category not found.",
+      });
+    }
+
+    category.name = name;
+    fs.writeFileSync(INDEX_FILE, dump(indexData), "utf-8");
+  } catch (error) {
+    res.status(500).json({
+      error: "failed to save category.",
+    });
+  }
+});
+
 router.put("/", (req, res) => {
   const { id, name, ...data } = req.body;
   const path = `${CATEGORY_DIR}/${id}.yaml`;
 
   if (!fs.existsSync(path)) {
     return res.status(404).json({
-      error: "category data not found",
+      error: "category data not found.",
     });
   }
 

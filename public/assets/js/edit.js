@@ -14,6 +14,34 @@ const escapeHtml = (str) => {
     .replace(/'/g, "&#39;");
 };
 
+const loadCategory = async () => {
+  const categories = await Category.getCategories();
+
+  if (categories.length === 0) {
+    AppState.setCurrentCategoryId(null);
+    location.replace("/edit/category");
+    return;
+  }
+
+  return categories;
+};
+
+const sortSubjects = (subjects) => {
+  return subjects.sort((a, b) => a.name.localeCompare(b.name));
+};
+
+const getCurrentSubject = (subjects, subjectId) => {
+  if (subjectId !== null) {
+    const subject = subjects.find((subject) => subject.id === subjectId);
+
+    if (subject) {
+      return subject;
+    }
+  }
+
+  return subjects[0];
+};
+
 document.addEventListener("alpine:init", () => {
   Alpine.data("shortcutBar", ShortcutBar);
 
@@ -25,12 +53,13 @@ document.addEventListener("alpine:init", () => {
     currentSubject: null,
 
     content: "",
-    timeout: null,
 
     async init() {
       this.initShortcut();
-      await this.loadCategory();
-      this.loadSubject();
+      await this.initCategory();
+      this.initSubject();
+
+      this.setContent();
     },
 
     initShortcut() {
@@ -45,53 +74,24 @@ document.addEventListener("alpine:init", () => {
       });
     },
 
-    async loadCategory() {
-      this.categories = await Category.getCategories();
-
-      if (this.categories.length === 0) {
-        AppState.setCurrentCategoryId(null);
-        location.replace("/edit/category");
-        return;
-      }
-
+    async initCategory() {
+      this.categories = await loadCategory();
       this.currentCategory = await getCurrentCategory(this.categories);
     },
 
-    loadSubject() {
+    initSubject() {
       this.subjects = this.currentCategory.subjects;
 
       if (this.subjects.length === 0) {
-        console.log("no-subject");
+        console.log("no subjects");
         return;
       }
 
-      this.sortSubjects();
-      const subjectId = AppState.getSubjectSelector();
-      this.setCurrentSubject(subjectId);
+      this.subjects = sortSubjects(this.subjects);
+      this.currentSubject = getCurrentSubject(this.subjects, AppState.getSubjectSelector());
     },
 
-    sortSubjects() {
-      this.subjects.sort((a, b) => a.name.localeCompare(b.name));
-    },
-
-    setCurrentSubject(subjectId) {
-      this.currentSubject = this.getCurrentSubject(subjectId);
-      this.loadContent();
-    },
-
-    getCurrentSubject(subjectId) {
-      if (subjectId !== null) {
-        const subject = this.subjects.find((subject) => subject.id === subjectId);
-
-        if (subject) {
-          return subject;
-        }
-      }
-
-      return this.subjects[0];
-    },
-
-    loadContent() {
+    setContent() {
       const questions = this.currentSubject.questions;
 
       if (!questions) {
@@ -100,6 +100,45 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.content = questions.map(({ question }) => question).join("\n\n");
+    },
+  }));
+
+  Alpine.data("directory", () => ({
+    editingSubjectId: null,
+
+    init() {},
+
+    selectSubject(subjectId) {
+      if (subjectId === this.currentSubject.id) {
+        return;
+      }
+
+      this.currentSubject = getCurrentSubject(this.subjects, subjectId);
+      this.setContent();
+    },
+
+    startEditingName(subjectId) {
+      this.editingSubjectId = subjectId;
+
+      this.$nextTick(() => {
+        const input = document.querySelector("input.editing");
+        input?.select();
+      });
+    },
+
+    async finishEditingName() {
+      this.editingSubjectId = null;
+      this.subjects = sortSubjects(this.subjects);
+      await Category.overwriteCategory(this.currentCategory);
+    },
+  }));
+
+  Alpine.data("edit", () => ({
+    timeout: null,
+
+    inputContent() {
+      if (this.timeout) clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => this.saveContent(), 1000);
     },
 
     saveContent() {
@@ -130,40 +169,6 @@ document.addEventListener("alpine:init", () => {
       const blankCount = this.subjects.reduce((sum, { blank_count }) => sum + blank_count, 0);
       this.currentCategory.blank_count = blankCount;
 
-      await Category.overwriteCategory(this.currentCategory);
-    },
-
-    inputContent() {
-      if (this.timeout) clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => this.saveContent(), 1000);
-    },
-  }));
-
-  Alpine.data("directory", () => ({
-    editingSubjectId: null,
-
-    init() {},
-
-    selectSubject(subjectId) {
-      if (subjectId === this.currentSubject.id) {
-        return;
-      }
-
-      this.setCurrentSubject(subjectId);
-    },
-
-    startEditingName(subjectId) {
-      this.editingSubjectId = subjectId;
-
-      this.$nextTick(() => {
-        const input = document.querySelector("input.editing");
-        input?.select();
-      });
-    },
-
-    async finishEditingName() {
-      this.editingSubjectId = null;
-      this.sortSubjects();
       await Category.overwriteCategory(this.currentCategory);
     },
   }));

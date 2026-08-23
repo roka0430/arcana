@@ -65,10 +65,13 @@ document.addEventListener("alpine:init", () => {
         return;
       }
 
-      this.subjects.sort((a, b) => a.name.localeCompare(b.name));
-
+      this.sortSubjects();
       const subjectId = AppState.getSubjectSelector();
       this.setCurrentSubject(subjectId);
+    },
+
+    sortSubjects() {
+      this.subjects.sort((a, b) => a.name.localeCompare(b.name));
     },
 
     setCurrentSubject(subjectId) {
@@ -134,6 +137,12 @@ document.addEventListener("alpine:init", () => {
       if (this.timeout) clearTimeout(this.timeout);
       this.timeout = setTimeout(() => this.saveContent(), 1000);
     },
+  }));
+
+  Alpine.data("directory", () => ({
+    editingSubjectId: null,
+
+    init() {},
 
     selectSubject(subjectId) {
       if (subjectId === this.currentSubject.id) {
@@ -141,6 +150,21 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.setCurrentSubject(subjectId);
+    },
+
+    startEditingName(subjectId) {
+      this.editingSubjectId = subjectId;
+
+      this.$nextTick(() => {
+        const input = document.querySelector("input.editing");
+        input?.select();
+      });
+    },
+
+    async finishEditingName() {
+      this.editingSubjectId = null;
+      this.sortSubjects();
+      await Category.overwriteCategory(this.currentCategory);
     },
   }));
 });

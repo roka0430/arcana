@@ -13,9 +13,22 @@
   <main x-data="main">
     <section class="edit-header">header</section>
 
-    <section class="edit-directory">
+    <section class="edit-directory" x-data="directory">
       <template x-for="subject in subjects">
-        <div class="edit-directory__item" :class="{'current': subject.id === currentSubject?.id}" x-text="subject.name" @click="selectSubject(subject.id)"></div>
+        <div
+          class="edit-directory__item"
+          :class="{'current': subject.id === currentSubject?.id, 'editing': editingSubjectId === subject.id}"
+          @click="selectSubject(subject.id)"
+          @dblclick="startEditingName(subject.id)">
+          <span x-text="subject.name" x-show="editingSubjectId !== subject.id"></span>
+          <input
+            type="text"
+            :class="{'editing': editingSubjectId === subject.id}"
+            x-model="subject.name"
+            x-show="editingSubjectId === subject.id"
+            @click.outside="finishEditingName()"
+            @keydown.enter="finishEditingName()">
+        </div>
       </template>
     </section>
 

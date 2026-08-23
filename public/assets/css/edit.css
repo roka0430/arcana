@@ -38,8 +38,8 @@ main {
 }
 
 .edit-directory__item {
-  padding-block: 2px 4px;
-  padding-inline: 8px;
+  padding-block: 4px 6px;
+  padding-inline: 10px;
 
   border-radius: 5px;
 
@@ -48,6 +48,22 @@ main {
 
 .edit-directory__item.current {
   background: var(--color-surface);
+}
+
+.edit-directory__item.editing {
+  padding: 4px;
+}
+
+.edit-directory__item input {
+  width: 100%;
+
+  padding-block: 0 2px;
+  padding-inline: 5px;
+
+  background: var(--color-bg);
+  border: solid 1px var(--color-border);
+  border-radius: 4px;
+  outline: none;
 }
 
 /*------------------------------ edit-main ------------------------------*/

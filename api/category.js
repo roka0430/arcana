@@ -6,7 +6,6 @@ const INDEX_FILE = "./data/test/index.yaml";
 const CATEGORY_DIR = "./data/test/categories";
 
 const router = express.Router();
-const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
 
 const DEFAULT_CATEGORY_DATA = {
   blank_count: 0,
@@ -15,6 +14,7 @@ const DEFAULT_CATEGORY_DATA = {
 
 router.get("/:id", (req, res) => {
   const id = Number(req.params.id);
+  const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
   const category = indexData.find((category) => category.id === id);
 
   if (!category) {
@@ -45,6 +45,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/", (req, res) => {
+  const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
   res.json(indexData);
 });
 

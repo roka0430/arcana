@@ -38,7 +38,7 @@ main {
 }
 
 .edit-directory__item {
-  padding-block: 4px 6px;
+  padding-block: 5px;
   padding-inline: 10px;
 
   border-radius: 5px;
@@ -51,13 +51,13 @@ main {
 }
 
 .edit-directory__item.editing {
-  padding: 4px;
+  padding: 4.5px 4px 4px;
 }
 
 .edit-directory__item input {
   width: 100%;
 
-  padding-block: 0 2px;
+  padding-block: 0;
   padding-inline: 5px;
 
   background: var(--color-bg);

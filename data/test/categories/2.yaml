@@ -1,12 +1,12 @@
-blank_count: 19
+blank_count: 18
 subjects:
   - id: 1
     name: あああ
-    blank_count: 10
+    blank_count: 9
     questions:
       - id: 1
-        blank_count: 4
-        question: 1 あ→；あ；　い→；い；　う→；う；あああ；ああ；
+        blank_count: 3
+        question: 1 あ→；あ；　い→；い；　う→；う；
       - id: 2
         blank_count: 3
         question: 2 あ→；あ；　い→；い；　う→；う；

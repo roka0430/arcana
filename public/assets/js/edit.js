@@ -94,12 +94,16 @@ document.addEventListener("alpine:init", () => {
 
       this.content = questions.map(({ question }) => question).join("\n\n");
     },
+
+    async saveCategory() {
+      const blankCount = this.subjects.reduce((sum, { blank_count }) => sum + blank_count, 0);
+      this.currentCategory.blank_count = blankCount;
+      await Category.overwriteCategory(this.currentCategory);
+    },
   }));
 
   Alpine.data("directory", () => ({
     editingSubjectId: null,
-
-    init() {},
 
     selectSubject(subjectId) {
       if (subjectId === this.currentSubject.id) {
@@ -123,6 +127,28 @@ document.addEventListener("alpine:init", () => {
       this.editingSubjectId = null;
       this.subjects = sortSubjects(this.subjects);
       await Category.overwriteCategory(this.currentCategory);
+    },
+
+    async createSubject() {
+      console.log(JSON.parse(JSON.stringify(this.currentCategory)));
+
+      let id = 1;
+      while (this.subjects.some((subject) => subject.id === id)) id++;
+
+      const newSubject = {
+        id: id,
+        name: "new subject",
+        blank_count: 0,
+        questions: [],
+      };
+
+      this.subjects.push(newSubject);
+      this.subjects = sortSubjects(this.subjects);
+
+      this.currentSubject = newSubject;
+      this.setContent();
+
+      await this.saveCategory();
     },
   }));
 
@@ -170,13 +196,6 @@ document.addEventListener("alpine:init", () => {
       this.currentSubject.questions = questions;
 
       await this.saveCategory();
-    },
-
-    async saveCategory() {
-      const blankCount = this.subjects.reduce((sum, { blank_count }) => sum + blank_count, 0);
-      this.currentCategory.blank_count = blankCount;
-
-      await Category.overwriteCategory(this.currentCategory);
     },
   }));
 });

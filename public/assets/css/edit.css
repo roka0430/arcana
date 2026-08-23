@@ -26,13 +26,45 @@ main {
 /*------------------------------ edit-directory ------------------------------*/
 
 .edit-directory {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+
   padding: 5px;
 
   border: solid 1px var(--color-border);
   border-radius: 5px;
 
   font-size: 0.9rem;
+}
 
+.edit-directory__header {
+  display: flex;
+  justify-content: right;
+}
+
+.edit-directory__create {
+  aspect-ratio: 1 / 1;
+  padding-top: 3px;
+
+  background: none;
+  border: none;
+  border-radius: 4px;
+
+  cursor: pointer;
+}
+
+.edit-directory__create svg {
+  stroke: var(--color-text-muted);
+}
+
+.edit-directory__create:hover svg {
+  stroke: var(--color-text);
+  filter: drop-shadow(0 2px 3px var(--color-surface));
+}
+
+.edit-directory__content {
+  flex: 1;
   overflow-y: scroll;
   scrollbar-width: none;
 }

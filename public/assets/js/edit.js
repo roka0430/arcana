@@ -126,9 +126,6 @@ document.addEventListener("alpine:init", () => {
     saveCategory() {
       const blankCount = this.subjects.reduce((sum, { blank_count }) => sum + blank_count, 0);
       this.currentCategory.blank_count = blankCount;
-
-      console.log(JSON.parse(JSON.stringify(this.currentCategory)));
-      // ここでsave
     },
 
     inputContent() {

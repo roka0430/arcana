@@ -8,6 +8,11 @@ const CATEGORY_DIR = "./data/test/categories";
 const router = express.Router();
 const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
 
+const DEFAULT_CATEGORY_DATA = {
+  blank_count: 0,
+  subjects: [],
+};
+
 router.get("/:id", (req, res) => {
   const id = Number(req.params.id);
   const category = indexData.find((category) => category.id === id);
@@ -85,6 +90,32 @@ router.put("/", (req, res) => {
   } catch (error) {
     res.status(500).json({
       error: "failed to save category.",
+    });
+  }
+});
+
+router.post("/", (req, res) => {
+  const { name } = req.body;
+
+  try {
+    const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
+
+    let id = 1;
+    while (indexData.some((category) => category.id === id)) id++;
+
+    indexData.push({ id, name });
+    fs.writeFileSync(INDEX_FILE, dump(indexData), "utf-8");
+
+    fs.writeFileSync(`${CATEGORY_DIR}/${id}.yaml`, dump(DEFAULT_CATEGORY_DATA), "utf-8");
+
+    res.status(201).json({
+      id,
+      name,
+      ...DEFAULT_CATEGORY_DATA,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "failed to create category.",
     });
   }
 });

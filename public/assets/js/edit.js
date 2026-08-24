@@ -166,6 +166,7 @@ document.addEventListener("alpine:init", () => {
       this.currentSubject = this.subjects[index] ?? this.subjects[index - 1] ?? null;
 
       this.setContent();
+      await this.saveCategory();
     },
   }));
 

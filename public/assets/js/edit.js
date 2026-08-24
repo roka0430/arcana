@@ -15,15 +15,7 @@ const escapeHtml = (str) => {
 };
 
 const loadCategory = async () => {
-  const categories = await Category.getCategories();
-
-  if (categories.length === 0) {
-    AppState.setCurrentCategoryId(null);
-    location.replace("/edit/category");
-    return;
-  }
-
-  return categories;
+  return await Category.getCategories();
 };
 
 const sortSubjects = (subjects) => {
@@ -74,6 +66,13 @@ document.addEventListener("alpine:init", () => {
     async init() {
       this.initShortcut();
       await this.initCategory();
+
+      if (this.categories.length === 0) {
+        AppState.setCurrentCategoryId(null);
+        location.replace("/edit/category");
+        return;
+      }
+
       this.initSubject(AppState.getSubjectSelector());
 
       calcCategoryCharacterCounts(this.currentCategory);
@@ -97,6 +96,11 @@ document.addEventListener("alpine:init", () => {
 
     async initCategory() {
       this.categories = await loadCategory();
+
+      if (this.categories.length === 0) {
+        return;
+      }
+
       this.currentCategory = await getCurrentCategory(this.categories);
     },
 

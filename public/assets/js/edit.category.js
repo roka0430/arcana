@@ -7,8 +7,11 @@ document.addEventListener("alpine:init", () => {
   Alpine.data("shortcutBar", ShortcutBar);
 
   Alpine.data("main", () => ({
-    init() {
+    categories: [],
+
+    async init() {
       this.initShortcut();
+      this.categories = await Category.getCategories();
     },
 
     initShortcut() {

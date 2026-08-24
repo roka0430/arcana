@@ -26,6 +26,10 @@ document.addEventListener("alpine:init", () => {
       });
     },
 
+    createCategory() {
+      console.log("create");
+    },
+
     renameCategory(categoryId) {
       console.log("rename", categoryId);
     },

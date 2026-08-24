@@ -82,7 +82,7 @@ document.addEventListener("alpine:init", () => {
       this.setContent();
 
       this.$watch("currentSubject", () => {
-        const oldCount = this.currentSubject.character_count;
+        const oldCount = this.currentSubject.character_count ?? 0;
         const newCount = calcSubjectCharacterCounts(this.currentSubject);
         this.currentCategory.character_count += newCount - oldCount;
       });

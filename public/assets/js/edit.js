@@ -105,7 +105,6 @@ document.addEventListener("alpine:init", () => {
       this.currentSubject = null;
 
       if (this.subjects.length === 0) {
-        console.log("no subjects");
         return;
       }
 
@@ -115,7 +114,7 @@ document.addEventListener("alpine:init", () => {
 
     setContent() {
       if (!this.currentSubject) {
-        console.log("cannot set content");
+        this.content = "";
         return;
       }
 

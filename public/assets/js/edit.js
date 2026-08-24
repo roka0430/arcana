@@ -69,6 +69,7 @@ document.addEventListener("alpine:init", () => {
     currentSubject: null,
 
     content: "",
+    hasUnsavedChanges: false,
 
     async init() {
       this.initShortcut();
@@ -236,6 +237,8 @@ document.addEventListener("alpine:init", () => {
     },
 
     inputContent() {
+      this.hasUnsavedChanges = true;
+
       if (this.timeout) clearTimeout(this.timeout);
       this.timeout = setTimeout(() => this.saveContent(), 1000);
     },
@@ -262,6 +265,7 @@ document.addEventListener("alpine:init", () => {
       this.currentSubject.questions = questions;
 
       await this.saveCategory();
+      this.hasUnsavedChanges = false;
     },
   }));
 });

@@ -12,7 +12,9 @@
 <body>
   <main x-data="main">
     <section class="edit-header">
-      <div class="edit-header__category"></div>
+      <div class="edit-header__category">
+        <div class="current-category" x-text="currentCategory?.name"></div>
+      </div>
       <div class="edit-header__info">info</div>
       <a href="/edit/category" class="edit-header__category-edit">
         <svg class="edit-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil">

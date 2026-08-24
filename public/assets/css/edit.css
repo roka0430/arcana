@@ -36,6 +36,9 @@ main {
 .edit-header__category {
   flex: 1;
 
+  display: flex;
+  align-items: center;
+
   border: solid 1px var(--color-border);
   border-radius: 5px;
 }

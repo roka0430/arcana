@@ -208,6 +208,10 @@ document.addEventListener("alpine:init", () => {
     },
 
     async deleteSubject() {
+      if (this.currentSubject === null) {
+        return;
+      }
+
       if (!confirm("削除しますか？")) return;
 
       const id = this.currentSubject.id;

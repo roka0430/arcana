@@ -73,7 +73,9 @@ document.addEventListener("alpine:init", () => {
 
     async init() {
       this.initShortcut();
+
       await this.initCategory();
+
       this.initSubject(AppState.getSubjectSelector());
 
       calcCategoryCharacterCounts(this.currentCategory);

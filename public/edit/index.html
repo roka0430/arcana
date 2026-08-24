@@ -35,7 +35,7 @@
       <div class="edit-header__info">
         <div class="info__character-count">
           <span>
-            <span x-text="currentSubject?.character_count"></span>文字
+            <span x-text="currentSubject?.character_count ?? '0'"></span>文字
           </span>
           <span>/</span>
           <span>
@@ -105,7 +105,13 @@
     </section>
 
     <section class="edit-main" x-data="edit">
-      <textarea class="edit-main__textarea" x-model="content" @input="inputContent()"></textarea>
+      <textarea
+        class="edit-main__textarea"
+        x-model="content"
+        @input="inputContent()"
+        :disabled="!currentSubject">
+      </textarea>
+      <div class="edit-main__message" x-show="!currentSubject">新しく科目を作成してください。</div>
     </section>
   </main>
 

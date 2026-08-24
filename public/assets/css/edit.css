@@ -299,6 +299,8 @@ main {
 /*------------------------------ edit-main ------------------------------*/
 
 .edit-main {
+  position: relative;
+
   padding: 5px;
 
   border: solid 1px var(--color-border);
@@ -317,4 +319,11 @@ main {
   resize: none;
 
   scrollbar-width: none;
+}
+
+.edit-main__message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

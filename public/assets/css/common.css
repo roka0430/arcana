@@ -76,6 +76,8 @@ main {
   padding-block: 64px;
 }
 
+/*------------------------------ shortcut-bar ------------------------------*/
+
 .shortcut-bar {
   display: flex;
   gap: 8px;
@@ -105,4 +107,36 @@ main {
 
 .shortcut-item span {
   font-size: 0.8rem;
+}
+
+/*------------------------------ popup ------------------------------*/
+
+.popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background: rgb(from var(--color-bg) r g b / 70%);
+
+  z-index: 100;
+}
+
+.popup__content {
+  width: 360px;
+  min-height: 180px;
+  padding: 24px;
+
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+
+  box-shadow:
+    0 8px 24px rgb(0 0 0 / 12%),
+    0 2px 6px rgb(0 0 0 / 8%);
 }

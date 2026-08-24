@@ -53,9 +53,9 @@ export default class Category {
 
   static async overwriteCategory(data) {
     const keys = Object.keys(data);
-    const expectedKeys = ["id", "name", "blank_count", "subjects"];
+    const requiredKeys = ["id", "name", "blank_count", "subjects"];
 
-    if (expectedKeys.length !== keys.length || !expectedKeys.every((key) => keys.includes(key))) {
+    if (keys.length < requiredKeys.length || !requiredKeys.every((key) => keys.includes(key))) {
       throw new Error("Invalid category data keys.");
     }
 

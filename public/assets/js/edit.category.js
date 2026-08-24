@@ -25,5 +25,14 @@ document.addEventListener("alpine:init", () => {
         handler: null,
       });
     },
+
+    renameCategory(categoryId) {
+      console.log("rename", categoryId);
+    },
+
+    deleteCategory(categoryId) {
+      console.log("delete", categoryId);
+      // Category.deleteCategory(categoryId);
+    },
   }));
 });

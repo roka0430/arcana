@@ -91,4 +91,16 @@ export default class Category {
 
     return await res.json();
   }
+
+  static async deleteCategory(categoryId) {
+    const res = await fetch(`/api/category/${categoryId}`, {
+      method: "delete",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to delete category.");
+    }
+
+    return await res.json();
+  }
 }

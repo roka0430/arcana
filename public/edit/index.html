@@ -11,10 +11,27 @@
 
 <body>
   <main x-data="main">
-    <section class="edit-header">
-      <div class="edit-header__category">
-        <div class="current-category" x-text="currentCategory?.name"></div>
+    <section class="edit-header" x-data="header">
+      <div class="edit-header__category" @click.outside="isOpen = false">
+        <button class="current-category" :class="{'is-open': isOpen}" @click="isOpen = !isOpen">
+          <span class="current-category__name" x-text="currentCategory?.name"></span>
+          <svg class="current-category__dropdown-indicator" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-selector">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M8 9l4 -4l4 4" />
+            <path d="M16 15l-4 4l-4 -4" />
+          </svg>
+        </button>
+
+        <div class="category-dropdown" x-show="isOpen" x-cloak>
+          <div class="category-dropdown__label">Select category</div>
+          <div class="category-dropdown__options">
+            <template x-for="category in categories">
+              <div x-text="category.name" :class="{ 'current': currentCategory?.id === category.id }" @click="selectCategory(category.id)"></div>
+            </template>
+          </div>
+        </div>
       </div>
+
       <div class="edit-header__info">info</div>
       <a href="/edit/category" class="edit-header__category-edit">
         <svg class="edit-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil">

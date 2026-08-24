@@ -107,6 +107,14 @@ document.addEventListener("alpine:init", () => {
     },
   }));
 
+  Alpine.data("header", () => ({
+    isOpen: false,
+
+    selectCategory(categoryId) {
+      console.log(categoryId);
+    },
+  }));
+
   Alpine.data("directory", () => ({
     editingSubjectId: null,
 

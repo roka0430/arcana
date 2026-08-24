@@ -35,12 +35,106 @@ main {
 
 .edit-header__category {
   flex: 1;
+  position: relative;
+}
 
+.current-category {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
+  width: 100%;
+  padding-block: 6px 8px;
+  padding-inline: 10px;
+
+  background: none;
   border: solid 1px var(--color-border);
   border-radius: 5px;
+
+  font-size: 0.9rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.current-category.is-open {
+  border-radius: 5px 5px 0 0;
+}
+
+.current-category__name {
+  height: 1.3rem;
+}
+
+.current-category__dropdown-indicator {
+  stroke: var(--color-text-muted);
+  transition: all 0.1s;
+}
+
+.current-category:hover .current-category__dropdown-indicator {
+  stroke: var(--color-text);
+}
+
+.category-dropdown {
+  position: absolute;
+  top: calc(100% + 1px);
+  right: 0;
+  left: 0;
+
+  background: var(--color-bg);
+  border: solid 1px var(--color-border);
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 0px 8px rgb(0 0 0 / 12%);
+
+  overflow: hidden;
+  z-index: 10;
+}
+
+.category-dropdown__label {
+  padding-block: 5px;
+  padding-inline: 16px;
+  border-bottom: solid 1px var(--color-border);
+  font-size: 0.8rem;
+}
+
+.category-dropdown__options {
+  max-height: 200px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.category-dropdown__options div {
+  position: relative;
+  padding-block: 6px 8px;
+  padding-inline: 40px 16px;
+  border-top: solid 1px var(--color-border);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.category-dropdown__options div:first-of-type {
+  border: none;
+}
+
+.category-dropdown__options div:hover {
+  background: var(--color-surface);
+}
+
+.category-dropdown__options div.current {
+  background: var(--color-surface);
+}
+
+.category-dropdown__options div.current::before {
+  content: "";
+
+  position: absolute;
+  top: calc(50% - 1.5px);
+  left: 22px;
+  transform: translateY(-50%) rotate(45deg);
+
+  width: 4px;
+  height: 8px;
+
+  border-right: solid 2px var(--color-text);
+  border-bottom: solid 2px var(--color-text);
 }
 
 .edit-header__info {

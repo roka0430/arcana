@@ -145,6 +145,10 @@ document.addEventListener("alpine:init", () => {
     },
 
     get currentSubjectCharacterRatio() {
+      if (this.currentCategory?.character_count === 0) {
+        return "－";
+      }
+
       const ratio = this.currentSubject?.character_count / this.currentCategory?.character_count;
       const percentage = Math.round(ratio * 1000) / 10;
       return Number.isNaN(percentage) ? "" : percentage.toFixed(1);

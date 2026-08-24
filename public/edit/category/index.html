@@ -5,25 +5,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="stylesheet" href="../../assets/css/common.css">
+  <link rel="stylesheet" href="../../assets/css/edit.category.css">
   <title>Arcana | Edit</title>
 </head>
 
 <body>
-  <main>
+  <main x-data="main">
   </main>
 
-  <aside class="shortcut-bar">
-    <div class="shortcut-item">
-      <kbd>Ctrl+S</kbd>
-      <span>保存</span>
-    </div>
-    <div class="shortcut-item">
-      <kbd>Ctrl+S</kbd>
-      <span>保存</span>
-    </div>
+  <aside class="shortcut-bar" x-data="shortcutBar">
+    <template x-for="shortcut in shortcuts" :key="shortcut.key">
+      <div class="shortcut-item">
+        <kbd x-text="shortcut.kbd"></kbd>
+        <span x-text="shortcut.description"></span>
+      </div>
+    </template>
   </aside>
 
-  <script type="module" src="../../assets/js/edit.js" defer></script>
+  <script type="module" src="../../assets/js/edit.category.js" defer></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 

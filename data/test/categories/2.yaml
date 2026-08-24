@@ -33,7 +33,3 @@ subjects:
         blank_count: 0
         question: >-
           これは空白のない問題例である。これは空白のない問題例である。これは空白のない問題例である。これは空白のない問題例である。これは空白のない問題例である。
-  - id: 3
-    name: えええ
-    blank_count: 0
-    questions: []

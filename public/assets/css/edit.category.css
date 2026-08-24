@@ -4,6 +4,36 @@ main {
   flex-direction: column;
 }
 
+/*------------------------------ header ------------------------------*/
+
+.header {
+  display: flex;
+  justify-content: right;
+}
+
+.create-category {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+
+  padding-block: 3px;
+  padding-inline: 16px;
+
+  background: var(--color-primary);
+  border: none;
+  border-radius: 8px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.create-category span {
+  padding-bottom: 2px;
+}
+
+/*------------------------------ categories ------------------------------*/
+
 .categories {
   display: flex;
   gap: 12px;

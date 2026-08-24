@@ -28,12 +28,20 @@ main {
 
   display: flex;
   gap: 10px;
+  justify-content: space-between;
 
   padding-block: 5px;
 }
 
 .edit-header__category {
   flex: 1;
+
+  border: solid 1px var(--color-border);
+  border-radius: 5px;
+}
+
+.edit-header__info {
+  width: 500px;
 
   border: solid 1px var(--color-border);
   border-radius: 5px;

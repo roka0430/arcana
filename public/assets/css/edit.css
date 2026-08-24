@@ -44,7 +44,7 @@ main {
   justify-content: space-between;
 
   width: 100%;
-  padding-block: 6px 8px;
+  height: 100%;
   padding-inline: 10px;
 
   background: none;
@@ -57,11 +57,13 @@ main {
 }
 
 .current-category.is-open {
+  border-bottom: none;
   border-radius: 5px 5px 0 0;
 }
 
 .current-category__name {
-  height: 1.3rem;
+  position: relative;
+  top: -1px;
 }
 
 .current-category__dropdown-indicator {
@@ -75,11 +77,12 @@ main {
 
 .category-dropdown {
   position: absolute;
-  top: calc(100% + 1px);
+  top: 100%;
   right: 0;
   left: 0;
 
   background: var(--color-bg);
+  border-top: none;
   border: solid 1px var(--color-border);
   border-radius: 0 0 5px 5px;
   box-shadow: 0 0px 8px rgb(0 0 0 / 12%);

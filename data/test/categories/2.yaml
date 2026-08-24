@@ -1,12 +1,5 @@
-blank_count: 19
+blank_count: 18
 subjects:
-  - id: 3
-    name: new subject
-    blank_count: 1
-    questions:
-      - id: 1
-        blank_count: 1
-        question: aaa；ああ；aaa
   - id: 1
     name: あああ
     blank_count: 9
@@ -40,3 +33,7 @@ subjects:
         blank_count: 0
         question: >-
           これは空白のない問題例である。これは空白のない問題例である。これは空白のない問題例である。これは空白のない問題例である。これは空白のない問題例である。
+  - id: 3
+    name: えええ
+    blank_count: 0
+    questions: []

@@ -85,6 +85,11 @@ document.addEventListener("alpine:init", () => {
     },
 
     setContent() {
+      if (!this.currentSubject) {
+        console.log("cannot set content");
+        return;
+      }
+
       const questions = this.currentSubject.questions;
 
       if (!questions) {
@@ -130,8 +135,6 @@ document.addEventListener("alpine:init", () => {
     },
 
     async createSubject() {
-      console.log(JSON.parse(JSON.stringify(this.currentCategory)));
-
       let id = 1;
       while (this.subjects.some((subject) => subject.id === id)) id++;
 
@@ -147,8 +150,22 @@ document.addEventListener("alpine:init", () => {
 
       this.currentSubject = newSubject;
       this.setContent();
+      this.startEditingName(id);
 
       await this.saveCategory();
+    },
+
+    async deleteSubject() {
+      if (!confirm("削除しますか？")) return;
+
+      const id = this.currentSubject.id;
+      const index = this.subjects.findIndex((subject) => subject.id === id);
+
+      this.subjects.splice(index, 1);
+
+      this.currentSubject = this.subjects[index] ?? this.subjects[index - 1] ?? null;
+
+      this.setContent();
     },
   }));
 

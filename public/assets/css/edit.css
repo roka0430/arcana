@@ -40,12 +40,12 @@ main {
 
 .edit-directory__header {
   display: flex;
+  gap: 4px;
   justify-content: right;
 }
 
-.edit-directory__create {
+.directory-header__button {
   aspect-ratio: 1 / 1;
-  padding-top: 3px;
 
   background: none;
   border: none;
@@ -54,11 +54,13 @@ main {
   cursor: pointer;
 }
 
-.edit-directory__create svg {
+.directory-header__button svg {
+  position: relative;
+  top: 1px;
   stroke: var(--color-text-muted);
 }
 
-.edit-directory__create:hover svg {
+.directory-header__button:hover svg {
   stroke: var(--color-text);
   filter: drop-shadow(0 2px 3px var(--color-surface));
 }

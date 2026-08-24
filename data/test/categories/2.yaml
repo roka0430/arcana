@@ -13,6 +13,7 @@ subjects:
       - id: 3
         blank_count: 3
         question: 3 あ→；あ；　い→；い；　う→；う；
+    character_count: 61
   - id: 2
     name: いいい
     blank_count: 9
@@ -33,3 +34,5 @@ subjects:
         blank_count: 0
         question: >-
           これは空白のない問題例である。これは空白のない問題例である。これは空白のない問題例である。これは空白のない問題例である。これは空白のない問題例である。
+    character_count: 706
+character_count: 767

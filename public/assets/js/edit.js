@@ -42,6 +42,22 @@ const getCurrentSubject = (subjects, subjectId) => {
   return subjects[0];
 };
 
+const calcSubjectCharacterCounts = (subject) => {
+  subject.character_count = subject.questions.reduce((sum, question) => sum + question.question.length, 0);
+  return subject.character_count;
+};
+
+const calcCategoryCharacterCounts = (category) => {
+  let totalCounts = 0;
+
+  for (const subject of category.subjects) {
+    totalCounts += calcSubjectCharacterCounts(subject);
+  }
+
+  category.character_count = totalCounts;
+  return totalCounts;
+};
+
 document.addEventListener("alpine:init", () => {
   Alpine.data("shortcutBar", ShortcutBar);
 
@@ -59,7 +75,14 @@ document.addEventListener("alpine:init", () => {
       await this.initCategory();
       this.initSubject(AppState.getSubjectSelector());
 
+      calcCategoryCharacterCounts(this.currentCategory);
       this.setContent();
+
+      this.$watch("currentSubject", () => {
+        const oldCount = this.currentSubject.character_count;
+        const newCount = calcSubjectCharacterCounts(this.currentSubject);
+        this.currentCategory.character_count += newCount - oldCount;
+      });
     },
 
     initShortcut() {
@@ -114,10 +137,17 @@ document.addEventListener("alpine:init", () => {
     async selectCategory(categoryId) {
       this.currentCategory = await Category.getCategory(categoryId);
 
+      calcCategoryCharacterCounts(this.currentCategory);
       this.initSubject(null);
       this.setContent();
 
       this.isOpen = false;
+    },
+
+    get currentSubjectCharacterRatio() {
+      const ratio = this.currentSubject?.character_count / this.currentCategory?.character_count;
+      const percentage = Math.round(ratio * 1000) / 10;
+      return Number.isNaN(percentage) ? "" : percentage.toFixed(1);
     },
   }));
 

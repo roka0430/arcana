@@ -57,7 +57,7 @@ document.addEventListener("alpine:init", () => {
     async init() {
       this.initShortcut();
       await this.initCategory();
-      this.initSubject();
+      this.initSubject(AppState.getSubjectSelector());
 
       this.setContent();
     },
@@ -72,8 +72,9 @@ document.addEventListener("alpine:init", () => {
       this.currentCategory = await getCurrentCategory(this.categories);
     },
 
-    initSubject() {
+    initSubject(subjectId) {
       this.subjects = this.currentCategory.subjects;
+      this.currentSubject = null;
 
       if (this.subjects.length === 0) {
         console.log("no subjects");
@@ -81,7 +82,7 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.subjects = sortSubjects(this.subjects);
-      this.currentSubject = getCurrentSubject(this.subjects, AppState.getSubjectSelector());
+      this.currentSubject = getCurrentSubject(this.subjects, subjectId);
     },
 
     setContent() {
@@ -110,8 +111,13 @@ document.addEventListener("alpine:init", () => {
   Alpine.data("header", () => ({
     isOpen: false,
 
-    selectCategory(categoryId) {
-      console.log(categoryId);
+    async selectCategory(categoryId) {
+      this.currentCategory = await Category.getCategory(categoryId);
+
+      this.initSubject(null);
+      this.setContent();
+
+      this.isOpen = false;
     },
   }));
 

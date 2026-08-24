@@ -39,4 +39,8 @@ document.addEventListener("alpine:init", () => {
       // Category.deleteCategory(categoryId);
     },
   }));
+
+  Alpine.data("popup", () => ({
+    isOpen: true,
+  }));
 });

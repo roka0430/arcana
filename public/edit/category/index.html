@@ -49,8 +49,18 @@
       </template>
     </section>
 
-    <div class="popup">
-      <div class="popup__content"></div>
+    <div class="popup" x-data="popup" x-show="isOpen">
+      <div class="popup__box" @click.outside="isOpen = false">
+        <div class="popup__header">
+          <div class="popup__title">タイトル</div>
+          <button class="popup__closure" @click="isOpen = false">×</button>
+        </div>
+        <div class="popup__content">コンテンツ</div>
+        <div class="popup__menu">
+          <button class="button--secondary" @click="isOpen = false">キャンセル</button>
+          <button class="button--primary">作成</button>
+        </div>
+      </div>
     </div>
   </main>
 

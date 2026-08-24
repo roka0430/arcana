@@ -1,5 +1,9 @@
 blank_count: 0
 subjects:
+  - id: 4
+    name: 英語
+    blank_count: 0
+    questions: []
   - id: 1
     name: 国語
     blank_count: 0
@@ -8,15 +12,11 @@ subjects:
     name: 社会
     blank_count: 0
     questions: []
-  - id: 3
-    name: 理科
-    blank_count: 0
-    questions: []
-  - id: 4
-    name: 英語
-    blank_count: 0
-    questions: []
   - id: 5
     name: 数学
+    blank_count: 0
+    questions: []
+  - id: 3
+    name: 理科
     blank_count: 0
     questions: []

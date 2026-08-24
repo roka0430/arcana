@@ -1,3 +1,7 @@
+body {
+  min-width: 600px;
+}
+
 main,
 .shortcut-bar {
   width: calc(100% - 32px);
@@ -6,8 +10,8 @@ main,
 main {
   display: grid;
   gap: 8px;
-  grid-template-columns: 250px 1fr;
-  grid-template-rows: 40px 1fr;
+  grid-template-columns: max(20%, 150px) 1fr;
+  grid-template-rows: 45px 1fr;
 
   padding-block: 8px;
 }
@@ -21,6 +25,41 @@ main {
 
 .edit-header {
   grid-column: 1 / 3;
+
+  display: flex;
+  gap: 10px;
+
+  padding-block: 5px;
+}
+
+.edit-header__category {
+  flex: 1;
+
+  border: solid 1px var(--color-border);
+  border-radius: 5px;
+}
+
+.edit-header__category-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  aspect-ratio: 1 / 1;
+  padding-bottom: 1px;
+
+  border: solid 1px var(--color-border);
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+.edit-header__category-edit svg {
+  stroke: var(--color-text-muted);
+  transition: all 0.1s;
+}
+
+.edit-header__category-edit:hover svg {
+  stroke: var(--color-text);
 }
 
 /*------------------------------ edit-directory ------------------------------*/

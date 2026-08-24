@@ -143,10 +143,11 @@ main {
 }
 
 .category-control__edit {
-  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  aspect-ratio: 1 / 1;
 
   background: none;
   border: solid 1px var(--color-border);

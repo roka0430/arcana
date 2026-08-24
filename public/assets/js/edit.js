@@ -80,6 +80,10 @@ document.addEventListener("alpine:init", () => {
       this.setContent();
 
       this.$watch("currentSubject", () => {
+        if (this.currentSubject === null) {
+          return;
+        }
+
         const oldCount = this.currentSubject.character_count ?? 0;
         const newCount = calcSubjectCharacterCounts(this.currentSubject);
         this.currentCategory.character_count += newCount - oldCount;
@@ -213,6 +217,7 @@ document.addEventListener("alpine:init", () => {
       this.subjects.splice(index, 1);
 
       this.currentSubject = this.subjects[index] ?? this.subjects[index - 1] ?? null;
+      calcCategoryCharacterCounts(this.currentCategory);
 
       this.setContent();
       await this.saveCategory();

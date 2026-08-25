@@ -24,6 +24,7 @@
     </section>
 
     <section class="categories">
+      <div class="categories__message" x-show="categories.length === 0" x-cloak>カテゴリがありません。カテゴリを作成してください。</div>
       <template x-for="category in categories">
         <div class="category">
           <div class="category__name" x-text="category.name"></div>

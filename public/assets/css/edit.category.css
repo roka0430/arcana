@@ -43,6 +43,13 @@ main {
   scrollbar-width: none;
 }
 
+.categories__message {
+  margin-top: 16px;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
 .category {
   display: flex;
   align-items: center;

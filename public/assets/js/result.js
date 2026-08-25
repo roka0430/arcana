@@ -81,6 +81,10 @@ document.addEventListener("alpine:init", () => {
     },
 
     reviewStudy() {
+      if (!this.canReview) {
+        return;
+      }
+
       const reviewData = {
         subjectId: this.subjectId,
         incorrect: this.questions.filter(({ incorrect }) => incorrect).map(({ id }) => id),

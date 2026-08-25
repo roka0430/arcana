@@ -103,7 +103,7 @@ document.addEventListener("alpine:init", () => {
         key: "Enter",
         kbd: "Enter",
         description: "めくる",
-        handler: () => alert("めくる"),
+        handler: () => this.flipBlank(),
       });
 
       Shortcut.register("focused", {
@@ -187,7 +187,7 @@ document.addEventListener("alpine:init", () => {
       const question = this.questions[this.index];
       let blankIndex = 0;
 
-      return question.question.replace(/；(.*?)；/g, () => {
+      const html = question.question.replace(/；(.*?)；/g, () => {
         const blank = question.blanks[blankIndex++];
         const className = ["blank"];
 
@@ -201,6 +201,12 @@ document.addEventListener("alpine:init", () => {
 
         return `<span class="${className.join(" ")}">${blank.answer}</span>`;
       });
+
+      if (this.settings.answer === "flip") {
+        return html + `<span class="blank"></span>`;
+      }
+
+      return html;
     },
 
     get activeBlank() {
@@ -308,6 +314,10 @@ document.addEventListener("alpine:init", () => {
         this.$refs.answerInput.focus();
         e.preventDefault();
       }
+    },
+
+    flipBlank() {
+      console.log("flip");
     },
   }));
 });

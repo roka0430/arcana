@@ -69,7 +69,7 @@
         </div>
         <div class="popup__menu">
           <button class="button--secondary" @click="cancel()">キャンセル</button>
-          <button class="button--primary" x-text="confirmText" :disabled="disableConfirm" @click="confirm()"></button>
+          <button class="button--primary" x-text="confirm" :class="type" :disabled="disableConfirm" @click="action()"></button>
         </div>
       </div>
     </div>

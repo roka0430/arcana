@@ -34,6 +34,7 @@ document.addEventListener("alpine:init", () => {
       Popup.register("new-category", {
         title: "新しいカテゴリ",
         confirm: "作成",
+        type: "success",
         validate: (content) => {
           const input = content.querySelector(".popup__input");
           return input.value.trim() !== "";
@@ -43,6 +44,7 @@ document.addEventListener("alpine:init", () => {
       Popup.register("rename-category", {
         title: "カテゴリ名の変更",
         confirm: "変更",
+        type: "success",
         validate: (content) => {
           const input = content.querySelector(".popup__input");
           return input.value.trim() !== "";
@@ -52,6 +54,7 @@ document.addEventListener("alpine:init", () => {
       Popup.register("delete-category", {
         title: "カテゴリの削除",
         confirm: "削除",
+        type: "danger",
         validate: (content) => {
           const input = content.querySelector(".popup__input");
           return input.value === "delete";

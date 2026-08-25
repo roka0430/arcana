@@ -11,8 +11,8 @@ class Popup {
     window.dispatchEvent(new CustomEvent("popup-update"));
   }
 
-  register(context, { title, confirm, validate }) {
-    this.popups[context] = { title, confirm, validate };
+  register(context, { title, confirm, type, validate }) {
+    this.popups[context] = { title, confirm, type, validate };
   }
 
   open(context) {

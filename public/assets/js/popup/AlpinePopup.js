@@ -6,7 +6,8 @@ export default () => ({
 
   context: "",
   title: "",
-  confirmText: "",
+  confirm: "",
+  type: "",
   validate: null,
 
   init() {
@@ -28,7 +29,8 @@ export default () => ({
 
     this.context = Popup.context;
     this.title = Popup.popup.title;
-    this.confirmText = Popup.popup.confirm;
+    this.confirm = Popup.popup.confirm;
+    this.type = Popup.popup.type;
     this.validate = Popup.popup.validate;
 
     this.$refs.content.innerHTML = this.initialContent;
@@ -58,7 +60,7 @@ export default () => ({
     Popup.resolve(null, content);
   },
 
-  confirm() {
+  action() {
     const content = this.currentContent;
     Popup.resolve(true, content);
   },

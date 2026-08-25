@@ -12,6 +12,9 @@
   --color-link: #66b3ff;
   --color-border: #444444;
 
+  --color-success: #10a37f;
+  --color-danger: #ef5350;
+
   --color-correct: #1597d0;
   --color-incorrect: #ef5350;
 }
@@ -207,9 +210,19 @@ main {
 }
 
 .popup__menu .button--primary {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
+  background: var(--color-success);
+  border-color: var(--color-success);
   transition: all 0.1s;
+}
+
+.popup__menu .button--primary.success {
+  background: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.popup__menu .button--primary.danger {
+  background: var(--color-danger);
+  border-color: var(--color-danger);
 }
 
 .popup__menu .button--primary:disabled {

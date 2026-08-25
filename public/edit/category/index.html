@@ -50,15 +50,15 @@
     </section>
 
     <div class="popup" x-data="popup" x-show="isOpen">
-      <div class="popup__box" @click.outside="isOpen = false">
+      <div class="popup__box" @click.outside="cancel()">
         <div class="popup__header">
-          <div class="popup__title">タイトル</div>
-          <button class="popup__closure" @click="isOpen = false">×</button>
+          <div class="popup__title" x-text="title"></div>
+          <button class="popup__closure" @click="cancel()">×</button>
         </div>
-        <div class="popup__content">コンテンツ</div>
+        <div class="popup__content" x-ref="content" x-html="content"></div>
         <div class="popup__menu">
-          <button class="button--secondary" @click="isOpen = false">キャンセル</button>
-          <button class="button--primary">作成</button>
+          <button class="button--secondary" @click="cancel()">キャンセル</button>
+          <button class="button--primary" x-text="confirmText" @click="confirm()"></button>
         </div>
       </div>
     </div>

@@ -1,5 +1,9 @@
 import AppState from "./state/AppState.js";
-import Category from "./api/Category.js";
+import Shortcut from "./shortcut/Shortcut.js";
+import ShortcutBar from "./shortcut/ShortcutBar.js";
+
+import Category from "./category/Category.js";
+import { getCurrentCategory } from "./category/currentCategory.js";
 
 // settings
 
@@ -35,34 +39,27 @@ const getStoredSettings = () => {
   return settings;
 };
 
-// subjects
-
-const initCurrentCategoryId = (categories) => {
-  const categoryId = Math.min(...categories.map(({ id }) => id));
-  AppState.setCurrentCategoryId(categoryId);
-  return categoryId;
-};
-
-const getCurrentCategory = async (categories) => {
-  const categoryId = AppState.getCurrentCategoryId() ?? initCurrentCategoryId(categories);
-
-  try {
-    return await Category.getCategory(categoryId);
-  } catch {
-    const categoryId = initCurrentCategoryId(categories);
-    return await Category.getCategory(categoryId);
-  }
-};
-
 // Alpine.js
 
 document.addEventListener("alpine:init", () => {
+  Alpine.data("shortcutBar", ShortcutBar);
+
   Alpine.data("main", () => ({
     categories: [],
     currentCategory: null,
     notice: null,
 
     async init() {
+      Shortcut.setContext("home");
+      Shortcut.setOrder("home", ["Enter", "ArrowUp", "ArrowDown", "e"]);
+
+      Shortcut.register("home", {
+        key: "e",
+        kbd: "E",
+        description: "編集",
+        handler: () => (location.href = "/edit"),
+      });
+
       this.categories = await Category.getCategories();
 
       if (this.categories.length === 0) {
@@ -117,6 +114,27 @@ document.addEventListener("alpine:init", () => {
     selectedId: null,
 
     init() {
+      Shortcut.register("home", {
+        key: "Enter",
+        kbd: "Enter",
+        description: "問題を解く",
+        handler: () => this.activateSelectedSubject(),
+      });
+
+      Shortcut.register("home", {
+        key: "ArrowUp",
+        kbd: "↑",
+        description: "上へ移動",
+        handler: () => this.moveSelectedSubject(-1),
+      });
+
+      Shortcut.register("home", {
+        key: "ArrowDown",
+        kbd: "↓",
+        description: "下へ移動",
+        handler: () => this.moveSelectedSubject(1),
+      });
+
       this.selectedId = AppState.getSubjectSelector();
 
       this.$watch("subjects", () => {

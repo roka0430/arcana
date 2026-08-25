@@ -1,15 +1,20 @@
 import express from "express";
 import fs from "fs";
-import { load } from "js-yaml";
+import { load, dump } from "js-yaml";
 
 const INDEX_FILE = "./data/test/index.yaml";
 const CATEGORY_DIR = "./data/test/categories";
 
 const router = express.Router();
-const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
+
+const DEFAULT_CATEGORY_DATA = {
+  blank_count: 0,
+  subjects: [],
+};
 
 router.get("/:id", (req, res) => {
   const id = Number(req.params.id);
+  const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
   const category = indexData.find((category) => category.id === id);
 
   if (!category) {
@@ -31,16 +36,127 @@ router.get("/:id", (req, res) => {
       return res.status(404).json({
         error: "category data not found.",
       });
-
-      return res.status(500).json({
-        error: "failed to read category",
-      });
     }
+
+    return res.status(500).json({
+      error: "failed to read category.",
+    });
   }
 });
 
 router.get("/", (req, res) => {
+  const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
   res.json(indexData);
+});
+
+router.patch("/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const { name } = req.body;
+
+  try {
+    const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
+    const category = indexData.find((category) => category.id === id);
+
+    if (!category) {
+      return res.status(404).json({
+        error: "category not found.",
+      });
+    }
+
+    category.name = name;
+    fs.writeFileSync(INDEX_FILE, dump(indexData), "utf-8");
+
+    res.status(200).json({
+      message: "category renamed.",
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "failed to save category.",
+    });
+  }
+});
+
+router.put("/", (req, res) => {
+  const { id, name, ...data } = req.body;
+  const path = `${CATEGORY_DIR}/${id}.yaml`;
+
+  if (!fs.existsSync(path)) {
+    return res.status(404).json({
+      error: "category data not found.",
+    });
+  }
+
+  try {
+    fs.writeFileSync(path, dump(data), "utf-8");
+
+    res.status(200).json({
+      message: "category saved.",
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "failed to save category.",
+    });
+  }
+});
+
+router.post("/", (req, res) => {
+  const { name } = req.body;
+
+  try {
+    const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
+
+    let id = 1;
+    while (indexData.some((category) => category.id === id)) id++;
+
+    indexData.push({ id, name });
+    fs.writeFileSync(INDEX_FILE, dump(indexData), "utf-8");
+
+    fs.writeFileSync(`${CATEGORY_DIR}/${id}.yaml`, dump(DEFAULT_CATEGORY_DATA), "utf-8");
+
+    res.status(201).json({
+      id,
+      name,
+      ...DEFAULT_CATEGORY_DATA,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "failed to create category.",
+    });
+  }
+});
+
+router.delete("/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const path = `${CATEGORY_DIR}/${id}.yaml`;
+
+  if (!fs.existsSync(path)) {
+    return res.status(404).json({
+      error: "category data not found.",
+    });
+  }
+
+  try {
+    const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
+    const index = indexData.findIndex((category) => category.id === id);
+
+    if (index === -1) {
+      return res.status(404).json({
+        error: "category not found.",
+      });
+    }
+
+    indexData.splice(index, 1);
+    fs.writeFileSync(INDEX_FILE, dump(indexData), "utf-8");
+    fs.unlinkSync(path);
+
+    res.status(200).json({
+      message: "category deleted.",
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "failed to save category.",
+    });
+  }
 });
 
 export default router;

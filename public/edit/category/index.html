@@ -5,25 +5,90 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="stylesheet" href="../../assets/css/common.css">
+  <link rel="stylesheet" href="../../assets/css/edit.category.css">
   <title>Arcana | Edit</title>
 </head>
 
 <body>
-  <main>
+  <main x-data="main">
+    <section class="header">
+      <button class="create-category" @click="createCategory()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-folder-plus">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 19h-7a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2h4l3 3h7a2 2 0 0 1 2 2v3.5" />
+          <path d="M16 19h6" />
+          <path d="M19 16v6" />
+        </svg>
+        <span>New</span>
+      </button>
+    </section>
+
+    <section class="categories">
+      <div class="categories__message" x-show="categories.length === 0" x-cloak>カテゴリがありません。カテゴリを作成してください。</div>
+      <template x-for="category in categories">
+        <div class="category">
+          <div class="category__name" x-text="category.name"></div>
+          <div class="category__menu">
+            <button class="category__menu-button category__rename" title="カテゴリの名前を変更する" @click="renameCategory(category.id)">
+              <svg class="edit-svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                <path d="M13.5 6.5l4 4" />
+              </svg>
+            </button>
+            <button class="category__menu-button category__delete" title="カテゴリを削除する" @click="deleteCategory(category.id)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash-x">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 7h16" />
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                <path d="M10 12l4 4m0 -4l-4 4" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </template>
+    </section>
+
+    <div class="popup" x-data="popup" x-show="isOpen" x-cloak>
+      <div class="popup__box" @click.outside="cancel()">
+        <div class="popup__header">
+          <div class="popup__title" x-text="title"></div>
+          <button class="popup__closure" @click="cancel()">×</button>
+        </div>
+        <div class="popup__content" x-ref="content" @input="updatePopupContent()">
+          <div data-context="new-category">
+            <input type="text" class="popup__input" placeholder="カテゴリ名">
+          </div>
+          <div data-context="rename-category">
+            <input type="text" class="popup__input" placeholder="新しいカテゴリ名">
+          </div>
+          <div data-context="delete-category-1">
+            <div>カテゴリを削除します。この操作は取り消せません。</div>
+          </div>
+          <div data-context="delete-category-2">
+            <div style="margin-bottom: 10px;">「delete」と入力して削除する。</div>
+            <input type="text" class="popup__input" placeholder="">
+          </div>
+        </div>
+        <div class="popup__menu">
+          <button class="button--secondary" @click="cancel()">キャンセル</button>
+          <button class="button--primary" x-text="confirm" :class="type" :disabled="disableConfirm" @click="action()"></button>
+        </div>
+      </div>
+    </div>
   </main>
 
-  <aside class="shortcut-bar">
-    <div class="shortcut-item">
-      <kbd>Ctrl+S</kbd>
-      <span>保存</span>
-    </div>
-    <div class="shortcut-item">
-      <kbd>Ctrl+S</kbd>
-      <span>保存</span>
-    </div>
+  <aside class="shortcut-bar" x-data="shortcutBar">
+    <template x-for="shortcut in shortcuts" :key="shortcut.key">
+      <div class="shortcut-item">
+        <kbd x-text="shortcut.kbd"></kbd>
+        <span x-text="shortcut.description"></span>
+      </div>
+    </template>
   </aside>
 
-  <script type="module" src="../../assets/js/edit.js" defer></script>
+  <script type="module" src="../../assets/js/edit.category.js" defer></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 

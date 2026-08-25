@@ -19,10 +19,11 @@ main {
 
 .category-control__current {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 
   width: 100%;
-  padding-block: 6px 8px;
+  padding-block: 8px;
   padding-inline: 16px;
 
   background: none;
@@ -43,6 +44,8 @@ main {
 }
 
 .category-name {
+  position: relative;
+  top: -1px;
   height: 1.3rem;
 }
 
@@ -51,26 +54,13 @@ main {
   color: var(--color-text-muted);
 }
 
-.caret-down {
-  width: 10px;
-  position: relative;
+.category-dropdown-indicator {
+  stroke: var(--color-text-muted);
+  transition: all 0.1s;
 }
 
-.caret-down::after {
-  content: "";
-
-  position: absolute;
-  top: calc(50% - 1px);
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
-
-  width: 6px;
-  height: 6px;
-
-  border-right: solid 2px var(--color-text-muted);
-  border-bottom: solid 2px var(--color-text-muted);
-
-  transition: all 0.1s;
+.category-control__current:hover .category-dropdown-indicator {
+  stroke: var(--color-text);
 }
 
 .category-control__current:hover .caret-down::after {
@@ -143,10 +133,11 @@ main {
 }
 
 .category-control__edit {
-  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  aspect-ratio: 1 / 1;
 
   background: none;
   border: solid 1px var(--color-border);

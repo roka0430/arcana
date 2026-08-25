@@ -25,8 +25,8 @@ document.addEventListener("alpine:init", () => {
       Shortcut.register("edit", {
         key: "Escape",
         kbd: "Esc",
-        description: "hoge",
-        handler: null,
+        description: "ホームへ戻る",
+        handler: () => (location.href = "/"),
       });
     },
 

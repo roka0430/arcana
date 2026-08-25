@@ -178,7 +178,7 @@ main {
 }
 
 .popup__content {
-  padding-block: 10px;
+  padding-block: 16px 10px;
   padding-inline: 16px;
 
   font-size: 0.9rem;
@@ -195,7 +195,7 @@ main {
 
 .popup__menu button {
   padding-block: 2px 4px;
-  padding-inline: 8px;
+  padding-inline: 16px;
 
   background: none;
   border: solid 1px var(--color-border);

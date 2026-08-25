@@ -30,15 +30,20 @@ document.addEventListener("alpine:init", () => {
       });
     },
 
-    async initPopup() {
-      Popup.register("new-category", { title: "新しいカテゴリ", confirm: "OK" });
-
-      const res = await Popup.open("new-category");
-      console.log(res);
+    initPopup() {
+      Popup.register("new-category", { title: "新しいカテゴリ", confirm: "作成" });
     },
 
-    createCategory() {
-      console.log("create");
+    async createCategory() {
+      const res = await Popup.open("new-category");
+      const input = res.content.querySelector(".popup__input");
+      const name = input.value;
+
+      if (name === "") {
+        return;
+      }
+
+      console.log(name);
     },
 
     renameCategory(categoryId) {

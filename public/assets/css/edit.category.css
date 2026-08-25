@@ -96,3 +96,16 @@ main {
   stroke: var(--color-text);
   filter: drop-shadow(0 2px 3px var(--color-surface));
 }
+
+/*------------------------------ popup ------------------------------*/
+
+.popup__input {
+  width: 100%;
+  padding-block: 4px 6px;
+  padding-inline: 10px;
+
+  background: none;
+  border: solid 1px var(--color-border);
+  border-radius: 5px;
+  outline: none;
+}

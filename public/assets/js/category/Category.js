@@ -37,7 +37,7 @@ export default class Category {
     }
 
     const res = await fetch(`/api/category/${categoryId}`, {
-      method: "patch",
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name: newName,
@@ -60,7 +60,7 @@ export default class Category {
     }
 
     const res = await fetch("/api/category", {
-      method: "put",
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
@@ -78,7 +78,7 @@ export default class Category {
     }
 
     const res = await fetch("/api/category", {
-      method: "post",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name: newName,
@@ -94,7 +94,7 @@ export default class Category {
 
   static async deleteCategory(categoryId) {
     const res = await fetch(`/api/category/${categoryId}`, {
-      method: "delete",
+      method: "DELETE",
     });
 
     if (!res.ok) {

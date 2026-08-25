@@ -65,6 +65,10 @@ router.patch("/:id", (req, res) => {
 
     category.name = name;
     fs.writeFileSync(INDEX_FILE, dump(indexData), "utf-8");
+
+    res.status(200).json({
+      message: "category renamed.",
+    });
   } catch (error) {
     res.status(500).json({
       error: "failed to save category.",
@@ -119,36 +123,36 @@ router.post("/", (req, res) => {
       error: "failed to create category.",
     });
   }
+});
 
-  router.delete("/:id", (req, res) => {
-    const id = Number(req.params.id);
-    const path = `${CATEGORY_DIR}/${id}.yaml`;
+router.delete("/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const path = `${CATEGORY_DIR}/${id}.yaml`;
 
-    if (!fs.existsSync(path)) {
+  if (!fs.existsSync(path)) {
+    return res.status(404).json({
+      error: "category data not found.",
+    });
+  }
+
+  try {
+    const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
+    const index = indexData.findIndex((category) => category.id === id);
+
+    if (index === -1) {
       return res.status(404).json({
-        error: "category data not found.",
+        error: "category not found.",
       });
     }
 
-    try {
-      const indexData = load(fs.readFileSync(INDEX_FILE, "utf-8"));
-      const index = indexData.findIndex((category) => category.id === id);
-
-      if (index === -1) {
-        return res.status(404).json({
-          error: "category not found.",
-        });
-      }
-
-      indexData.splice(index, 1);
-      fs.writeFileSync(INDEX_FILE, dump(indexData), "utf-8");
-      fs.unlinkSync(path);
-    } catch (error) {
-      res.status(500).json({
-        error: "failed to save category.",
-      });
-    }
-  });
+    indexData.splice(index, 1);
+    fs.writeFileSync(INDEX_FILE, dump(indexData), "utf-8");
+    fs.unlinkSync(path);
+  } catch (error) {
+    res.status(500).json({
+      error: "failed to save category.",
+    });
+  }
 });
 
 export default router;

@@ -32,6 +32,7 @@ document.addEventListener("alpine:init", () => {
 
     initPopup() {
       Popup.register("new-category", { title: "新しいカテゴリ", confirm: "作成" });
+      Popup.register("rename-category", { title: "カテゴリ名の変更", confirm: "変更" });
     },
 
     async loadCategories() {
@@ -51,8 +52,16 @@ document.addEventListener("alpine:init", () => {
       await this.loadCategories();
     },
 
-    renameCategory(categoryId) {
-      console.log("rename", categoryId);
+    async renameCategory(categoryId) {
+      const popup = await Popup.open("rename-category");
+      const input = popup.content.querySelector(".popup__input");
+      const name = input.value;
+
+      if (!popup.value || name === "") {
+        return;
+      }
+
+      await Category.renameCategory(categoryId, name);
     },
 
     deleteCategory(categoryId) {

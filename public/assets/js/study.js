@@ -265,11 +265,19 @@ document.addEventListener("alpine:init", () => {
     },
 
     handleFocusAnswerInput() {
+      if (this.settings.answer === "flip") {
+        return;
+      }
+
       this.$refs.answerInput.select();
       Shortcut.setContext("focused");
     },
 
     handleBlurAnswerInput() {
+      if (this.settings.answer === "flip") {
+        return;
+      }
+
       Shortcut.setContext("blurred");
     },
 

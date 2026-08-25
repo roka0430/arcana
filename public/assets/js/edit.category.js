@@ -62,6 +62,7 @@ document.addEventListener("alpine:init", () => {
       }
 
       await Category.renameCategory(categoryId, name);
+      await this.loadCategories();
     },
 
     deleteCategory(categoryId) {

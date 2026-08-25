@@ -1,15 +1,15 @@
-blank_count: 3
+blank_count: 5
 subjects:
   - id: 1
     name: 科目１
-    blank_count: 3
+    blank_count: 5
     questions:
       - id: 1
-        blank_count: 1
-        question: １；あ；
+        blank_count: 2
+        question: １；あ；ああああ；あ；あああ
       - id: 2
-        blank_count: 1
-        question: ２；あ；
+        blank_count: 2
+        question: ２；あ；ああああ；あ；あああ
       - id: 3
         blank_count: 1
         question: ３；あ；

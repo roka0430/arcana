@@ -70,12 +70,14 @@ main {
 }
 
 .blank {
+  display: inline-block;
   position: relative;
 
   margin-inline: 4px;
   padding-bottom: 2px;
   padding-inline: 5px;
 
+  line-height: 1.5;
   white-space: nowrap;
 }
 
@@ -100,6 +102,14 @@ main {
 
 .blank.opened::after {
   background: none;
+}
+
+.study-question.fixed .blank {
+  width: 80px;
+}
+
+.study-question.fixed .blank.opened {
+  width: fit-content;
 }
 
 /*------------------------------ study-answer ------------------------------*/

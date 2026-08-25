@@ -18,8 +18,6 @@ export default () => ({
   },
 
   update() {
-    this.disableConfirm = true;
-
     const popup = Popup.popup;
     this.isOpen = popup !== null;
 
@@ -32,6 +30,8 @@ export default () => ({
     this.confirm = Popup.popup.confirm;
     this.type = Popup.popup.type;
     this.validate = Popup.popup.validate;
+
+    this.disableConfirm = this.validate !== null;
 
     this.$refs.content.innerHTML = this.initialContent;
     [...this.$refs.content.children].forEach((el) => {

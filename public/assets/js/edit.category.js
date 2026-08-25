@@ -51,7 +51,14 @@ document.addEventListener("alpine:init", () => {
         },
       });
 
-      Popup.register("delete-category", {
+      Popup.register("delete-category-1", {
+        title: "カテゴリの削除",
+        confirm: "確認",
+        type: "danger",
+        validate: null,
+      });
+
+      Popup.register("delete-category-2", {
         title: "カテゴリの削除",
         confirm: "削除",
         type: "danger",
@@ -93,10 +100,16 @@ document.addEventListener("alpine:init", () => {
     },
 
     async deleteCategory(categoryId) {
-      const popup = await Popup.open("delete-category");
-      const input = popup.content.querySelector(".popup__input");
+      const popup1 = await Popup.open("delete-category-1");
 
-      if (!popup.value || input.value !== "delete") {
+      if (!popup1.value) {
+        return;
+      }
+
+      const popup2 = await Popup.open("delete-category-2");
+      const input = popup2.content.querySelector(".popup__input");
+
+      if (!popup2.value || input.value !== "delete") {
         return;
       }
 

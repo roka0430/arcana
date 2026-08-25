@@ -83,7 +83,7 @@ document.addEventListener("alpine:init", () => {
 
       Shortcut.setOrder("focused", ["Escape", "Enter", "Insert", "End", "Tab", "ArrowUp"]);
       Shortcut.setOrder("blurred", ["Escape", "*"]);
-      Shortcut.setOrder("flip", ["Escape"]);
+      Shortcut.setOrder("flip", ["Escape", "Enter"]);
 
       Shortcut.register(["focused", "blurred", "flip"], {
         key: "Escape",
@@ -97,6 +97,13 @@ document.addEventListener("alpine:init", () => {
         kbd: "Enter",
         description: "解答",
         handler: () => this.submitAnswer(),
+      });
+
+      Shortcut.register("flip", {
+        key: "Enter",
+        kbd: "Enter",
+        description: "めくる",
+        handler: () => alert("めくる"),
       });
 
       Shortcut.register("focused", {

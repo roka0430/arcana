@@ -1,7 +1,8 @@
 import AppState from "./state/AppState.js";
 import Shortcut from "./shortcut/Shortcut.js";
 import ShortcutBar from "./shortcut/ShortcutBar.js";
-
+import Popup from "./popup/Popup.js";
+import AlpinePopup from "./popup/AlpinePopup.js";
 import Category from "./category/Category.js";
 import { getCurrentCategory } from "./category/currentCategory.js";
 
@@ -52,6 +53,7 @@ const calcCategoryCharacterCounts = (category) => {
 
 document.addEventListener("alpine:init", () => {
   Alpine.data("shortcutBar", ShortcutBar);
+  Alpine.data("popup", AlpinePopup);
 
   Alpine.data("main", () => ({
     categories: [],
@@ -65,6 +67,7 @@ document.addEventListener("alpine:init", () => {
 
     async init() {
       this.initShortcut();
+      this.initPopup();
       await this.initCategory();
 
       if (this.categories.length === 0) {
@@ -92,6 +95,15 @@ document.addEventListener("alpine:init", () => {
     initShortcut() {
       Shortcut.setContext("edit");
       Shortcut.setOrder("edit", ["Escape"]);
+    },
+
+    initPopup() {
+      Popup.register("delete-subject", {
+        title: "科目の削除",
+        confirm: "削除",
+        type: "danger",
+        validate: null,
+      });
     },
 
     async initCategory() {
@@ -216,7 +228,11 @@ document.addEventListener("alpine:init", () => {
         return;
       }
 
-      if (!confirm("削除しますか？")) return;
+      const popup = await Popup.open("delete-subject");
+
+      if (!popup.value) {
+        return;
+      }
 
       const id = this.currentSubject.id;
       const index = this.subjects.findIndex((subject) => subject.id === id);

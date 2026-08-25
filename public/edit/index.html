@@ -113,6 +113,24 @@
       </textarea>
       <div class="edit-main__message" x-show="!currentSubject">新しく科目を作成してください。</div>
     </section>
+
+
+    <div class="popup" x-data="popup" x-show="isOpen" x-cloak>
+      <div class="popup__box" @click.outside="cancel()">
+        <div class="popup__header">
+          <div class="popup__title" x-text="title"></div>
+          <button class="popup__closure" @click="cancel()">×</button>
+        </div>
+        <div class="popup__content" x-ref="content" @input="updatePopupContent()">
+          <div data-context="delete-subject">「<span x-text="currentSubject?.name"></span>」を削除しますか？
+          </div>
+        </div>
+        <div class="popup__menu">
+          <button class="button--secondary" @click="cancel()">キャンセル</button>
+          <button class="button--primary" x-text="confirm" :class="type" :disabled="disableConfirm" @click="action()"></button>
+        </div>
+      </div>
+    </div>
   </main>
 
   <aside class="shortcut-bar" x-data="shortcutBar">

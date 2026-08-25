@@ -55,7 +55,7 @@
           <div class="popup__title" x-text="title"></div>
           <button class="popup__closure" @click="cancel()">×</button>
         </div>
-        <div class="popup__content" x-ref="content">
+        <div class="popup__content" x-ref="content" @input="updatePopupContent()">
           <div data-context="new-category">
             <input type="text" class="popup__input" placeholder="新しいカテゴリ名">
           </div>
@@ -69,7 +69,7 @@
         </div>
         <div class="popup__menu">
           <button class="button--secondary" @click="cancel()">キャンセル</button>
-          <button class="button--primary" x-text="confirmText" @click="confirm()"></button>
+          <button class="button--primary" x-text="confirmText" :disabled="disableConfirm" @click="confirm()"></button>
         </div>
       </div>
     </div>

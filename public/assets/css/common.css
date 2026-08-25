@@ -209,4 +209,10 @@ main {
 .popup__menu .button--primary {
   background: var(--color-primary);
   border-color: var(--color-primary);
+  transition: all 0.1s;
+}
+
+.popup__menu .button--primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

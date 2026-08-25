@@ -31,9 +31,32 @@ document.addEventListener("alpine:init", () => {
     },
 
     initPopup() {
-      Popup.register("new-category", { title: "新しいカテゴリ", confirm: "作成" });
-      Popup.register("rename-category", { title: "カテゴリ名の変更", confirm: "変更" });
-      Popup.register("delete-category", { title: "カテゴリの削除", confirm: "削除" });
+      Popup.register("new-category", {
+        title: "新しいカテゴリ",
+        confirm: "作成",
+        validate: (content) => {
+          const input = content.querySelector(".popup__input");
+          return input.value.trim() !== "";
+        },
+      });
+
+      Popup.register("rename-category", {
+        title: "カテゴリ名の変更",
+        confirm: "変更",
+        validate: (content) => {
+          const input = content.querySelector(".popup__input");
+          return input.value.trim() !== "";
+        },
+      });
+
+      Popup.register("delete-category", {
+        title: "カテゴリの削除",
+        confirm: "削除",
+        validate: (content) => {
+          const input = content.querySelector(".popup__input");
+          return input.value === "delete";
+        },
+      });
     },
 
     async loadCategories() {

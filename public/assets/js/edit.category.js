@@ -39,7 +39,7 @@ document.addEventListener("alpine:init", () => {
       const input = res.content.querySelector(".popup__input");
       const name = input.value;
 
-      if (name === "") {
+      if (!res.value || name === "") {
         return;
       }
 

@@ -15,7 +15,7 @@ document.addEventListener("alpine:init", () => {
     async init() {
       this.initShortcut();
       this.initPopup();
-      this.categories = await Category.getCategories();
+      await this.loadCategories();
     },
 
     initShortcut() {
@@ -34,16 +34,21 @@ document.addEventListener("alpine:init", () => {
       Popup.register("new-category", { title: "新しいカテゴリ", confirm: "作成" });
     },
 
+    async loadCategories() {
+      this.categories = await Category.getCategories();
+    },
+
     async createCategory() {
-      const res = await Popup.open("new-category");
-      const input = res.content.querySelector(".popup__input");
+      const popup = await Popup.open("new-category");
+      const input = popup.content.querySelector(".popup__input");
       const name = input.value;
 
-      if (!res.value || name === "") {
+      if (!popup.value || name === "") {
         return;
       }
 
-      console.log(name);
+      await Category.createCategory(name);
+      await this.loadCategories();
     },
 
     renameCategory(categoryId) {

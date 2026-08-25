@@ -21,7 +21,7 @@
       <div class="study-header__menu">menu</div>
     </section>
 
-    <section class="study-question" x-ref="question" x-html="currentQuestionHtml"></section>
+    <section class="study-question" :class="{'fixed': settings.blank === 'fixed'}" x-ref="question" x-html="currentQuestionHtml"></section>
 
     <section class="study-answer" x-show="settings.answer === 'input'">
       <input

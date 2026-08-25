@@ -42,11 +42,52 @@ document.addEventListener("alpine:init", () => {
     previousAnswer: "",
 
     async init() {
-      Shortcut.setContext("focused");
+      this.settings = AppState.getStudySettings();
+      this.subject = await loadSubject();
+
+      this.initShortcut();
+
+      this.review = AppState.getStudyReview();
+      AppState.setStudyReview(null);
+
+      if (!this.subject) {
+        location.replace("/");
+        return;
+      }
+
+      this.questions = this.subject.questions;
+
+      this.prepareQuestions();
+
+      if (this.questions.length === 0) {
+        location.replace("/");
+        return;
+      }
+
+      this.$watch("currentQuestionHtml", () => {
+        this.$nextTick(() => {
+          this.$refs.question.querySelector(".blank.active")?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        });
+      });
+    },
+
+    initShortcut() {
+      if (this.settings.answer === "input") {
+        Shortcut.setContext("focused");
+      }
+
+      if (this.settings.answer === "flip") {
+        Shortcut.setContext("flip");
+      }
+
       Shortcut.setOrder("focused", ["Escape", "Enter", "Insert", "End", "Tab", "ArrowUp"]);
       Shortcut.setOrder("blurred", ["Escape", "*"]);
+      Shortcut.setOrder("flip", ["Escape", "Enter"]);
 
-      Shortcut.register(["focused", "blurred"], {
+      Shortcut.register(["focused", "blurred", "flip"], {
         key: "Escape",
         kbd: "Esc",
         description: "中断",
@@ -58,6 +99,13 @@ document.addEventListener("alpine:init", () => {
         kbd: "Enter",
         description: "解答",
         handler: () => this.submitAnswer(),
+      });
+
+      Shortcut.register("flip", {
+        key: "Enter",
+        kbd: "Enter",
+        description: "めくる",
+        handler: () => this.advance(),
       });
 
       Shortcut.register("focused", {
@@ -93,35 +141,6 @@ document.addEventListener("alpine:init", () => {
         kbd: "*",
         description: "フォーカス",
         handler: (e) => this.focusAnswerInput(e),
-      });
-
-      this.settings = AppState.getStudySettings();
-      this.subject = await loadSubject();
-
-      this.review = AppState.getStudyReview();
-      AppState.setStudyReview(null);
-
-      if (!this.subject) {
-        location.replace("/");
-        return;
-      }
-
-      this.questions = this.subject.questions;
-
-      this.prepareQuestions();
-
-      if (this.questions.length === 0) {
-        location.replace("/");
-        return;
-      }
-
-      this.$watch("currentQuestionHtml", () => {
-        this.$nextTick(() => {
-          this.$refs.question.querySelector(".blank.active")?.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-        });
       });
     },
 
@@ -159,6 +178,15 @@ document.addEventListener("alpine:init", () => {
             hasIncorrect: false,
           };
         });
+
+        if (this.settings.answer === "flip") {
+          question.blanks.push({
+            answer: "",
+            state: "closed",
+            isOpened: false,
+            hasIncorrect: false,
+          });
+        }
       }
     },
 
@@ -170,7 +198,7 @@ document.addEventListener("alpine:init", () => {
       const question = this.questions[this.index];
       let blankIndex = 0;
 
-      return question.question.replace(/；(.*?)；/g, () => {
+      const html = question.question.replace(/；(.*?)；/g, () => {
         const blank = question.blanks[blankIndex++];
         const className = ["blank"];
 
@@ -184,6 +212,8 @@ document.addEventListener("alpine:init", () => {
 
         return `<span class="${className.join(" ")}">${blank.answer}</span>`;
       });
+
+      return html;
     },
 
     get activeBlank() {
@@ -202,6 +232,7 @@ document.addEventListener("alpine:init", () => {
       blanks[blankIndex].state = this.activeBlank.hasIncorrect ? "incorrect" : "correct";
 
       const nextBlank = blanks[blankIndex + 1];
+
       if (nextBlank) {
         nextBlank.state = "active";
         return;
@@ -220,6 +251,11 @@ document.addEventListener("alpine:init", () => {
     },
 
     finish() {
+      if (this.settings.answer === "flip") {
+        location.href = "/";
+        return;
+      }
+
       const questions = this.questions.map((question) => {
         return {
           id: question.id,
@@ -242,11 +278,19 @@ document.addEventListener("alpine:init", () => {
     },
 
     handleFocusAnswerInput() {
+      if (this.settings.answer === "flip") {
+        return;
+      }
+
       this.$refs.answerInput.select();
       Shortcut.setContext("focused");
     },
 
     handleBlurAnswerInput() {
+      if (this.settings.answer === "flip") {
+        return;
+      }
+
       Shortcut.setContext("blurred");
     },
 

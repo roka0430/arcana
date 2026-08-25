@@ -1,4 +1,3 @@
-import AppState from "./state/AppState.js";
 import Shortcut from "./shortcut/Shortcut.js";
 import ShortcutBar from "./shortcut/ShortcutBar.js";
 import Popup from "./popup/Popup.js";

@@ -49,7 +49,7 @@
       </template>
     </section>
 
-    <div class="popup" x-data="popup" x-show="isOpen">
+    <div class="popup" x-data="popup" x-show="isOpen" x-cloak>
       <div class="popup__box" @click.outside="cancel()">
         <div class="popup__header">
           <div class="popup__title" x-text="title"></div>

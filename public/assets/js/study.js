@@ -42,11 +42,50 @@ document.addEventListener("alpine:init", () => {
     previousAnswer: "",
 
     async init() {
-      Shortcut.setContext("focused");
+      this.initShortcut();
+
+      this.settings = AppState.getStudySettings();
+      this.subject = await loadSubject();
+
+      this.review = AppState.getStudyReview();
+      AppState.setStudyReview(null);
+
+      if (!this.subject) {
+        location.replace("/");
+        return;
+      }
+
+      this.questions = this.subject.questions;
+
+      this.prepareQuestions();
+
+      if (this.questions.length === 0) {
+        location.replace("/");
+        return;
+      }
+
+      this.$watch("currentQuestionHtml", () => {
+        this.$nextTick(() => {
+          this.$refs.question.querySelector(".blank.active")?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        });
+      });
+    },
+
+    initShortcut() {
+      if (this.settings.answer === "input") {
+        Shortcut.setContext("focused");
+      } else {
+        Shortcut.setContext("flip");
+      }
+
       Shortcut.setOrder("focused", ["Escape", "Enter", "Insert", "End", "Tab", "ArrowUp"]);
       Shortcut.setOrder("blurred", ["Escape", "*"]);
+      Shortcut.setOrder("flip", ["Escape"]);
 
-      Shortcut.register(["focused", "blurred"], {
+      Shortcut.register(["focused", "blurred", "flip"], {
         key: "Escape",
         kbd: "Esc",
         description: "中断",
@@ -93,35 +132,6 @@ document.addEventListener("alpine:init", () => {
         kbd: "*",
         description: "フォーカス",
         handler: (e) => this.focusAnswerInput(e),
-      });
-
-      this.settings = AppState.getStudySettings();
-      this.subject = await loadSubject();
-
-      this.review = AppState.getStudyReview();
-      AppState.setStudyReview(null);
-
-      if (!this.subject) {
-        location.replace("/");
-        return;
-      }
-
-      this.questions = this.subject.questions;
-
-      this.prepareQuestions();
-
-      if (this.questions.length === 0) {
-        location.replace("/");
-        return;
-      }
-
-      this.$watch("currentQuestionHtml", () => {
-        this.$nextTick(() => {
-          this.$refs.question.querySelector(".blank.active")?.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-        });
       });
     },
 

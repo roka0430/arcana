@@ -31,14 +31,10 @@ document.addEventListener("alpine:init", () => {
     },
 
     async initPopup() {
-      Popup.register("new-category", {
-        title: "新しいカテゴリ",
-        content: "あああ",
-        confirm: "OK",
-      });
+      Popup.register("new-category", { title: "新しいカテゴリ", confirm: "OK" });
 
-      // const res = await Popup.open("new-category");
-      // console.log(res);
+      const res = await Popup.open("new-category");
+      console.log(res);
     },
 
     createCategory() {

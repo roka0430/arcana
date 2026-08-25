@@ -42,10 +42,10 @@ document.addEventListener("alpine:init", () => {
     previousAnswer: "",
 
     async init() {
-      this.initShortcut();
-
       this.settings = AppState.getStudySettings();
       this.subject = await loadSubject();
+
+      this.initShortcut();
 
       this.review = AppState.getStudyReview();
       AppState.setStudyReview(null);
@@ -77,7 +77,9 @@ document.addEventListener("alpine:init", () => {
     initShortcut() {
       if (this.settings.answer === "input") {
         Shortcut.setContext("focused");
-      } else {
+      }
+
+      if (this.settings.answer === "flip") {
         Shortcut.setContext("flip");
       }
 

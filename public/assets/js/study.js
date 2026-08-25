@@ -103,7 +103,7 @@ document.addEventListener("alpine:init", () => {
         key: "Enter",
         kbd: "Enter",
         description: "めくる",
-        handler: () => this.flipBlank(),
+        handler: () => this.advance(),
       });
 
       Shortcut.register("focused", {
@@ -176,6 +176,15 @@ document.addEventListener("alpine:init", () => {
             hasIncorrect: false,
           };
         });
+
+        if (this.settings.answer === "flip") {
+          question.blanks.push({
+            answer: "",
+            state: "closed",
+            isOpened: false,
+            hasIncorrect: false,
+          });
+        }
       }
     },
 
@@ -202,10 +211,6 @@ document.addEventListener("alpine:init", () => {
         return `<span class="${className.join(" ")}">${blank.answer}</span>`;
       });
 
-      if (this.settings.answer === "flip") {
-        return html + `<span class="blank"></span>`;
-      }
-
       return html;
     },
 
@@ -225,6 +230,7 @@ document.addEventListener("alpine:init", () => {
       blanks[blankIndex].state = this.activeBlank.hasIncorrect ? "incorrect" : "correct";
 
       const nextBlank = blanks[blankIndex + 1];
+
       if (nextBlank) {
         nextBlank.state = "active";
         return;
@@ -243,6 +249,11 @@ document.addEventListener("alpine:init", () => {
     },
 
     finish() {
+      if (this.settings.answer === "flip") {
+        location.href = "/";
+        return;
+      }
+
       const questions = this.questions.map((question) => {
         return {
           id: question.id,
@@ -322,10 +333,6 @@ document.addEventListener("alpine:init", () => {
         this.$refs.answerInput.focus();
         e.preventDefault();
       }
-    },
-
-    flipBlank() {
-      console.log("flip");
     },
   }));
 });

@@ -6,13 +6,14 @@ export default () => ({
   confirmText: "",
 
   init() {
+    this.initialContent = this.$refs.content.innerHTML;
+
     this.update();
     window.addEventListener("popup-update", () => this.update());
   },
 
   update() {
     const popup = Popup.popup;
-
     this.isOpen = popup !== null;
 
     if (!popup) {
@@ -22,6 +23,7 @@ export default () => ({
     this.title = Popup.popup.title;
     this.confirmText = Popup.popup.confirm;
 
+    this.$refs.content.innerHTML = this.initialContent;
     [...this.$refs.content.children].forEach((el) => {
       el.hidden = el.dataset.context !== Popup.context;
     });

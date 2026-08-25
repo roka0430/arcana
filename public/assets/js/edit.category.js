@@ -100,7 +100,8 @@ document.addEventListener("alpine:init", () => {
         return;
       }
 
-      console.log("delete");
+      await Category.deleteCategory(categoryId);
+      await this.loadCategories();
     },
   }));
 });

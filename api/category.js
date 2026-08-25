@@ -148,6 +148,10 @@ router.delete("/:id", (req, res) => {
     indexData.splice(index, 1);
     fs.writeFileSync(INDEX_FILE, dump(indexData), "utf-8");
     fs.unlinkSync(path);
+
+    res.status(200).json({
+      message: "category deleted.",
+    });
   } catch (error) {
     res.status(500).json({
       error: "failed to save category.",

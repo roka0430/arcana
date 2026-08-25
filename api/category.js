@@ -2,8 +2,8 @@ import express from "express";
 import fs from "fs";
 import { load, dump } from "js-yaml";
 
-const INDEX_FILE = "./data/test/index.yaml";
-const CATEGORY_DIR = "./data/test/categories";
+const INDEX_FILE = "./data/index.yaml";
+const CATEGORY_DIR = "./data/categories";
 
 const router = express.Router();
 

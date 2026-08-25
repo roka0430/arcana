@@ -256,6 +256,10 @@ document.addEventListener("alpine:init", () => {
     },
 
     async saveContent() {
+      if (!this.currentSubject) {
+        return;
+      }
+
       const splitted = this.content.split(/\n{2,}/);
       const shaped = splitted.filter((item) => item.trim() !== "");
       const escaped = shaped.map(escapeHtml);

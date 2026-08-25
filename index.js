@@ -3,7 +3,7 @@ import path from "path";
 import routes from "./api/routes.js";
 
 const app = express();
-const PORT = 3000;
+const PORT = 3002;
 
 app.use(express.json());
 app.use(express.static("public"));

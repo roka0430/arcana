@@ -77,8 +77,15 @@ main {
   padding-bottom: 2px;
   padding-inline: 5px;
 
+  color: transparent;
   line-height: 1.5;
   white-space: nowrap;
+
+  pointer-events: none;
+}
+
+.blank.opened {
+  color: var(--color-text);
 }
 
 .blank::after {

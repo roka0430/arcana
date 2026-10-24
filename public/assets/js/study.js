@@ -167,7 +167,7 @@ document.addEventListener("alpine:init", () => {
       }
 
       for (const question of this.questions) {
-        const matches = [...question.question.matchAll(/；(.*?)；/g)];
+        const matches = [...question.question.matchAll(/；(.*?)；/g), ...question.question.matchAll(/;(.*?);/g)];
         const blanks = matches.map((match) => match[1]);
 
         question.blanks = blanks.map((blank, i) => {
@@ -198,7 +198,7 @@ document.addEventListener("alpine:init", () => {
       const question = this.questions[this.index];
       let blankIndex = 0;
 
-      const html = question.question.replace(/；(.*?)；/g, () => {
+      const html = question.question.replace(/；(.*?)；|;(.*?);/g, () => {
         const blank = question.blanks[blankIndex++];
         const className = ["blank"];
 

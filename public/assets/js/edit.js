@@ -283,7 +283,7 @@ document.addEventListener("alpine:init", () => {
       const questions = [];
       let blankCount = 0;
       for (const [i, question] of Object.entries(escaped)) {
-        const blanks = question.match(/；.*?；/g) ?? [];
+        const blanks = question.match(/；.*?；|;(.*?);/g) ?? [];
         blankCount += blanks.length;
 
         questions.push({

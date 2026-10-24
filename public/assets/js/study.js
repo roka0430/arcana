@@ -27,6 +27,24 @@ const randomShuffle = (array) => {
   return result;
 };
 
+const escapeHtml = (str) => {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+};
+
+const unescapeHtml = (str) => {
+  return str
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&gt;/g, ">")
+    .replace(/&lt;/g, "<")
+    .replace(/&amp;/g, "&");
+};
+
 // Alpine.js
 
 document.addEventListener("alpine:init", () => {
@@ -167,6 +185,8 @@ document.addEventListener("alpine:init", () => {
       }
 
       for (const question of this.questions) {
+        question.question = unescapeHtml(question.question);
+
         const matches = [...question.question.matchAll(/；(.*?)；/g), ...question.question.matchAll(/;(.*?);/g)];
         const blanks = matches.map((match) => match[1]);
 
@@ -210,10 +230,15 @@ document.addEventListener("alpine:init", () => {
           className.push("opened");
         }
 
-        return `<span class="${className.join(" ")}">${blank.answer}</span>`;
+        return `\u0000${className.join(" ")}\u0000${escapeHtml(blank.answer)}\u0000`;
       });
 
-      return html;
+      const escapedHtml = escapeHtml(html);
+
+      return escapedHtml.replace(
+        /\u0000(.*?)\u0000(.*?)\u0000/g,
+        (_, className, answer) => `<span class="${className}">${answer}</span>`,
+      );
     },
 
     get activeBlank() {

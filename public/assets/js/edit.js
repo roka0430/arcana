@@ -15,6 +15,15 @@ const escapeHtml = (str) => {
     .replace(/'/g, "&#39;");
 };
 
+const unescapeHtml = (str) => {
+  return str
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&gt;/g, ">")
+    .replace(/&lt;/g, "<")
+    .replace(/&amp;/g, "&");
+};
+
 const loadCategory = async () => {
   return await Category.getCategories();
 };
@@ -142,6 +151,7 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.content = questions.map(({ question }) => question).join("\n\n");
+      this.content = unescapeHtml(this.content);
     },
 
     async saveCategory() {

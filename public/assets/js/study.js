@@ -59,6 +59,9 @@ document.addEventListener("alpine:init", () => {
     answer: "",
     previousAnswer: "",
 
+    changing: false,
+    changingTimeout: null,
+
     async init() {
       this.settings = AppState.getStudySettings();
       this.subject = await loadSubject();
@@ -273,6 +276,13 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.index++;
+      this.changing = true;
+
+      this.$nextTick(() => {
+        this.changingTimeout = setTimeout(() => {
+          this.changing = false;
+        }, 500);
+      });
     },
 
     finish() {

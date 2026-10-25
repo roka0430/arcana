@@ -62,11 +62,26 @@ main {
   border: solid 1px var(--color-border);
   border-radius: 8px;
 
-  line-height: 2.4;
-  white-space: pre-wrap;
-
   overflow-y: scroll;
   scrollbar-width: none;
+}
+
+.study-question div {
+  line-height: 2.4;
+  white-space: pre-wrap;
+}
+
+.study-question.changing div {
+  animation: changing-fade 0.5s ease-out forwards;
+}
+
+@keyframes changing-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .blank {

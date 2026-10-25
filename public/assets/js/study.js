@@ -190,8 +190,8 @@ document.addEventListener("alpine:init", () => {
       for (const question of this.questions) {
         question.question = unescapeHtml(question.question);
 
-        const matches = [...question.question.matchAll(/；(.*?)；/g), ...question.question.matchAll(/;(.*?);/g)];
-        const blanks = matches.map((match) => match[1]);
+        const matches = [...question.question.matchAll(/；(.*?)；|;(.*?);/g)];
+        const blanks = matches.map((match) => match[1] ?? match[2]);
 
         question.blanks = blanks.map((blank, i) => {
           return {

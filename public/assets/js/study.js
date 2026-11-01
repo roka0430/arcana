@@ -233,7 +233,7 @@ document.addEventListener("alpine:init", () => {
           className.push("opened");
         }
 
-        return `\u0000${className.join(" ")}\u0000${escapeHtml(blank.answer)}\u0000`;
+        return `\u0000${className.join(" ")}\u0000${blank.answer}\u0000`;
       });
 
       const escapedHtml = escapeHtml(html);
